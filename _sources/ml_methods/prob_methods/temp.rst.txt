@@ -1,0 +1,1 @@
+A :def:`Bayes Network` a directed acyclic graph (DAG) associated with a probabilistic chain rule interpretation. For example, 

@@ -1,0 +1,88 @@
+.. role:: red
+.. role:: def
+.. role:: emp
+
+.. _examples-anchor:
+
+Examples (H1)
+=============
+
+An example of using highlight :red:`red` (derivative defined through role).
+
+An example of using highlight for :def:`definition` (derivative defined through role).
+
+An example of using highlight for :emp:`hint`.
+
+An example of inline build-in ``highlight``.
+
+Inline math examples: :math:`\color{blue}{\sigma_{1}}` equals :math:`\colorbox{yellow}{\sigma_{2}}` then etc, etc.
+
+Math block example:
+
+.. math::
+    x^2+y^2=1
+
+Math block example with label:
+
+.. math:: e^{i\pi} + 1 = 0
+  :label: euler
+
+Test for direct inline latex pre-process extension. :math:`\frac{x^2}{a^2}+\frac{y^2}{b^2} = 1`
+
+Test for direct block latex pre-process extension.
+
+.. math::
+ \frac{x^2}{a^2}+\frac{y^2}{b^2} = 1
+ :label: ecllipse
+
+.. _arbitrary-anchor:
+
+Some arbitrary line labelled by "arbitrary-anchor"
+
+.. note::
+  An example of note that contains math formulas. This is inline :math:`x^2+y^2=1`. The following is math block.
+
+  .. math::
+      \color{red}{x^2}+y^2=3
+      :label: round
+
+  Continue the note after the math block.
+
+Now the note block ends.
+
+More Examples (H2)
+****************
+
+.. _property_basic:
+
+:enum:`Property -1.`
+.. _theorem_1:
+
+:enum:`Theorem -1.`
+
+Cross Reference Links (H3)
+--------------------------
+Here also presents an itemized list.
+
+* This is a link to the heading `Examples (H1)`_. The link text must be the same as the heading text.
+* Here is a link to the heading with :ref:`an anchor <examples-anchor>`. You can use text different different from the anchor name.
+* This is a link to the equation :eq:`euler`.
+* Here is a link to the :ref:`another anchor <arbitrary-anchor>`.
+* Here is an external link `external link`_.
+
+.. note:: You may also specify inline note
+
+.. _external link: http://docs.readthedocs.io/en/latest/getting_started.html
+
+Some More Examples (H4)
+~~~~~~~~~~~~~~~~~~~~~~~
+
+An example to display some code.
+
+.. code-block:: python
+
+    from recommonmark.parser import CommonMarkParser
+    source_parsers = {
+        '.md': CommonMarkParser,
+    }
+    source_suffix = ['.rst', '.md']

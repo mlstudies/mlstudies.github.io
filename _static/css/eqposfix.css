@@ -1,0 +1,26 @@
+.eqno {
+    margin-left: 5px;
+    float: right;
+}
+.math .headerlink {
+    display: none;
+    visibility: hidden;
+}
+.math:hover .headerlink {
+    display: inline-block;
+    visibility: visible;
+    margin-right: -0.7em;
+}
+.wy-nav-content {
+    max-width: 1300px !important;
+}
+
+.section {
+    text-align: justify
+}
+
+/* .p
+{
+  margin: 4;
+  padding: 0;
+} */

@@ -1,0 +1,78 @@
+
+Covariance Matrix
+-----------------
+
+Given two RVs :math:`X` and :math:`Y`, then the covariance matrix
+:math:`\text{cov} \left( {X,Y} \right)
+= \mathbb{E}\left[ {\left( {X - \mathbb{E}X} \right)\left( {Y - \mathbb{E}Y} \right)} \right]`.
+Given a RV vector :math:`X = \left( {\begin{array}{*{20}{c}}{{X_1}} \\   \vdots  \\  {{X_M}}\end{array}} \right)`,
+define :math:`\mathbb{E}X = \left( {\begin{array}{*{20}{c}}{\mathbb{E}{X_1}} \\\vdots  \\{\mathbb{E}{X_M}}\end{array}} \right)`
+(and similarly the expectation of a RV matrix is to take expectation on each entry of that matrix), then the :def:`covariance matrix` is defined as the following,
+
+.. math::
+ \begin{align}
+ \sigma \left( X \right) & = \left( {\begin{array}{*{20}{c}}
+ {\operatorname{cov} \left( {{X_1},{X_1}} \right)}& \cdots &{\operatorname{cov} \left( {{X_1},{X_M}} \right)} \\
+ \vdots & \ddots & \vdots  \\
+ {\operatorname{cov} \left( {{X_M},{X_1}} \right)}& \cdots &{\operatorname{cov} \left( {{X_M},{X_M}} \right)}
+ \end{array}} \right) \hfill \\
+ & = \left( {\begin{array}{*{20}{c}}
+ {\mathbb{E}\left[ {\left( {{X_1} - \mathbb{E}{X_1}} \right)\left( {{X_1} - \mathbb{E}{X_1}} \right)} \right]}& \cdots &{\mathbb{E}\left[ {\left( {{X_1} - \mathbb{E}{X_1}} \right)\left( {{X_M} - \mathbb{E}{X_M}} \right)} \right]} \\
+ \vdots & \ddots & \vdots  \\
+ {\mathbb{E}\left[ {\left( {{X_M} - \mathbb{E}{X_M}} \right)\left( {{X_1} - \mathbb{E}{X_1}} \right)} \right]}& \cdots &{\mathbb{E}\left[ {\left( {{X_M} - \mathbb{E}{X_M}} \right)\left( {{X_M} - \mathbb{E}{X_M}} \right)} \right]}
+ \end{array}} \right) \hfill \\
+ & = \mathbb{E}\left[ {\left( {X - \mathbb{E}X} \right){{\left( {X - \mathbb{E}X} \right)}^{\text{T}}}} \right] \hfill \\
+ \end{align}
+
+where the diagonal elements are variances. We :emp:`note` there is difference that :math:`\operatorname{cov}⁡(X,Y)` is a value, but :math:`σ⁡(X,Y)` is a :math:`2×2` matrix.
+
+|newpara| On the other hand, given two RVs :math:`X,Y` and draw samples :math:`{\mathbf{x}} = \left( {{x_1}, \ldots ,{x_N}} \right)\sim X` and :math:`{\mathbf{y}} = \left( {{y_1}, \ldots ,{y_N}} \right)\sim Y`, then we define the :def:`sample covariance` of them as
+:math:`\operatorname{cov} \left( {{\mathbf{x}},{\mathbf{y}}} \right)
+= \frac{1}{{N - 1}}{\left( {{\mathbf{x}} - {\mathbf{\bar x}}} \right)^{\text{T}}}\left( {{\mathbf{y}} - {\mathbf{\bar y}}} \right)`.
+Given a RV vector :math:`X = \left( {\begin{array}{*{20}{c}}{{X_1}} \\\vdots  \\{{X_M}}\end{array}} \right)`,
+we can draw :def:`samples` :math:`{\mathbf{x}}_1^{\text{T}} = \left( {{x_{1,1}}, \ldots ,{x_{1,N}}} \right)\sim {X_1}, \ldots ,
+{\mathbf{x}}_M^{\text{T}} = \left( {{x_{M,1}}, \ldots ,{x_{M,M}}} \right)\sim {X_M}`,
+and form a :exdef:`sample matrix` :math:`{\mathbf{X}} = \left( {\begin{array}{*{20}{c}}{{\mathbf{x}}_1^{\text{T}}} \\\vdots  \\{{\mathbf{x}}_M^{\text{T}}}\end{array}} \right)`.
+In the machine learning context, the rows of :math:`𝐗` are also referred to as :exdef:`feature vectors`, and the columns of, and the columns of :math:`𝐗` are called :def:`data entries`.
+Then the :def:`sample covariance matrix` is defined w.r.t. the :red:`feature vectors` as
+
+.. math::
+ \begin{aligned}
+ {\Sigma }\left( {\mathbf{X}} \right) &= \frac{1}{{N - 1}}\left( {\begin{array}{*{20}{c}}
+ {\operatorname{cov} \left( {{{\mathbf{x}}_1},{{\mathbf{x}}_1}} \right)}& \cdots &{\operatorname{cov} \left( {{{\mathbf{x}}_1},{{\mathbf{x}}_M}} \right)} \\
+ \vdots & \ddots & \vdots  \\
+ {\operatorname{cov} \left( {{{\mathbf{x}}_M},{{\mathbf{x}}_1}} \right)}& \cdots &{\operatorname{cov} \left( {{{\mathbf{x}}_M},{{\mathbf{x}}_M}} \right)}
+ \end{array}} \right) \hfill \\
+ &= \frac{1}{{N - 1}}\left( {\begin{array}{*{20}{c}}
+ {{{\left( {{{\mathbf{x}}_1} - \overline {{{\mathbf{x}}_1}} } \right)}^{\text{T}}}\left( {{{\mathbf{x}}_1} - \overline {{{\mathbf{x}}_1}} } \right)}& \cdots &{{{\left( {{{\mathbf{x}}_1} - \overline {{{\mathbf{x}}_1}} } \right)}^{\text{T}}}\left( {{{\mathbf{x}}_M} - \overline {{{\mathbf{x}}_M}} } \right)} \\
+ \vdots & \ddots & \vdots  \\
+ {{{\left( {{{\mathbf{x}}_M} - \overline {{{\mathbf{x}}_M}} } \right)}^{\text{T}}}\left( {{{\mathbf{x}}_1} - \overline {{{\mathbf{x}}_1}} } \right)}& \cdots &{{{\left( {{{\mathbf{x}}_M} - \overline {{{\mathbf{x}}_M}} } \right)}^{\text{T}}}\left( {{{\mathbf{x}}_M} - \overline {{{\mathbf{x}}_M}} } \right)}
+ \end{array}} \right) \hfill \\
+ &= \frac{1}{{N - 1}}\left( {{\mathbf{X}} - {\mathbf{\bar X}}} \right){\left( {{\mathbf{X}} - {\mathbf{\bar X}}} \right)^{\text{T}}} \hfill \\
+ \end{aligned} 
+ :label: sample_cov
+
+where :math:`{\overline {{{\mathbf{x}}_i}} ^{\text{T}}} = \frac{1}{N}\mathop \sum \limits_{j = 1}^N {x_{i,j}}{1^{\text{T}}} = \left( {\frac{1}{N}\mathop \sum \limits_{j = 1}^N {x_{i,j}}, \ldots ,\frac{1}{N}\mathop \sum \limits_{j = 1}^N {x_{i,j}}} \right)`
+(the same mean value repeats itself for :math:`N` times)
+and :math:`{\mathbf{\bar X}} = \left( {\begin{array}{*{20}{c}}{\overline {{{\mathbf{x}}_1}} } \\\vdots  \\{\overline {{{\mathbf{x}}_M}} }\end{array}} \right)`,
+and the diagonal elements are :exdef:`sample variances`. The sum of variances, or the trace of the covariance matrix, is called the :def:`total variance` of :math:`X`.
+In addition, :emp:`note` :math:`\operatorname{cov} \left( {{\mathbf{x}},{\mathbf{y}}} \right)` is a value, while :math:`Σ(x,y)` is a :math:`2×2` matrix.
+
+.. note::
+  In machine learning problems, we are often given a data matrix :math:`{\mathbf{X}} = \left( {{{\mathbf{x}}_1}, \ldots ,{{\mathbf{x}}_N}} \right)` with the columns :math:`{{\mathbf{x}}_1}, \ldots ,{{\mathbf{x}}_N}` as data entries.
+  The symbol “:math:`\bf{x}`” very often represents a data entry in machine learning, but in statistics it often instead represents a feature vector, and sometimes this causes confusion.
+  Therefore, we note it is necessary to understand what “:math:`\bf{x}`” represents in the context.
+
+  The other possible confusion is about the "samples". It is possible both the data entries and feature vectors are referred to as samples in different contexts. We again :emp:`note` :red:`sample covariance is always w.r.t. the features, not data entries`.
+  Therefore, the "samples" in :eq:`sample_cov` refers to feature vectors.
+
+.. _pre-cov-essential-formula:
+
+Using the fact that :math:`\sigma \left( {X,Y} \right) = \mathbb{E}XY - \mathbb{E}X\mathbb{E}Y`, the covariance matrix has another form
+
+.. math::
+ \sigma \left( X \right) = \left( {\begin{array}{*{20}{c}}
+ {\mathbb{E}X_1^2 - {\mathbb{E}^2}{X_1}}& \cdots &{\mathbb{E}{X_1}{X_M} - \mathbb{E}{X_1}\mathbb{E}{X_M}} \\
+ \vdots & \ddots & \vdots  \\
+ {\mathbb{E}{X_M}{X_1} - \mathbb{E}{X_M}\mathbb{E}{X_1}}& \cdots &{\mathbb{E}X_M^2 - {\mathbb{E}^2}{X_M}}
+ \end{array}} \right) = \mathbb{E}{\text{[}}X{X^{\text{T}}}{\text{]}} - \mathbb{E}X{\mathbb{E}^{\text{T}}}X
