@@ -58,6 +58,10 @@
 .. |def| raw:: html
 
    <span class="def">
+
+.. |exdef| raw:: html
+
+   <span class="exdef">
    
 .. |end-span| raw:: html
 

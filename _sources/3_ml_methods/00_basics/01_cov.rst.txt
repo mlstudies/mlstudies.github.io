@@ -58,6 +58,10 @@
 .. |def| raw:: html
 
    <span class="def">
+
+.. |exdef| raw:: html
+
+   <span class="exdef">
    
 .. |end-span| raw:: html
 
@@ -111,14 +115,14 @@ define :math:`\mathbb{E}X = \left( {\begin{array}{*{20}{c}}{\mathbb{E}{X_1}} \\\
  &=\colorbox{fact}{$\mathbb{E}\left[ {\left( {X - \mathbb{E}X} \right){{\left( {X - \mathbb{E}X} \right)}^{\text{T}}}} \right]$} \hfill \\
  \end{align}
 
-where the diagonal elements are :exdef:`variances`. We :emp:`note` there is difference that for two scalar RVs :math:`X,Y`, :math:`\operatorname{cov}⁡(X,Y)` is a value, but :math:`σ⁡(X,Y)` is a :math:`2×2` matrix.
+where the diagonal elements are  |exdef| :index:`variances` |end-span|. We :emp:`note` there is difference that for two scalar RVs :math:`X,Y`, :math:`\operatorname{cov}⁡(X,Y)` is a value, but :math:`σ⁡(X,Y)` is a :math:`2×2` matrix.
 
 |newpara| On the other hand, given two RVs :math:`X,Y` and draw samples :math:`{{\bf x}} = \left( {{x_1}, \ldots ,{x_N}} \right)\sim X`
 and :math:`{\mathbf{y}} = \left( {{y_1}, \ldots ,{y_N}} \right)\sim Y`, then we define the  |def| :index:`sample covariance` |end-span| of them as
 :math:`\colorbox{fact}{$\operatorname{cov} \left( {{{\bf x}},{\mathbf{y}}} \right) = \frac{1}{{N - 1}}{\left( {{{\bf x}} - {\mathbf{\bar x}}} \right)^{\text{T}}}\left( {{\mathbf{y}} - {\mathbf{\bar y}}} \right)$}`.
 Given a RV vector :math:`X = \left( {\begin{array}{*{20}{c}}{{X_1}} \\\vdots  \\{{X_M}}\end{array}} \right)`,
 we can draw  |def| :index:`samples` |end-span| :math:`{{\bf x}}_1^{\text{T}} = \left( {{x_{1,1}}, \ldots ,{x_{1,N}}} \right)\sim {X_1}, \ldots , {{\bf x}}_M^{\text{T}} = \left( {{x_{M,1}}, \ldots ,{x_{M,M}}} \right)\sim {X_M}`,
-and form a :exdef:`sample matrix` :math:`{{\bf X}} = \left( {\begin{array}{*{20}{c}}{{{\bf x}}_1^{\text{T}}} \\\vdots  \\{{{\bf x}}_M^{\text{T}}}\end{array}} \right)`.
+and form a  |exdef| :index:`sample matrix` |end-span| :math:`{{\bf X}} = \left( {\begin{array}{*{20}{c}}{{{\bf x}}_1^{\text{T}}} \\\vdots  \\{{{\bf x}}_M^{\text{T}}}\end{array}} \right)`.
 In the machine learning context, the rows of :math:`𝐗` are also referred to as  |def| :index:`feature vectors` |end-span| because it treats the RVs :math:`X_1,…,X_M` as representing :math:`M` random features of a data point;
 and the columns of :math:`𝐗` are called  |def| :index:`data entries` |end-span|, because they are actually observed data.
 Then the  |def| :index:`sample covariance matrix` |end-span| is defined :red:`w.r.t. the feature vectors` as
@@ -142,7 +146,7 @@ Then the  |def| :index:`sample covariance matrix` |end-span| is defined :red:`w.
 where :math:`{\overline {{{{\bf x}}_i}} ^{\text{T}}} = \frac{1}{N}\mathop \sum \limits_{j = 1}^N {x_{i,j}}{1^{\text{T}}} = \left( {\frac{1}{N}\mathop \sum \limits_{j = 1}^N {x_{i,j}}, \ldots ,\frac{1}{N}\mathop \sum \limits_{j = 1}^N {x_{i,j}}} \right)`
 (the same mean value repeating itself for :math:`N` times)
 and :math:`{\mathbf{\bar X}} = \left( {\begin{array}{*{20}{c}}{\overline {{{{\bf x}}_1}} } \\\vdots  \\{\overline {{{{\bf x}}_M}} }\end{array}} \right)`,
-and the diagonal elements are :exdef:`sample variances`. The sum of variances, or the trace of the covariance matrix, is called the  |def| :index:`total variance` |end-span| of :math:`X`.
+and the diagonal elements are  |exdef| :index:`sample variances` |end-span|. The sum of variances, or the trace of the covariance matrix, is called the  |def| :index:`total variance` |end-span| of :math:`X`.
 In addition, :emp:`note` :math:`\operatorname{cov} \left( {{{\bf x}},{\mathbf{y}}} \right)` is a value, while :math:`Σ(x,y)` is a :math:`2×2` matrix.
 
 .. caution::

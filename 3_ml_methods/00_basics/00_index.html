@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>1. Preliminaries &mdash; rst_test 0.0.1 documentation</title>
+  <title>1. Preliminaries &mdash; Study Notes in Machine Learning 0.0.1 documentation</title>
   
 
   
@@ -50,7 +50,7 @@
           
 
           
-            <a href="../../index.html" class="icon icon-home"> rst_test
+            <a href="../../index.html" class="icon icon-home"> Study Notes in Machine Learning
           
 
           
@@ -107,7 +107,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">rst_test</a>
+          <a href="../../index.html">Study Notes in Machine Learning</a>
         
       </nav>
 
@@ -220,16 +220,16 @@ define <span class="math notranslate nohighlight">\(\mathbb{E}X = \left( {\begin
 \end{array}} \right) \hfill \\
 &amp;=\colorbox{fact}{$\mathbb{E}\left[ {\left( {X - \mathbb{E}X} \right){{\left( {X - \mathbb{E}X} \right)}^{\text{T}}}} \right]$} \hfill \\
 \end{align}\end{split}\]</div>
-<p>where the diagonal elements are <span class="exdef">variances</span>. We <span class="emp">note</span> there is difference that for two scalar RVs <span class="math notranslate nohighlight">\(X,Y\)</span>, <span class="math notranslate nohighlight">\(\operatorname{cov}⁡(X,Y)\)</span> is a value, but <span class="math notranslate nohighlight">\(σ⁡(X,Y)\)</span> is a <span class="math notranslate nohighlight">\(2×2\)</span> matrix.</p>
+<p>where the diagonal elements are  <span class="exdef"> <span class="target" id="index-1"></span>variances</span>. We <span class="emp">note</span> there is difference that for two scalar RVs <span class="math notranslate nohighlight">\(X,Y\)</span>, <span class="math notranslate nohighlight">\(\operatorname{cov}⁡(X,Y)\)</span> is a value, but <span class="math notranslate nohighlight">\(σ⁡(X,Y)\)</span> is a <span class="math notranslate nohighlight">\(2×2\)</span> matrix.</p>
 <p><span style="padding-left:20px"></span> On the other hand, given two RVs <span class="math notranslate nohighlight">\(X,Y\)</span> and draw samples <span class="math notranslate nohighlight">\({{\bf x}} = \left( {{x_1}, \ldots ,{x_N}} \right)\sim X\)</span>
-and <span class="math notranslate nohighlight">\({\mathbf{y}} = \left( {{y_1}, \ldots ,{y_N}} \right)\sim Y\)</span>, then we define the  <span class="def"> <span class="target" id="index-1"></span>sample covariance</span> of them as
+and <span class="math notranslate nohighlight">\({\mathbf{y}} = \left( {{y_1}, \ldots ,{y_N}} \right)\sim Y\)</span>, then we define the  <span class="def"> <span class="target" id="index-2"></span>sample covariance</span> of them as
 <span class="math notranslate nohighlight">\(\colorbox{fact}{$\operatorname{cov} \left( {{{\bf x}},{\mathbf{y}}} \right) = \frac{1}{{N - 1}}{\left( {{{\bf x}} - {\mathbf{\bar x}}} \right)^{\text{T}}}\left( {{\mathbf{y}} - {\mathbf{\bar y}}} \right)$}\)</span>.
 Given a RV vector <span class="math notranslate nohighlight">\(X = \left( {\begin{array}{*{20}{c}}{{X_1}} \\\vdots  \\{{X_M}}\end{array}} \right)\)</span>,
-we can draw  <span class="def"> <span class="target" id="index-2"></span>samples</span> <span class="math notranslate nohighlight">\({{\bf x}}_1^{\text{T}} = \left( {{x_{1,1}}, \ldots ,{x_{1,N}}} \right)\sim {X_1}, \ldots , {{\bf x}}_M^{\text{T}} = \left( {{x_{M,1}}, \ldots ,{x_{M,M}}} \right)\sim {X_M}\)</span>,
-and form a <span class="exdef">sample matrix</span> <span class="math notranslate nohighlight">\({{\bf X}} = \left( {\begin{array}{*{20}{c}}{{{\bf x}}_1^{\text{T}}} \\\vdots  \\{{{\bf x}}_M^{\text{T}}}\end{array}} \right)\)</span>.
-In the machine learning context, the rows of <span class="math notranslate nohighlight">\(𝐗\)</span> are also referred to as  <span class="def"> <span class="target" id="index-3"></span>feature vectors</span> because it treats the RVs <span class="math notranslate nohighlight">\(X_1,…,X_M\)</span> as representing <span class="math notranslate nohighlight">\(M\)</span> random features of a data point;
-and the columns of <span class="math notranslate nohighlight">\(𝐗\)</span> are called  <span class="def"> <span class="target" id="index-4"></span>data entries</span>, because they are actually observed data.
-Then the  <span class="def"> <span class="target" id="index-5"></span>sample covariance matrix</span> is defined <span class="red">w.r.t. the feature vectors</span> as</p>
+we can draw  <span class="def"> <span class="target" id="index-3"></span>samples</span> <span class="math notranslate nohighlight">\({{\bf x}}_1^{\text{T}} = \left( {{x_{1,1}}, \ldots ,{x_{1,N}}} \right)\sim {X_1}, \ldots , {{\bf x}}_M^{\text{T}} = \left( {{x_{M,1}}, \ldots ,{x_{M,M}}} \right)\sim {X_M}\)</span>,
+and form a  <span class="exdef"> <span class="target" id="index-4"></span>sample matrix</span> <span class="math notranslate nohighlight">\({{\bf X}} = \left( {\begin{array}{*{20}{c}}{{{\bf x}}_1^{\text{T}}} \\\vdots  \\{{{\bf x}}_M^{\text{T}}}\end{array}} \right)\)</span>.
+In the machine learning context, the rows of <span class="math notranslate nohighlight">\(𝐗\)</span> are also referred to as  <span class="def"> <span class="target" id="index-5"></span>feature vectors</span> because it treats the RVs <span class="math notranslate nohighlight">\(X_1,…,X_M\)</span> as representing <span class="math notranslate nohighlight">\(M\)</span> random features of a data point;
+and the columns of <span class="math notranslate nohighlight">\(𝐗\)</span> are called  <span class="def"> <span class="target" id="index-6"></span>data entries</span>, because they are actually observed data.
+Then the  <span class="def"> <span class="target" id="index-7"></span>sample covariance matrix</span> is defined <span class="red">w.r.t. the feature vectors</span> as</p>
 <div class="math notranslate nohighlight" id="equation-eq-sample-cov">
 <span class="eqno">(1.1)<a class="headerlink" href="#equation-eq-sample-cov" title="Permalink to this equation">¶</a></span>\[\begin{split}\begin{aligned}
 {\Sigma }\left( {{\bf X}} \right) &amp;= \frac{1}{{N - 1}}\left( {\begin{array}{*{20}{c}}
@@ -247,7 +247,7 @@ Then the  <span class="def"> <span class="target" id="index-5"></span>sample cov
 <p>where <span class="math notranslate nohighlight">\({\overline {{{{\bf x}}_i}} ^{\text{T}}} = \frac{1}{N}\mathop \sum \limits_{j = 1}^N {x_{i,j}}{1^{\text{T}}} = \left( {\frac{1}{N}\mathop \sum \limits_{j = 1}^N {x_{i,j}}, \ldots ,\frac{1}{N}\mathop \sum \limits_{j = 1}^N {x_{i,j}}} \right)\)</span>
 (the same mean value repeating itself for <span class="math notranslate nohighlight">\(N\)</span> times)
 and <span class="math notranslate nohighlight">\({\mathbf{\bar X}} = \left( {\begin{array}{*{20}{c}}{\overline {{{{\bf x}}_1}} } \\\vdots  \\{\overline {{{{\bf x}}_M}} }\end{array}} \right)\)</span>,
-and the diagonal elements are <span class="exdef">sample variances</span>. The sum of variances, or the trace of the covariance matrix, is called the  <span class="def"> <span class="target" id="index-6"></span>total variance</span> of <span class="math notranslate nohighlight">\(X\)</span>.
+and the diagonal elements are  <span class="exdef"> <span class="target" id="index-8"></span>sample variances</span>. The sum of variances, or the trace of the covariance matrix, is called the  <span class="def"> <span class="target" id="index-9"></span>total variance</span> of <span class="math notranslate nohighlight">\(X\)</span>.
 In addition, <span class="emp">note</span> <span class="math notranslate nohighlight">\(\operatorname{cov} \left( {{{\bf x}},{\mathbf{y}}} \right)\)</span> is a value, while <span class="math notranslate nohighlight">\(Σ(x,y)\)</span> is a <span class="math notranslate nohighlight">\(2×2\)</span> matrix.</p>
 <div class="admonition caution">
 <p class="first admonition-title">Caution</p>
@@ -401,7 +401,7 @@ then</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, tony_chen.
+        &copy; Copyright 2018, Tony Chen, Drexel University.
 
     </p>
   </div>
