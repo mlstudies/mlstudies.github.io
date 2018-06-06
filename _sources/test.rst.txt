@@ -1,5 +1,92 @@
 .. role:: red
 .. role:: def
+.. role:: exdef
+.. role:: emp
+.. role:: bemp
+.. role:: ititle
+.. role:: conn1
+.. role:: conn2
+.. role:: conn3
+.. role:: uline
+.. role:: ibold
+.. role:: strike
+
+.. |theorem| raw:: html
+
+   <span class="theorem-highlight">
+
+.. |result| raw:: html
+
+   <span class="result-highlight">
+
+.. |fact| raw:: html
+
+   <span class="fact-highlight">
+
+.. |comment| raw:: html
+
+   <span class="comment-highlight">
+
+.. |emperical| raw:: html
+
+   <span class="emperical-highlight">
+
+.. |strike| raw:: html
+
+   <span class="strike">
+   
+.. |uline| raw:: html
+
+   <span class="uline">
+   
+.. |ibold| raw:: html
+
+   <span class="ibold">
+   
+.. |bold| raw:: html
+
+   <span style="font-weight: bold;">
+   
+.. |italic| raw:: html
+
+   <span style="font-style: italic;">
+   
+.. |newpara| raw:: html
+
+   <span style="padding-left:20px"></span>
+
+.. |def| raw:: html
+
+   <span class="def">
+   
+.. |end-span| raw:: html
+
+   </span>
+
+.. raw:: html
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      TeX: { extensions: ["color.js","autoload-all.js"] }
+    });
+
+	MathJax.Hub.Register.StartupHook("TeX color Ready", function() {
+     var color = MathJax.Extension["TeX/color"];
+     color.colors["theorem"] = color.getColor('RGB','225,229,153');
+	 color.colors["result"] = color.getColor('RGB','189,214,238');
+	 color.colors["fact"] = color.getColor('RGB','255,255,204');
+	 color.colors["emperical"] = color.getColor('RGB','253,240,207');
+	 color.colors["comment"] = color.getColor('RGB','204,255,204');
+     color.colors["thm"] = color.getColor('RGB','225,229,153');
+	 color.colors["rlt"] = color.getColor('RGB','189,214,238');
+	 color.colors["emp"] = color.getColor('RGB','253,240,207');
+	 color.colors["comm"] = color.getColor('RGB','204,255,204');
+	 color.colors["conn1"] = color.getColor('RGB','255,0,255');
+	 color.colors["conn2"] = color.getColor('RGB','237,125,49');
+	 color.colors["conn2"] = color.getColor('RGB','112,48,160');
+	});
+  </script>.. role:: red
+.. role:: def
 .. role:: emp
 
 .. _examples-anchor:
@@ -9,13 +96,13 @@ Examples (H1)
 
 An example of using highlight :red:`red` (derivative defined through role).
 
-An example of using highlight for :def:`definition` (derivative defined through role).
+An example of using highlight for  |def| :index:`definition` |end-span| (derivative defined through role).
 
 An example of using highlight for :emp:`hint`.
 
 An example of inline build-in ``highlight``.
 
-Inline math examples: :math:`\color{blue}{\sigma_{1}}` equals :math:`\colorbox{yellow}{\sigma_{2}}` then etc, etc.
+Inline math examples: :math:`\color{blue}{σ_{1}}` equals :math:`\colorbox{yellow}{σ_{2}}` then etc, etc.
 
 Math block example:
 
@@ -55,10 +142,10 @@ More Examples (H2)
 
 .. _property_basic:
 
-:enum:`Property -1.`
+:ititle:`Property -1.`
 .. _theorem_1:
 
-:enum:`Theorem -1.`
+:ititle:`Theorem -1.`
 
 Cross Reference Links (H3)
 --------------------------

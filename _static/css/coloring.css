@@ -14,7 +14,8 @@
     color:rgb(112, 48, 160);
 }
 
-.def {
+.target,.def
+{
     color:#4472c4;
     font-weight:bold
 }
@@ -25,14 +26,22 @@
   text-decoration: underline;
 }
 
+.bemp {
+  color: rgb(185, 65, 68);
+  font-style: italic;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
 .exdef {
   color: rgb(150, 123, 49);
   font-weight: bold;
 }
 
-.enum {
+.ititle {
   color: rgb(25, 112, 48);
   font-weight: bold;
+  text-decoration: underline;
 }
 
 .theorem-highlight {

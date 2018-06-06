@@ -1,13 +1,96 @@
-.. rst_test documentation master file, created by
-   sphinx-quickstart on Fri May 25 11:36:14 2018.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+.. role:: red
+.. role:: def
+.. role:: exdef
+.. role:: emp
+.. role:: bemp
+.. role:: ititle
+.. role:: conn1
+.. role:: conn2
+.. role:: conn3
+.. role:: uline
+.. role:: ibold
+.. role:: strike
 
-Welcome to rst_test's documentation!
+.. |theorem| raw:: html
+
+   <span class="theorem-highlight">
+
+.. |result| raw:: html
+
+   <span class="result-highlight">
+
+.. |fact| raw:: html
+
+   <span class="fact-highlight">
+
+.. |comment| raw:: html
+
+   <span class="comment-highlight">
+
+.. |emperical| raw:: html
+
+   <span class="emperical-highlight">
+
+.. |strike| raw:: html
+
+   <span class="strike">
+   
+.. |uline| raw:: html
+
+   <span class="uline">
+   
+.. |ibold| raw:: html
+
+   <span class="ibold">
+   
+.. |bold| raw:: html
+
+   <span style="font-weight: bold;">
+   
+.. |italic| raw:: html
+
+   <span style="font-style: italic;">
+   
+.. |newpara| raw:: html
+
+   <span style="padding-left:20px"></span>
+
+.. |def| raw:: html
+
+   <span class="def">
+   
+.. |end-span| raw:: html
+
+   </span>
+
+.. raw:: html
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      TeX: { extensions: ["color.js","autoload-all.js"] }
+    });
+
+	MathJax.Hub.Register.StartupHook("TeX color Ready", function() {
+     var color = MathJax.Extension["TeX/color"];
+     color.colors["theorem"] = color.getColor('RGB','225,229,153');
+	 color.colors["result"] = color.getColor('RGB','189,214,238');
+	 color.colors["fact"] = color.getColor('RGB','255,255,204');
+	 color.colors["emperical"] = color.getColor('RGB','253,240,207');
+	 color.colors["comment"] = color.getColor('RGB','204,255,204');
+     color.colors["thm"] = color.getColor('RGB','225,229,153');
+	 color.colors["rlt"] = color.getColor('RGB','189,214,238');
+	 color.colors["emp"] = color.getColor('RGB','253,240,207');
+	 color.colors["comm"] = color.getColor('RGB','204,255,204');
+	 color.colors["conn1"] = color.getColor('RGB','255,0,255');
+	 color.colors["conn2"] = color.getColor('RGB','237,125,49');
+	 color.colors["conn2"] = color.getColor('RGB','112,48,160');
+	});
+  </script>
+Study Notes in Machine Learning
 ====================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
    :numbered:
 

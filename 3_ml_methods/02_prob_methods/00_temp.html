@@ -146,8 +146,27 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <p>A <a href="#id1"><span class="problematic" id="id2">:def:`Bayes Network`</span></a> a directed acyclic graph (DAG) associated with a probabilistic chain rule interpretation. For example,</p>
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: { extensions: ["color.js","autoload-all.js"] }
+  });
 
+      MathJax.Hub.Register.StartupHook("TeX color Ready", function() {
+   var color = MathJax.Extension["TeX/color"];
+   color.colors["theorem"] = color.getColor('RGB','225,229,153');
+       color.colors["result"] = color.getColor('RGB','189,214,238');
+       color.colors["fact"] = color.getColor('RGB','255,255,204');
+       color.colors["emperical"] = color.getColor('RGB','253,240,207');
+       color.colors["comment"] = color.getColor('RGB','204,255,204');
+   color.colors["thm"] = color.getColor('RGB','225,229,153');
+       color.colors["rlt"] = color.getColor('RGB','189,214,238');
+       color.colors["emp"] = color.getColor('RGB','253,240,207');
+       color.colors["comm"] = color.getColor('RGB','204,255,204');
+       color.colors["conn1"] = color.getColor('RGB','255,0,255');
+       color.colors["conn2"] = color.getColor('RGB','237,125,49');
+       color.colors["conn2"] = color.getColor('RGB','112,48,160');
+      });
+</script>A  |def| :index:`Bayes Network` |end-span| a directed acyclic graph (DAG) associated with a probabilistic chain rule interpretation. For example,
 
            </div>
            
