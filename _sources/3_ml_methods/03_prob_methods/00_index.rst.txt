@@ -155,20 +155,6 @@
 	 color.colors["conn3"] = color.getColor('RGB','112,48,160');
 	});
   </script>
-Study Notes in Machine Learning
-====================================
 
-.. toctree:: 
- :maxdepth: 3
- :caption: Contents:
- :numbered:
-
- 3_ml_methods/00_basics/00_index.rst
- 3_ml_methods/02_neural_networks/00_index.rst
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+Probabilistic Models
+=============

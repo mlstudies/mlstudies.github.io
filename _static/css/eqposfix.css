@@ -1,4 +1,4 @@
-.eqno {
+  .eqno {
     margin-left: 5px;
     float: right;
 }
@@ -16,7 +16,7 @@
 }
 
 .section {
-    text-align: justify
+      text-align: justify
 }
 
 /* .p

@@ -4,69 +4,134 @@
 .. role:: emp
 .. role:: bemp
 .. role:: ititle
+.. role:: ititle2
 .. role:: conn1
 .. role:: conn2
 .. role:: conn3
 .. role:: uline
 .. role:: ibold
 .. role:: strike
+.. role:: python(code)
+   :language: python
+.. role:: latex(code)
+   :language: latex
+
+.. |list-div| raw:: html
+
+   <ul style="left-margin:20px">
+
+.. |end-list-div| raw:: html
+
+   </ul>
+
+.. |enum-div| raw:: html
+
+   <ol style="left-margin:20px">
+
+.. |end-enum-div| raw:: html
+
+   </ol>
+
+.. |item-div| raw:: html
+
+   <li>
+
+.. |item| raw:: html
+
+   <li>
+
+.. |end-item-div| raw:: html
+
+   </li>
+
+.. |end-item| raw:: html
+
+   </li>
+
+.. |tip| raw:: html
+
+   <span class="tooltip">
+
+.. |tiptxt| raw:: html
+
+   <span class="tooltiptext">
 
 .. |theorem| raw:: html
 
-   <span class="theorem-highlight">
+   <span><span class="theorem-highlight">	
 
 .. |result| raw:: html
 
-   <span class="result-highlight">
+   <span><span class="result-highlight">
 
 .. |fact| raw:: html
 
-   <span class="fact-highlight">
+   <span><span class="fact-highlight">
 
 .. |comment| raw:: html
 
-   <span class="comment-highlight">
+   <span><span class="comment-highlight">
 
 .. |emperical| raw:: html
 
-   <span class="emperical-highlight">
+   <span><span class="emperical-highlight">
 
 .. |strike| raw:: html
 
-   <span class="strike">
+   <span><span class="strike">
    
 .. |uline| raw:: html
 
-   <span class="uline">
+   <span><span class="uline">
    
 .. |ibold| raw:: html
 
-   <span class="ibold">
+   <span><span class="ibold">
    
 .. |bold| raw:: html
 
-   <span style="font-weight: bold;">
+   <span><span style="font-weight: bold;">
    
 .. |italic| raw:: html
 
-   <span style="font-style: italic;">
+   <span><span style="font-style: italic;">
    
-.. |newpara| raw:: html
+.. |para| raw:: html
 
    <span style="padding-left:20px"></span>
 
 .. |def| raw:: html
 
-   <span class="def">
+   <span><span class="def">
 
 .. |exdef| raw:: html
 
-   <span class="exdef">
-   
+   <span><span class="exdef">
+
+.. |hidden-cell| raw:: html
+
+   <div class="hidden_cell" style="display:none">01
+
+.. |indent-div| raw:: html
+
+   <div><div style="text-indent: 20px;">
+
+.. |end-div| raw:: html
+
+   </div></div>
+
+.. |span-center| raw:: html
+
+   <span style="text-align:center;display:block">
+
+.. |span-right| raw:: html
+
+   <span style="text-align:right;display:block">
+
 .. |end-span| raw:: html
 
-   </span>
-
+   </span></span>
+   
 .. raw:: html
 
   <script type="text/x-mathjax-config">
@@ -76,21 +141,26 @@
 
 	MathJax.Hub.Register.StartupHook("TeX color Ready", function() {
      var color = MathJax.Extension["TeX/color"];
-     color.colors["theorem"] = color.getColor('RGB','225,229,153');
+     color.colors["theorem"] = color.getColor('RGB','255,229,153');
 	 color.colors["result"] = color.getColor('RGB','189,214,238');
 	 color.colors["fact"] = color.getColor('RGB','255,255,204');
 	 color.colors["emperical"] = color.getColor('RGB','253,240,207');
 	 color.colors["comment"] = color.getColor('RGB','204,255,204');
-     color.colors["thm"] = color.getColor('RGB','225,229,153');
+     color.colors["thm"] = color.getColor('RGB','255,229,153');
 	 color.colors["rlt"] = color.getColor('RGB','189,214,238');
 	 color.colors["emp"] = color.getColor('RGB','253,240,207');
 	 color.colors["comm"] = color.getColor('RGB','204,255,204');
 	 color.colors["conn1"] = color.getColor('RGB','255,0,255');
 	 color.colors["conn2"] = color.getColor('RGB','237,125,49');
-	 color.colors["conn2"] = color.getColor('RGB','112,48,160');
+	 color.colors["conn3"] = color.getColor('RGB','112,48,160');
 	});
   </script>
 
 Preliminaries
 =============
-.. include:: 01_cov.rst
+
+.. include:: __01_probability.rst
+
+.. include:: __02_cov.rst
+
+.. include:: __03_gaussian.rst

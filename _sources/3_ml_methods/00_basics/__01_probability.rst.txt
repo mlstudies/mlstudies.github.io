@@ -1,0 +1,322 @@
+.. role:: red
+.. role:: def
+.. role:: exdef
+.. role:: emp
+.. role:: bemp
+.. role:: ititle
+.. role:: ititle2
+.. role:: conn1
+.. role:: conn2
+.. role:: conn3
+.. role:: uline
+.. role:: ibold
+.. role:: strike
+.. role:: python(code)
+   :language: python
+.. role:: latex(code)
+   :language: latex
+
+.. |list-div| raw:: html
+
+   <ul style="left-margin:20px">
+
+.. |end-list-div| raw:: html
+
+   </ul>
+
+.. |enum-div| raw:: html
+
+   <ol style="left-margin:20px">
+
+.. |end-enum-div| raw:: html
+
+   </ol>
+
+.. |item-div| raw:: html
+
+   <li>
+
+.. |item| raw:: html
+
+   <li>
+
+.. |end-item-div| raw:: html
+
+   </li>
+
+.. |end-item| raw:: html
+
+   </li>
+
+.. |tip| raw:: html
+
+   <span class="tooltip">
+
+.. |tiptxt| raw:: html
+
+   <span class="tooltiptext">
+
+.. |theorem| raw:: html
+
+   <span><span class="theorem-highlight">	
+
+.. |result| raw:: html
+
+   <span><span class="result-highlight">
+
+.. |fact| raw:: html
+
+   <span><span class="fact-highlight">
+
+.. |comment| raw:: html
+
+   <span><span class="comment-highlight">
+
+.. |emperical| raw:: html
+
+   <span><span class="emperical-highlight">
+
+.. |strike| raw:: html
+
+   <span><span class="strike">
+   
+.. |uline| raw:: html
+
+   <span><span class="uline">
+   
+.. |ibold| raw:: html
+
+   <span><span class="ibold">
+   
+.. |bold| raw:: html
+
+   <span><span style="font-weight: bold;">
+   
+.. |italic| raw:: html
+
+   <span><span style="font-style: italic;">
+   
+.. |para| raw:: html
+
+   <span style="padding-left:20px"></span>
+
+.. |def| raw:: html
+
+   <span><span class="def">
+
+.. |exdef| raw:: html
+
+   <span><span class="exdef">
+
+.. |hidden-cell| raw:: html
+
+   <div class="hidden_cell" style="display:none">01
+
+.. |indent-div| raw:: html
+
+   <div><div style="text-indent: 20px;">
+
+.. |end-div| raw:: html
+
+   </div></div>
+
+.. |span-center| raw:: html
+
+   <span style="text-align:center;display:block">
+
+.. |span-right| raw:: html
+
+   <span style="text-align:right;display:block">
+
+.. |end-span| raw:: html
+
+   </span></span>
+   
+.. raw:: html
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      TeX: { extensions: ["color.js","autoload-all.js"] }
+    });
+
+	MathJax.Hub.Register.StartupHook("TeX color Ready", function() {
+     var color = MathJax.Extension["TeX/color"];
+     color.colors["theorem"] = color.getColor('RGB','255,229,153');
+	 color.colors["result"] = color.getColor('RGB','189,214,238');
+	 color.colors["fact"] = color.getColor('RGB','255,255,204');
+	 color.colors["emperical"] = color.getColor('RGB','253,240,207');
+	 color.colors["comment"] = color.getColor('RGB','204,255,204');
+     color.colors["thm"] = color.getColor('RGB','255,229,153');
+	 color.colors["rlt"] = color.getColor('RGB','189,214,238');
+	 color.colors["emp"] = color.getColor('RGB','253,240,207');
+	 color.colors["comm"] = color.getColor('RGB','204,255,204');
+	 color.colors["conn1"] = color.getColor('RGB','255,0,255');
+	 color.colors["conn2"] = color.getColor('RGB','237,125,49');
+	 color.colors["conn3"] = color.getColor('RGB','112,48,160');
+	});
+  </script>
+
+Probability Theory Overview
+-----------------
+
+|para| Modern probability theory is built upon measure theory for rigorous
+insight of the nature of probabilities, where even an introductory
+course needs deep mathematical background and hundreds of pages, way
+beyond the scope of this text. Here we overview basic concepts and
+results that could help better understand machine learning models that
+heavily involve probabilities, like Gaussian process or generative models.
+
+|para| In probability theory, a set :math:`\Omega` containing all possible outcomes
+of an  |exdef| :index:`experiment` |end-span| is called a  |exdef| :index:`sample space` |end-span|. For example, in the
+experiment of coin flip, we can define :math:`\Omega = \left\{ 0,1 \right\}`
+where :math:`0` represents head and :math:`1` represents tail. :math:`\Omega` can be
+finite, countably infinite or uncountably infinite. :emp:`Note`
+this "experiment" is not a concrete "experiment" we do in machine
+learning to measure performance of a model; rather it is an abstract
+concept, and can be mathematically viewed as being defined by the sample
+space -- if we know what the sample space is, then the "experiment" is
+completely determined. For example, if we let
+:math:`\Omega = \left\{ 0,1 \right\}`, then the experiment behind this
+:math:`\Omega` is mathematically equivalent to the coin-flip experiment.
+
+|para| In addition, we define a set :math:`\mathcal{F}` that contains subsets of
+:math:`\Omega` and is named  |exdef| :index:`𝜎-algebra` |end-span|. It must satisfy three axioms: |fact| 1)
+:math:`\mathcal{F}` is non-empty; 2) for any :math:`A\in \mathcal{ F}` then
+:math:`\Omega\backslash A\in \mathcal{ F}`; 3) for countable many
+:math:`A_{\mathrm{1}},A_{2},\text{...},A_{n}\mathcal{,\ldots \in F}`, then
+:math:`\bigcup A_{k}\in \mathcal{ F}`  |end-span|. The axioms are actually very intuitive
+if we view 𝜎-algebra as being "modeling"  |exdef| :index:`partitions` |end-span| of :math:`\Omega` and
+"merge" of these partitions. For example, if we have a finite partition
+:math:`\Omega_{1},\ldots,\Omega_{n}` of :math:`\Omega` s.t.
+:math:`\Omega_{i}\bigcap\Omega_{j} = \varnothing,\forall i \neq j` and
+:math:`\bigcup_{i = 1}^{n}\Omega_{i} = \Omega`, then the set containing all
+possible unions of any subset of :math:`\Omega_{1},\ldots,\Omega_{n}`, plus
+the empty set, is a 𝜎-algebra. For another example, the  |exdef| :index:`power set` |end-span| of
+:math:`\Omega` is a 𝜎-algebra. Each set in :math:`\mathcal{F}` is referred to as an  |exdef| :index:`event` |end-span|. An event is also called a  |exdef| :index:`measurable set` |end-span| in mathematical
+text. The pair :math:`\left( \Omega,\mathcal{F} \right)` a  |exdef| :index:`measurable space` |end-span|.
+
+|para| A  |exdef| :index:`measure` |end-span| is mathematical concept that rigorously models essential
+real-life concepts like length, area, volume, etc. The most widely used
+measure is called  |exdef| :index:`Lebesgue measure` |end-span|, which is consistent with our
+common sense. Under this measure, the length of a line, the area of a
+square, or the volume of a ball, etc. is calculated with our usual
+formulas. |fact| All ordinary integrations we learned in calculus are w.r.t. Lebesgue measure  |end-span|. A measure :math:`μ` is formally defined over a 𝜎-algebra :math:`\mathcal{F}` as
+a :math:`\mathcal{F} \rightarrow \lbrack 0, + \infty)` function s.t. |fact| 1)
+:math:`\mathbb{P}\left( \varnothing \right) = 0`; 2)
+:math:`A,B\in \mathcal{ F,}A\bigcap B\mathbb{= \varnothing \Rightarrow P}\left( A \right)\mathbb{+ P}\left( B \right)\mathbb{= P}\left( A\bigcup B \right)`  |end-span|.
+A measure has many intuitive properties we would expect from "area" or
+"volume", for example, let :math:`A,B \in \mathcal{F}`, then
+:math:`μ\left( A\bigcup B \right) \leq μ\left( A \right) + μ\left( B \right)`
+and :math:`A \subseteq B \Rightarrow μ\left( A \right) \leq μ\left( B \right)`
+Probability is formally defined a measure over each event in
+:math:`\mathcal{F}`, called  |exdef| :index:`probability measure` |end-span|, usually denoted by
+:math:`\mathbb{P}`. |fact| A probability measure has all axioms of a measure, and adds a third axiom
+that :math:`\mathbb{P}\left( \Omega \right) = 1`  |end-span|, called the  |exdef| :index:`probability normalization axiom` |end-span| . For example, if :math:`\Omega = \left\{ 0,1 \right\}`,
+then :math:`\left\{ \left\{ 0 \right\},\left\{ 1 \right\},\left\{ 0,1 \right\},\varnothing \right\}`
+is a 𝜎-algebra of :math:`\Omega` and we can define
+:math:`\mathbb{P}\left( \left\{ 0 \right\} \right) = 0.3,\mathbb{P}\left( \left\{ 1 \right\} \right) = 0.7,\mathbb{P}\left( \left\{ 0,1 \right\} \right) = 1,\mathbb{P}\left( \varnothing \right) = 0`.
+We call :math:`\left( \Omega,\mathcal{F}\mathbb{,P} \right)` a  |exdef| :index:`probability space` |end-span|.
+
+
+|para| A  |exdef| :index:`random variable` |end-span| often abbreviated as "RV" in our text, is a
+:math:`\Omega \rightarrow S` function where :math:`(S\mathcal{,E)}` is a measurable
+space may or may not be the same as :math:`\left( \Omega,\mathcal{F} \right)`
+:math:`X` need to be a  |exdef| :index:`measurable function` |end-span|, roughly meaning that sets like
+:math:`\left\{ \omega:X\left( \omega \right) = 1 \right\}`,
+:math:`\left\{ \omega:X\left( \omega \right) \geq 2 \right\}`, etc. must be
+events (i.e. they exist in :math:`\mathcal{F}`). :math:`S` is named the  |exdef| :index:`state space` |end-span|. :emp:`For example`, :math:`\Omega = \left\{ 1,\ldots,5 \right\}`,
+:math:`S = \left\{ 0,1 \right\}`, :math:`X\left( \omega \right) = \left\{ \begin{matrix} 0 & \omega \leq 3 \\ 1 & \omega > 3 \\ \end{matrix} \right.\ `. Now if :math:`\mathbb{P}` is "uniform" over :math:`\Omega`,
+i.e. :math:`\mathbb{P}\left( \left\{ \omega \right\} \right) = \frac{1}{5},\forall\omega \in \Omega`,
+then we have :math:`\mathbb{P}\left( X = 0 \right) = \frac{3}{5}` and
+:math:`\mathbb{P}\left( X = 1 \right) = \frac{2}{5}`. If :math:`S` is finite or
+countable, then :math:`X` is a  |exdef| :index:`discrete random variable` |end-span| and the
+:math:`S \rightarrow \left\lbrack 0,1 \right\rbrack` function
+:math:`p\left( x \right):=\mathbb{P}\left( X = x \right),x \in S` is the  |exdef| :index:`discrete distribution` |end-span| of :math:`X`, and each :math:`p\left( x \right)` can be
+called the  |exdef| :index:`probability mass` |end-span| at :math:`x`. If :math:`S` is uncountable, things
+become more complicated, and a theorem called  |exdef| :index:`Radom-Nikodym theorem` |end-span|
+guarantees |fact| given any measure :math:`μ` defined on the :math:`(S,\mathcal{E})`, there exists a unique corresponding density function
+:math:`f\left( x \right):S \rightarrow \left\lbrack 0, + \infty \right\rbrack`
+consistent with the underlying probability measure :math:`\mathbb{P}` in a way that :math:`\int_{B}^{}f\text{d}μ=\mathbb{P}\left\{ X^{- 1}\left( B \right) \right\}`  |end-span|.
+|fact| If we choose μ as Lebesgue measure, then we have ordinary density functions we commonly use  |end-span|.
+We also refer to :math:`f` as the  |exdef| :index:`distribution` |end-span| of :math:`X`, :math:`X`  |exdef| :index:`obeys` |end-span| the
+distribution :math:`f`, and :math:`f\left( x \right)` is the  |exdef| :index:`density` |end-span| of the
+distribution at :math:`x`. Random-Nikodym applies to both discrete and
+continuous RV, so probability mass is a special type of probability
+density, but we should :emp:`note` probability density is not
+probability and its value can be much higher than :math:`1` (like in a
+Gaussian distribution with a high peak). :emp:`Every time` we mention a random variable, we assume these setups of measurable spaces,
+the probability measure and the probability density, although we might not explicitly mention that.
+
+|para| A random variable can be a vector, e.g.
+:math:`\left( X_{1},X_{2},X_{3} \right)`, called a  |exdef| :index:`random vector` |end-span|; then a  |exdef| :index:`marginal random variable` |end-span| removes some dimensions of the random
+vector, e.g. :math:`X_{1}`, or :math:`\left( X_{1},X_{2} \right)` or
+:math:`\left( X_{2},X_{3} \right)`, etc., whose 𝜎-algebra only contains events
+not dependent on the removed dimensions. The removal of some dimensions
+of a random vector is called  |exdef| :index:`marginalization` |end-span|. More formally, suppose the original RV is
+:math:`\left( X,Y \right)` with measurable space
+:math:`\left( \Omega_{X,Y},\mathcal{F}_{X,Y} \right)`
+and density :math:`f\left( \mathbf{x},\mathbf{y} \right)` where
+:math:`Y,Y` are themselves random vectors and we intend to
+marginalize out :math:`Y`, then the marginal RV :math:`Y` has  |exdef| :index:`𝜎-algebra closure` |end-span| of
+:math:`\left\{ \left\{ Y = \mathbf{x} \right\}\mathbf{:}\left( \mathbf{x},\mathbf{y} \right) \in \Omega_{\mathbf{x},\mathbf{y}} \right\}`
+as its 𝜎-algebra, which is the smallest 𝜎-algebra that contains the set.
+The density of :math:`Y` is called the  |exdef| :index:`marginal density` |end-span|, and it can be shown to be exactly
+:math:`f\left( \mathbf{x} \right) = \int_{}^{}{f\left( \mathbf{x},\mathbf{y} \right)d\mathbf{y}}`
+where the integration is w.r.t. the measure chosen for :math:`(S\mathcal{,E)}`, typically Lebesgue measure.
+
+
+|para| A  |exdef| :index:`conditional random variable` |end-span| of :math:`X` conditioned on an event
+:math:`A\in \mathcal{ F}`, denoted by :math:`X|A`. It can be viewed as a RV defined
+on measurable space :math:`\left( A,\{ B\bigcap A:B\in \mathcal{ F\}} \right)`.
+A conditional random variable conditioned on another :math:`Y`, denoted by
+:math:`X|Y`, can be viewed as a :math:`\Omega^{2}\mathbb{\rightarrow R}` function
+where an underlying measurable space for :math:`\Omega^{2}` is defined. A
+conditional RV has its own  |exdef| :index:`conditional distribution` |end-span|. The  |exdef| :index:`conditional density function` |end-span| :math:`f\left( x;y \right)` we see more often
+in practice can either be viewed a density function of conditional RV
+:math:`X|Y = y` conditioned on event :math:`Y = y`, or just the density function of
+:math:`X|Y`. The  |exdef| :index:`expectation` |end-span| of a random variable :math:`X` is defined as
+:math:`\mathbb{E}X = \int_{\Omega}^{}{\text{Xd}\mathbb{P}}`, the integration
+of function :math:`X` over entire sample space under measure :math:`\mathbb{P}`. The  |exdef| :index:`conditional expectation` |end-span| conditioned on an event :math:`A\in \mathcal{ F}`
+is defined as
+:math:`\mathbb{E}\left\lbrack X|A \right\rbrack = \int_{A}^{}{\text{Xd}\mathbb{P}}`,
+the integration of function :math:`X` over :math:`A` under measure :math:`\mathbb{P}`. The  |exdef| :index:`conditional expectation` |end-span| conditioned on another random variable :math:`Y`,
+denoted as :math:`\mathbb{E}\left\lbrack X|Y \right\rbrack` is itself a random
+variable because :math:`Y` is random.
+
+
+|para| A  |exdef| :index:`stochastic process` |end-span| or a  |exdef| :index:`random process` |end-span| is a collection of RVs
+:math:`X\left( t \right),t \in T` where :math:`T` is a finite, countable or
+uncountable  |exdef| :index:`index set` |end-span|." Note the random variables in this general
+definition do not have intrinsic order, even though the word "process"
+suggests "series". The order of RVs can be added by concrete
+definitions, for example, a  |exdef| :index:`Markov chain` |end-span| is a stochastic process
+where :math:`T = \left\{ 0,1,2,\ldots \right\}\mathbb{= N}` s.t. the
+distribution of :math:`X\left( t + 1 \right)` is only dependent on
+:math:`X\left( t \right)` for :math:`t = 1,2\ldots` In such case when the "process"
+is ordered, :math:`T` can usually be interpreted as time. We can often see
+processes like  |exdef| :index:`Gaussian process` |end-span|,  |exdef| :index:`Poisson process` |end-span|,  |exdef| :index:`Dirichlet process` |end-span|
+etc. in probabilistic machine learning, and the pattern of
+their definitions are :emp:`simply` stochastic processes
+:math:`X\left( t \right),t \in T` s.t. for any finite subset
+:math:`\left\{ t_{1},\ldots,t_{N} \right\}` of :math:`T` of arbitrary
+:math:`N \in \mathbb{N}^{+}` satisfying certain condition (dependent on the
+concrete process definition),
+:math:`\left( X\left( t_{1} \right),\ldots,X\left( t_{N} \right) \right)` in
+some way obeys corresponding distributions (Gaussian distribution,
+Poisson distribution, Dirichlet distribution etc.). :emp:``For
+example`, we may define :math:`X\left( t \right)` obeys a
+Gaussian process :math:`\operatorname{GP}\left( μ,\Sigma \right)` if
+:math:`\forall N \geq 1,t_{1},\ldots,t_{N} \in T`,
+:math:`μ\left( X\left( t_{1} \right),\ldots,X\left( t_{N} \right) \right)`
+is the  |exdef| :index:`mean function` |end-span| that yields a vector of length :math:`N`, and
+:math:`\Sigma` is the  |exdef| :index:`covariance function` |end-span| that yields a :math:`N \times N`
+matrix. :emp:`For another example`, the Dirichlet process
+assumes the RVs :math:`X\left( t \right)` are probability-measure-valued (i.e.
+the state space :math:`S` of :math:`X` are probability measures), and lets the index
+set :math:`T` be a 𝜎-algebra, and define
+:math:`X\left( t \right)\sim\operatorname{DP}\left( α,H \right)` for some  |exdef| :index:`base probability measure` |end-span| :math:`H` and  |exdef| :index:`concentration parameter` |end-span|
+:math:`α`, if for any finite partition :math:`t_{1},\ldots,t_{N}` in :math:`T` (a
+𝜎-algebra must contain finite partitions due to its axioms),
+:math:`\left( X\left( t_{1} \right),\ldots,X\left( t_{N} \right) \right)`
+obeys Dirichlet distribution
+:math:`\operatorname{Dirichlet}\left(α H \left( t_{1} \right),\ldots,α H\left( t_{N} \right) \right)`.

@@ -1,0 +1,454 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Multivariate Gaussian Distribution &mdash; Study Notes in Machine Learning 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/coloring.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/eqposfix.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Study Notes in Machine Learning
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="00_index.html">1. Preliminaries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_neural_networks/00_index.html">2. Basic Neural Networks</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Study Notes in Machine Learning</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</div></li><li>Multivariate Gaussian Distribution</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/3_ml_methods/00_basics/__03_gaussian.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: { extensions: ["color.js","autoload-all.js"] }
+  });
+
+      MathJax.Hub.Register.StartupHook("TeX color Ready", function() {
+   var color = MathJax.Extension["TeX/color"];
+   color.colors["theorem"] = color.getColor('RGB','255,229,153');
+       color.colors["result"] = color.getColor('RGB','189,214,238');
+       color.colors["fact"] = color.getColor('RGB','255,255,204');
+       color.colors["emperical"] = color.getColor('RGB','253,240,207');
+       color.colors["comment"] = color.getColor('RGB','204,255,204');
+   color.colors["thm"] = color.getColor('RGB','255,229,153');
+       color.colors["rlt"] = color.getColor('RGB','189,214,238');
+       color.colors["emp"] = color.getColor('RGB','253,240,207');
+       color.colors["comm"] = color.getColor('RGB','204,255,204');
+       color.colors["conn1"] = color.getColor('RGB','255,0,255');
+       color.colors["conn2"] = color.getColor('RGB','237,125,49');
+       color.colors["conn3"] = color.getColor('RGB','112,48,160');
+      });
+</script><div class="section" id="multivariate-gaussian-distribution">
+<h1>Multivariate Gaussian Distribution<a class="headerlink" href="#multivariate-gaussian-distribution" title="Permalink to this headline">¶</a></h1>
+<p>An <span class="math notranslate nohighlight">\(m\)</span>-dimensional Multivariate Gaussian distribution is defined by an
+<span class="math notranslate nohighlight">\(m\)</span>-dimensional mean <span class="math notranslate nohighlight">\(\mathbf{μ}\)</span> and a <span class="math notranslate nohighlight">\(m \times m\)</span> non-singular
+covariance <span class="math notranslate nohighlight">\(\mathbf{\Sigma}\)</span>, denoted by
+<span class="math notranslate nohighlight">\(\operatorname{Gaussian}\left( \mathbf{μ},\mathbf{\Sigma} \right)\)</span>,
+whose density function can be written as</p>
+<div class="math notranslate nohighlight">
+\[p\left( \mathbf{x} \right)
+= \frac{1}{\left( 2\pi \right)^{\frac{m}{2}}}\frac{1}{\left| \mathbf{\Sigma} \right|^{\frac{1}{2}}}\exp\left\{ - \frac{1}{2}\left( \mathbf{x} - \mathbf{μ} \right)^{\rm{T}}\mathbf{\Sigma}^{- 1}\left( \mathbf{x} - \mathbf{μ} \right) \right\}
+= \frac{1}{\left( 2\pi \right)^{\frac{m}{2}}}\frac{1}{\left| \mathbf{\Sigma} \right|^{\frac{1}{2}}}\kappa\left( \mathbf{x},\mathbf{μ} \right)
+= \frac{1}{\left( 2\pi \right)^{\frac{m}{2}}}\frac{1}{\left| \mathbf{\Sigma} \right|^{\frac{1}{2}}}\exp\left\{ - \frac{1}{2}𝒹_{M}\left( \mathbf{x};\mathbf{μ,}\mathbf{\Sigma} \right) \right\}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\left| \mathbf{\Sigma} \right|\)</span> is the determinant of
+<span class="math notranslate nohighlight">\(\mathbf{\Sigma}\)</span>, <span class="math notranslate nohighlight">\(\kappa\)</span> is the  <span><span class="exdef"> <span class="target" id="index-0"></span>Gaussian kernel</span></span>, and
+<span class="math notranslate nohighlight">\(𝒹_{M}\left( \mathbf{x};\mathbf{μ,\Sigma} \right) = \left( \mathbf{x} - \mathbf{μ} \right)^{\rm{T}}\mathbf{\Sigma}^{- 1}\left( \mathbf{x} - \mathbf{μ} \right)\)</span>
+is called the  <span><span class="exdef"> <span class="target" id="index-1"></span>Mahalanobis distance</span></span>. <span class="math notranslate nohighlight">\(\kappa\)</span> and <span class="math notranslate nohighlight">\(𝒹_{M}\)</span> measure the similarity/distance
+between an observation <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and a distribution with
+mean <span class="math notranslate nohighlight">\(\mathbf{μ}\)</span> and covariance <span class="math notranslate nohighlight">\(\mathbf{\Sigma}\)</span> (not necessarily
+Gaussian). <span class="emp">Note</span> <span class="math notranslate nohighlight">\(𝒹_{M}\)</span> is reduced to
+Euclidean distance from observation <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> to mean <span class="math notranslate nohighlight">\(\mathbf{μ}\)</span>
+when the covariance is identity. Recall the basic fact that co-variance
+matrix is symmetric and positive semidefinite, and in the case of
+Gaussian <span class="tooltip"> it must be positive definite <span class="tooltiptext"> This is because <span class="math notranslate nohighlight">\(|Σ|≠0\)</span>; otherwise the Gaussian density of <a class="reference internal" href="00_index.html#equation-eq-gaussian-density">Eq.1.6</a> would be invalid. Therefore, all eigenvalues of Σ must be positive, because the determinant equals to the product of all eigenvalues.</span></span>, thus
+<span class="math notranslate nohighlight">\(𝒹_{M}\left( \mathbf{x};\mathbf{μ,\Sigma} \right) \geq 0\)</span>
+and <span class="math notranslate nohighlight">\(𝒹_{M}\left( \mathbf{x};\mathbf{μ,\Sigma} \right) = 0\)</span>
+iff <span class="math notranslate nohighlight">\(\mathbf{x} = \mathbf{μ}\)</span>. The inverse of covariance matrix
+<span class="math notranslate nohighlight">\(\mathbf{\Sigma}^{- 1}\)</span> is also named the  <span><span class="def"> <span class="target" id="index-2"></span>precision matrix</span></span>, denoted
+by :math:<a href="#id1"><span class="problematic" id="id2">`</span></a>mathbf{Ⲗ}:=mathbf{Sigma}^{- 1}`, and the density can be written in terms of precision
+matrix as</p>
+<div class="math notranslate nohighlight">
+\[p\left( \mathbf{x} \right) = \frac{\left| \mathbf{Ⲗ} \right|^{\frac{1}{2}}}{\left( 2\pi \right)^{\frac{m}{2}}}\exp\left\{ - \frac{1}{2}\left( \mathbf{x} - \mathbf{μ} \right)^{\rm{T}}\mathbf{Ⲗ}\left( \mathbf{x} - \mathbf{μ} \right) \right\}\]</div>
+<p>The <span class="emp">limitation</span> of Gaussian is <span><span class="comment-highlight"> its quadratic number of parameters which could be a problem for high-dimensional computation,
+and its very limited unimodal shape which could not represent complicated real-world distributions.</span></span></p>
+<ul style="left-margin:20px">
+<li><p> We state useful gradient results from matrix derivatives, which are frequently used in finding analytical solution for optimization
+problems. They are soon applied to prove the maximum likelihood of multivariate Gaussian.</p>
+<p id="fact-gradient-affine-transform"><span class="ititle2">Fact 1-1.</span> Affine transformation
+<span class="math notranslate nohighlight">\(\mathbf{a}^{\rm{T}}\mathbf{x} + b\mathbf{:}\mathbb{R}^{n}\mathbb{\rightarrow R}\)</span>
+where <span class="math notranslate nohighlight">\(\mathbf{a} \in \mathbb{R}^{n},b\mathbb{\in R}\)</span> has gradient
+<span class="math notranslate nohighlight">\(\colorbox{fact}{$\nabla\left( \mathbf{a}^{\rm{T}}\mathbf{x} + b \right) = \nabla\left( \mathbf{x}^{\rm{T}}\mathbf{a} + b \right) = \mathbf{a}$}\)</span>.</p>
+<p id="fact-gradient-determinant"><span class="ititle2">Fact 1-2.</span> Determinant
+<span class="math notranslate nohighlight">\(\left| \mathbf{X} \right|:\mathbb{R}^{n \times n}\mathbb{\rightarrow R}\)</span>
+is a scalar-valued matrix function, and we have
+<span class="math notranslate nohighlight">\(\colorbox{fact}{$\nabla\log\left| \mathbf{X} \right| = \mathbf{X}^{-T}$}\)</span>.</p>
+<p id="fact-gradient-matrix-of-matrix-product"><span class="ititle2">Fact 1-3.</span> The gradient of
+<span class="math notranslate nohighlight">\(f\left( \mathbf{X} \right)=\mathbf{u}^{\rm{T}}\mathbf{\text{Xv}}:\mathbb{R}^{m \times n}\mathbb{\rightarrow R}\)</span>,
+where <span class="math notranslate nohighlight">\(\mathbf{u} \in \mathbb{R}^{m},\mathbf{v} \in \mathbb{R}^{n}\)</span> are
+constant vectors, is <span class="math notranslate nohighlight">\(\colorbox{fact}{$\nabla\mathbf{u}^{\rm{T}}\mathbf{\text{Xv}} \equiv \mathbf{u}\mathbf{v}^{\rm{T}}$}\)</span>.</p>
+<p id="fact-gradient-vector-of-matrix-product"><span class="ititle2">Fact 1-4.</span> The gradient of <span class="math notranslate nohighlight">\(f\left( \mathbf{x} \right) = \mathbf{x}^{\rm{T}}\mathbf{\text{Ux}}:\mathbf{x} \in \mathbb{R}^{n}\mathbb{\rightarrow R}\)</span>,
+where <span class="math notranslate nohighlight">\(\mathbf{U} \in \mathbb{R}^{n \times n}\)</span> is a constant matrix, is <span class="math notranslate nohighlight">\(\colorbox{fact}{$\nabla\mathbf{x}^{\rm{T}}\mathbf{\text{Ux}} = (\mathbf{U} + \mathbf{U}^{\rm{T}})\mathbf{x}$}\)</span>.</p>
+<div class="section" id="theorem-1-1-gaussian-maximum-likelihood-estimators">
+<span id="theorem-guassian-mle"></span><h2 style="display: inline; font-size:16px"><span class="ititle">Theorem 1-1.</span> <span class="bemp">Gaussian maximum likelihood estimators.</span><a class="headerlink" href="#theorem-1-1-gaussian-maximum-likelihood-estimators" title="Permalink to this headline">¶</a></h2>Given a data matrix <span class="math notranslate nohighlight">\(\mathbf{X}=\left( \mathbf{x}_{1},\ldots,\mathbf{x}_{N} \right)\)</span>,
+we can view its columns <span class="math notranslate nohighlight">\(\mathbf{x}_{1},\ldots,\mathbf{x}_{N}\)</span> as being
+drawn i.i.d. drawn from a multivariate Gaussian distribution, then the
+log-likelihood is
+<div class="math notranslate nohighlight">
+\[L \propto \sum_{i = 1}^{N}{- \frac{1}{2}\log\left| \mathbf{\Sigma} \right| - \frac{1}{2}\left( \mathbf{x}_{i} - \mathbf{μ} \right)^{\rm{T}}\mathbf{\Sigma}^{- 1}\left( \mathbf{x}_{i} - \mathbf{μ} \right)}
+= \frac{N}{2}\log\left| \mathbf{\Sigma}^{- 1} \right| - \frac{1}{2}\sum_{i = 1}^{N}{\left( \mathbf{x}_{i} - \mathbf{μ} \right)^{\rm{T}}\mathbf{\Sigma}^{- 1}\left( \mathbf{x}_{i} - \mathbf{μ} \right)}\]</div>
+<p>Using <a class="reference internal" href="#fact-gradient-determinant"><span class="std std-ref">Fact 1-2</span></a> and <a class="reference internal" href="#fact-gradient-matrix-of-matrix-product"><span class="std std-ref">Fact 1-3</span></a>, we have</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial L}{\partial\mathbf{\Sigma}^{- 1}}
+= \frac{N}{2}\mathbf{\Sigma}^{\rm{T}} - \frac{1}{2}\sum_{i = 1}^{N}{\left( \mathbf{x}_{i} - \mathbf{μ} \right)\left( \mathbf{x}_{i} - \mathbf{μ} \right)^{\rm{T}}}
+= 0 \Rightarrow \mathbf{\Sigma}=\frac{1}{N}\sum_{i = 1}^{N}{\left( \mathbf{x}_{i} - \mathbf{μ} \right)\left( \mathbf{x}_{i} - \mathbf{μ} \right)^{\rm{T}}}\]</div>
+<p>Then for <span class="math notranslate nohighlight">\(\mathbf{μ}\)</span>, using <a class="reference internal" href="#fact-gradient-vector-of-matrix-product"><span class="std std-ref">Fact 1-4</span></a>,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+&amp; L \propto \sum_{i = 1}^{N}{\mathbf{x}_{i}^{\rm{T}}\mathbf{\Sigma}^{- 1}\mathbf{μ} - \frac{1}{2}\mathbf{μ}^{\rm{T}}\mathbf{\Sigma}^{- 1}\mathbf{μ}} \\
+&amp; \Rightarrow \frac{\partial L}{\partial\mathbf{μ}} = \sum_{i = 1}^{N}{\mathbf{x}_{i}^{\rm{T}}\mathbf{\Sigma}^{- 1} - \mathbf{\Sigma}^{- 1}\mathbf{μ}} = \mathbf{0} \\
+&amp; \Rightarrow \mathbf{\Sigma}^{- 1}\left( \sum_{i = 1}^{N}\mathbf{x}_{i} \right) = N\mathbf{\Sigma}^{- 1}\mathbf{μ} \Rightarrow \colorbox{thm}{$\mathbf{μ}_{\text{ML}}=\frac{\sum_{i = 1}^{N}\mathbf{x}_{i}}{N} = \overline{\mathbf{x}}$} \end{aligned}\end{split}\]</div>
+<p>Plug back to <span class="math notranslate nohighlight">\(\mathbf{\Sigma}^{- 1}\)</span> in (1?€?7) and we have</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{\Sigma}_{\text{ML}}=\frac{1}{N}\sum_{i = 1}^{N}{\left( \mathbf{x}_{i} - \overline{\mathbf{x}} \right)\left( \mathbf{x}_{i} - \overline{\mathbf{x}} \right)^{\rm{T}}}\]</div>
+<p>By <a class="reference internal" href="__02_cov.html#property-cov-as-rank1-sum"><span class="std std-ref">Property 1-3</span></a>, <span><span class="result-highlight"> <span class="math notranslate nohighlight">\(\mathbf{\Sigma}_{\text{ML}}\)</span> equals the biased sample covariance</span></span>, or <span><span class="result-highlight"> <span class="math notranslate nohighlight">\(\frac{N}{N - 1}\mathbf{\Sigma}_{\text{ML}}\)</span> equals the sample covariance matrix</span></span></p>
+</div></li><li> Treating samples <span class="math notranslate nohighlight">\(\mathbf{x,y}\)</span> drawn from
+<span class="math notranslate nohighlight">\(\operatorname{Gaussian}\left( \mathbf{μ},\mathbf{\Sigma} \right)\)</span> as
+two RV vector where
+<span class="math notranslate nohighlight">\(\mathbb{E}\mathbf{x} = \mathbb{E}\mathbf{y} = \mathbf{μ}\)</span>, recall we have <span class="math notranslate nohighlight">\(\mathbf{\Sigma =}\mathbb{E}\left\lbrack \mathbf{x}\mathbf{y}^{\rm{T}} \right\rbrack-\mathbf{μ}\mathbf{μ}^{\rm{T}}\)</span>
+or <span class="math notranslate nohighlight">\(\mathbb{E}\left\lbrack \mathbf{x}\mathbf{y}^{\rm{T}} \right\rbrack=\mathbf{μ}\mathbf{μ}^{\rm{T}}\mathbf{+ \Sigma}\)</span> by <a class="reference internal" href="__02_cov.html#property-cov-to-expectation"><span class="std std-ref">Property 1-1</span></a>. When <span class="math notranslate nohighlight">\(\mathbf{x},\mathbf{y}\)</span> are independent, we have
+<span class="math notranslate nohighlight">\(\mathbb{E}\left\lbrack \mathbf{x}\mathbf{y}^{\rm{T}} \right\rbrack=\mathbf{μ}\mathbf{μ}^{\rm{T}}\)</span>.
+
+<div class="section" id="theorem-1-2-bias-of-gaussian-mle">
+<span id="theorem-guassian-mle-bias"></span><h2 style="display: inline; font-size:16px"><span class="ititle">Theorem 1-2.</span> <span class="bemp">Bias of Gaussian MLE.</span><a class="headerlink" href="#theorem-1-2-bias-of-gaussian-mle" title="Permalink to this headline">¶</a></h2>Now given i.i.d. RVs <span class="math notranslate nohighlight">\(\mathbf{x}_{1},\ldots,\mathbf{x}_{N}\)</span> with mean <span class="math notranslate nohighlight">\(\mathbf{μ}\)</span> and covariance <span class="math notranslate nohighlight">\(\mathbf{\Sigma}\)</span>, note
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbb{E}\left\lbrack \mathbf{x}_{i}\mathbf{x}_{j}^{\rm{T}} \right\rbrack = \left\{ \begin{matrix}
+\mathbf{μ}\mathbf{μ}^{\rm{T}} &amp; i \neq j \\
+\mathbf{μ}\mathbf{μ}^{\rm{T}}\mathbf{+}\mathbf{\Sigma} &amp; i = j \\
+\end{matrix} \right.\end{split}\]</div>
+<p>Then we have</p>
+<div class="math notranslate nohighlight">
+\[\mathbb{E}\left\lbrack \mathbf{x}_{i}{\overline{\mathbf{x}}}^{\rm{T}} \right\rbrack = \frac{1}{N}\sum_{i = 1}^{N}{\mathbb{E}\left\lbrack \mathbf{x}_{i}\mathbf{x}_{j}^{\rm{T}} \right\rbrack} = \frac{1}{N}\left( N\mathbf{μ}\mathbf{μ}^{\rm{T}} + \mathbf{\Sigma} \right) = \mathbf{μ}\mathbf{μ}^{\rm{T}} + \frac{\mathbf{\Sigma}}{N}\mathbb{= E}\left\lbrack \overline{\mathbf{x}}\mathbf{x}_{i}^{\rm{T}} \right\rbrack\]</div>
+<div class="math notranslate nohighlight">
+\[\mathbb{E}\left\lbrack \overline{\mathbf{x}}{\overline{\mathbf{x}}}^{\rm{T}} \right\rbrack
+= \frac{1}{N^{2}}\sum_{i = 1}^{N}{\sum_{j = 1}^{N}{\mathbb{E}\left\lbrack \mathbf{x}_{i}\mathbf{x}_{j}^{\rm{T}} \right\rbrack}}
+= \frac{1}{N^{2}}\left(N^{2}\mathbf{μ}\mathbf{μ}^{\rm{T}} + N\mathbf{\Sigma} \right)
+= \mathbf{μ}\mathbf{μ}^{\rm{T}} + \frac{\mathbf{\Sigma}}{N}\]</div>
+<p>For Gaussian i.i.d. RVs <span class="math notranslate nohighlight">\(\mathbf{x}_{1},\ldots,\mathbf{x}_{N}\)</span> as in</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}\mathbf{E}\left\lbrack \mathbf{\Sigma}_{\text{ML}} \right\rbrack
+&amp;=\frac{1}{N}\sum_{i = 1}^{N}{\mathbb{E}\left( \mathbf{x}_{i} - \overline{\mathbf{x}} \right)\left( \mathbf{x}_{i} - \overline{\mathbf{x}} \right)^{\rm{T}}}
+= \frac{1}{N}\sum_{i = 1}^{N}{\mathbb{E}\left\lbrack \mathbf{x}_{i}\mathbf{x}_{i}^{\rm{T}} - \mathbf{x}_{i}{\overline{\mathbf{x}}}^{\rm{T}} - \overline{\mathbf{x}}\mathbf{x}_{i}^{\rm{T}} + \overline{\mathbf{x}}{\overline{\mathbf{x}}}^{\rm{T}} \right\rbrack} \\
+&amp;= \frac{1}{N}\sum_{i = 1}^{N}\left( \cancel{\mathbf{μ}\mathbf{μ}^{\rm{T}}}\mathbf{+ \Sigma} - 2\left( \cancel{\mathbf{μ}\mathbf{μ}^{\rm{T}}} + \frac{\mathbf{\Sigma}}{N} \right) + \cancel{\mathbf{μ}\mathbf{μ}^{\rm{T}}} + \frac{\mathbf{\Sigma}}{N} \right)
+= \frac{N - 1}{N}\mathbf{\Sigma}\end{aligned}\end{split}\]</div>
+<p>Thus, <span class="math notranslate nohighlight">\(\mathbf{\Sigma}_{\text{ML}} = \frac{N - 1}{N}\mathbf{\Sigma}\)</span> is a biased estimator. <span class="math notranslate nohighlight">\(\mathbf{μ}_{\text{ML}}\)</span> is trivially an unbiased
+estimator, since
+<span class="math notranslate nohighlight">\(\mathbb{E}\left\lbrack \mathbf{μ}_{\text{ML}} \right\rbrack=\mathbb{E}\left\lbrack \overline{\mathbf{x}} \right\rbrack = \mathbf{μ}\)</span>.</p>
+</div></li><li>
+<p id="fact-matrix-as-rank1-sum"><span class="ititle2">Fact 1-5.</span> Every matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> s.t.
+<span class="math notranslate nohighlight">\(\operatorname{rank}\mathbf{A} = k\)</span> can be written as the sum of <span class="math notranslate nohighlight">\(k\)</span> rank-1 matrices, i.e.
+<span class="math notranslate nohighlight">\(\colorbox{fact}{$\mathbf{A} = \sum_{i = 1}^{k}{σ_{i}^{2}\mathbf{u}_{i}\mathbf{v}_{i}^{\rm{T}}}$}\)</span>, where <span class="math notranslate nohighlight">\(\mathbf{u}_{i}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v}_{i}\)</span> are columns from two
+matrices <span class="math notranslate nohighlight">\(\mathbf{U},\mathbf{V}\)</span> that come from the  <span><span class="exdef"> <span class="target" id="index-3"></span>reduced SVD</span></span> <span class="math notranslate nohighlight">\(\mathbf{A} = \mathbf{\text{U}\Lambda}\mathbf{V}^{\rm{T}}\)</span>; in particular, if
+<span class="math notranslate nohighlight">\(\mathbf{A}\)</span> is symmetric and positive semidefinite, then the singular
+values are eigenvalues of <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>, and the reduced SVD becomes
+reduced eigen-decomposition
+<span class="math notranslate nohighlight">\(\mathbf{A} = \mathbf{\text{Q}\Lambda}\mathbf{Q}^{\rm{T}}\)</span> where <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span>
+consists of <span class="math notranslate nohighlight">\(k\)</span> orthonormal eigenvectors
+<span class="math notranslate nohighlight">\(\mathbf{q}_{1},\ldots,\mathbf{q}_{k}\)</span>, and thus
+<span class="math notranslate nohighlight">\(\colorbox{fact}{$\mathbf{A =}\sum_{i = 1}^{k}{𝜆_{i}\mathbf{q}_{i}\mathbf{q}_{i}^{\rm{T}}}$}\)</span>;
+moreover, <span class="math notranslate nohighlight">\(\colorbox{fact}{$\mathbf{A}^{- 1}=\sum_{i = 1}^{k}{𝜆_{i}^{- 1}\mathbf{q}_{i}\mathbf{q}_{i}^{\rm{T}}}$}\)</span>
+because <span class="math notranslate nohighlight">\(\mathbf{A}^{- 1}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> share the same eigenspace for each eigenvalue.</p>
+
+<div class="section" id="property-1-1-shape-of-contours-of-gaussian-density">
+<span id="property-guassian-ellipsoid-contour"></span><h2 style="display: inline; font-size:16px"><span class="ititle">Property 1-1.</span> <span class="bemp">Shape of contours of Gaussian density.</span><a class="headerlink" href="#property-1-1-shape-of-contours-of-gaussian-density" title="Permalink to this headline">¶</a></h2>Recall the  <span><span class="exdef"> <span class="target" id="index-4"></span>Mahalanobis distance</span></span>
+<span class="math notranslate nohighlight">\(𝒹_{M}\left( \mathbf{x};\mathbf{μ,\Sigma} \right) = \left( \mathbf{x} - \mathbf{μ} \right)^{\rm{T}}\mathbf{\Sigma}^{- 1}\left( \mathbf{x} - \mathbf{μ} \right)\)</span>.
+Let <span class="math notranslate nohighlight">\(𝜆_{1},\ldots,𝜆_{m}\)</span> be the eigenvalues of <span class="math notranslate nohighlight">\(\mathbf{\Sigma}\)</span>, then
+<span class="math notranslate nohighlight">\(\mathbf{\Sigma}^{- 1} = \sum_{i = 1}^{k}{𝜆_{i}^{- 1}\mathbf{q}_{i}\mathbf{q}_{i}^{\rm{T}}}\)</span> as a result of <a class="reference internal" href="#fact-matrix-as-rank1-sum"><span class="std std-ref">Fact 1-5</span></a>, and
+<div class="math notranslate nohighlight">
+\[𝒹_{M}\left( \mathbf{x};\mathbf{μ,\Sigma} \right) = \sum_{i = 1}^{k}{𝜆_{i}^{- 1}\left( \mathbf{x} - \mathbf{μ} \right)^{\rm{T}}\mathbf{q}_{i}\mathbf{q}_{i}^{\rm{T}}}\left( \mathbf{x} - \mathbf{μ} \right) = \sum_{i = 1}^{k}{\left( \frac{1}{\sqrt{𝜆_{i}}}\mathbf{q}_{i}^{\rm{T}}\left( \mathbf{x} - \mathbf{μ} \right) \right)^{\rm{T}}\left( \frac{1}{\sqrt{𝜆_{i}}}\mathbf{q}_{i}^{\rm{T}}\left( \mathbf{x} - \mathbf{μ} \right) \right)}\]</div>
+<p>Therefore,
+<span><span class="result-highlight"> <span class="math notranslate nohighlight">\(𝒹_{M}\left( \mathbf{x};\mathbf{μ,\Sigma} \right) = \sum_{i = 1}^{k}z_{i}^{2} = \mathbf{z}^{\rm{T}}\mathbf{z}\)</span>
+where <span class="math notranslate nohighlight">\(z_{i} = \frac{1}{\sqrt{𝜆_{i}}}\mathbf{q}_{i}^{\rm{T}}\left( \mathbf{x} - \mathbf{μ} \right)\)</span>
+and <span class="math notranslate nohighlight">\(\mathbf{z} = \mathbf{\Lambda}^{- \frac{1}{2}}\mathbf{Q}\left( \mathbf{x} - \mathbf{μ} \right) = \left( z_{1},\ldots,z_{m} \right)^{\rm{T}}\)</span>,
+and <span class="math notranslate nohighlight">\(\mathbf{x} = \mathbf{\Lambda}^{\frac{1}{2}}\mathbf{Q}^{\rm{T}}\mathbf{z}\mathbf{+}\mathbf{μ}\)</span>.</span></span></p>
+<p>Recall an orthonormal matrix represents a rotation (oriented rotation, to be exact), then
+<span class="math notranslate nohighlight">\(\mathbf{\Lambda}^{\frac{1}{2}}\mathbf{Q}^{\rm{T}}\left( \cdot \right)\mathbf{+}\mathbf{μ}\)</span>
+geometrically transforms the standard frame on a unit circle to a frame on an ellipsoid centered at <span class="math notranslate nohighlight">\(\mathbf{μ}\)</span>, and <span class="math notranslate nohighlight">\(\mathbf{z}\)</span> is the
+coordinate of <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> w.r.t. to the ellipsoid frame. Conversely,
+given a contour level <span class="math notranslate nohighlight">\(p\left( \mathbf{x} \right) = p_{0}\)</span>, we have
+<span class="math notranslate nohighlight">\(\mathbf{z}^{\rm{T}}\mathbf{z =}c \Rightarrow \left\| \mathbf{z} \right\|_{2} = \sqrt{c}\)</span>
+for some constant <span class="math notranslate nohighlight">\(c\)</span> (i.e. the contour is a circle w.r.t. the ellipsoid frame), and then any <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> s.t.
+<span class="math notranslate nohighlight">\(\left\| \mathbf{z} \right\|_{2} = \sqrt{c}\)</span> will be on an ellipsoid centered at <span class="math notranslate nohighlight">\(\mathbf{μ}\)</span>.
+Therefore, <span><span class="result-highlight"> the contours of multivariate Gaussian density are ellipsoids</span></span>.</p>
+</div></div></li><li>
+<p id="lemma-guassian-special-exponential-term-format"><span class="ititle">Lemma 1-1.</span> <span><span class="result-highlight"> If a density function
+<span class="math notranslate nohighlight">\(p\left( \mathbf{x} \right) \propto \exp\left\{ - \frac{1}{2}\mathbf{x}^{\rm{T}}\mathbf{Ax +}\mathbf{x}^{\rm{T}}\mathbf{\text{Ay}} \right\}\)</span>
+where <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> is symmetric positive semidefinite, then <span class="math notranslate nohighlight">\(p\)</span> must be Gaussian with precision <span class="math notranslate nohighlight">\(\mathbf{Ⲗ}=\mathbf{A}\)</span> and mean
+<span class="math notranslate nohighlight">\(\mathbf{μ} = \mathbf{y}\)</span></span></span>. This is simply we can rearrange it as</p>
+<div class="math notranslate nohighlight">
+\[p\left( \mathbf{x} \right) \propto \exp\left\{ - \frac{1}{2}\left( \mathbf{x - y} \right)^{\rm{T}}\mathbf{A}\left( \mathbf{x}-\mathbf{y} \right)-\mathbf{y}^{\rm{T}}\mathbf{\text{Ay}} \right\} \propto \exp\left\{ - \frac{1}{2}\left( \mathbf{x - y} \right)^{\rm{T}}\mathbf{A}\left( \mathbf{x}-\mathbf{y} \right) \right\}\]</div>
+<p>There is no need to worry about normalization, since we have assumed <span class="math notranslate nohighlight">\(p\)</span> is a density, where its normalization is guaranteed.</p>
+<p id="fact-matrix-block-inverse"><span class="ititle2">Fact 1-6.</span> If a block matrix <span class="math notranslate nohighlight">\(\begin{pmatrix} \mathbf{A} &amp; \mathbf{B} \\ \mathbf{C} &amp; \mathbf{D} \\ \end{pmatrix}\)</span> is inversible, then if <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> is non-singular, we
+have the following with all inverses valid</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\colorbox{fact}{$\begin{pmatrix}
+\mathbf{A} &amp; \mathbf{B} \\
+\mathbf{C} &amp; \mathbf{D} \\
+\end{pmatrix}^{- 1} = \begin{pmatrix}
+\mathbf{A}^{- 1}\left( \mathbf{I}\mathbf{+}\mathbf{\text{BMC}}\mathbf{A}^{- 1} \right) &amp; - \mathbf{A}^{- 1}\mathbf{\text{BM}} \\
+- \mathbf{\text{MC}}\mathbf{A}^{- 1} &amp; \mathbf{M} \\
+\end{pmatrix},\mathbf{M} = \left( \mathbf{D} - \mathbf{C}\mathbf{A}^{- 1}\mathbf{B} \right)^{- 1}$}\end{split}\]</div>
+<p>and if <span class="math notranslate nohighlight">\(\mathbf{D}\)</span> is non-singular, we have the following with all
+inverses valid,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\colorbox{fact}{$\begin{pmatrix}
+\mathbf{A} &amp; \mathbf{B} \\
+\mathbf{C} &amp; \mathbf{D} \\
+\end{pmatrix}^{- 1} = \begin{pmatrix}
+\mathbf{M} &amp; - \mathbf{\text{MB}}\mathbf{D}^{- 1} \\
+- \mathbf{D}^{- 1}\mathbf{\text{CM}} &amp; \mathbf{D}^{- 1}\left( \mathbf{I} + \mathbf{\text{CMB}}\mathbf{D}^{- 1} \right) \\
+\end{pmatrix},\mathbf{M} = \left( \mathbf{A} - \mathbf{B}\mathbf{D}^{- 1}\mathbf{C} \right)^{- 1}$}\end{split}\]
+
+<div class="section" id="theorem-1-3-conditional-density-of-multivariate-guassian">
+<span id="theorem-gaussian-conditional-density"></span><h2 style="display: inline; font-size:16px"><span class="ititle">Theorem 1-3.</span> <span class="bemp">Conditional density of multivariate Guassian.</span><a class="headerlink" href="#theorem-1-3-conditional-density-of-multivariate-guassian" title="Permalink to this headline">¶</a></h2>Given
+<span class="math notranslate nohighlight">\(\mathbf{x}\sim\operatorname{Gaussian}\left( \mathbf{μ},\mathbf{\Sigma} \right)\)</span>,
+WLOG, partition <span class="math notranslate nohighlight">\(\mathbf{x} = \begin{pmatrix} \mathbf{x}_{a} \\ \mathbf{x}_{b} \\ \end{pmatrix}\)</span>, where <span class="math notranslate nohighlight">\(\mathbf{x}_{a} \in \mathbb{R}^{d}\)</span> is the
+unknown, and <span class="math notranslate nohighlight">\(\mathbf{x}_{b} \in \mathbb{R}^{m - d}\)</span> is the condition, and we want to find the conditional density
+<span class="math notranslate nohighlight">\(p\left( \mathbf{x}_{a}\mathbf{|}\mathbf{x}_{b} \right)\)</span>. Partition the mean and covariance accordingly as <span class="math notranslate nohighlight">\(\mathbf{μ} = \begin{pmatrix} \mathbf{μ}_{a} \\ \mathbf{μ}_{b} \\ \end{pmatrix}\)</span>, <span class="math notranslate nohighlight">\(\mathbf{\Sigma} = \begin{pmatrix} \mathbf{\Sigma}_{{aa}} &amp; \mathbf{\Sigma}_{{ab}} \\ \mathbf{\Sigma}_{{ba}} &amp; \mathbf{\Sigma}_{{bb}} \\ \end{pmatrix}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{Ⲗ} = \begin{pmatrix} \mathbf{Ⲗ}_{{aa}} &amp; \mathbf{Ⲗ}_{{ab}} \\ \mathbf{Ⲗ}_{{ba}} &amp; \mathbf{Ⲗ}_{{bb}} \\ \end{pmatrix}\)</span>.
+Assume <span class="math notranslate nohighlight">\(\mathbf{\Sigma}_{{aa}}\)</span> is non-singular, then we have
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned} - \frac{1}{2}\left( \mathbf{x} - \mathbf{μ} \right)^{\rm{T}}\mathbf{Ⲗ}\left( \mathbf{x} - \mathbf{μ} \right) &amp;= \begin{pmatrix} \mathbf{x}_{a}-\mathbf{μ}_{a} \\ \mathbf{x}_{b}-\mathbf{μ}_{b} \\ \end{pmatrix}^{\rm{T}}\begin{pmatrix} \mathbf{Ⲗ}_{{aa}} &amp; \mathbf{Ⲗ}_{{ab}} \\
+\mathbf{Ⲗ}_{{ba}} &amp; \mathbf{Ⲗ}_{{bb}} \\ \end{pmatrix}\begin{pmatrix} \mathbf{x}_{a}-\mathbf{μ}_{a} \\ \mathbf{x}_{b}-\mathbf{μ}_{b} \\ \end{pmatrix} \\
+&amp;= - \frac{1}{2}\left( \mathbf{x}_{a}-\mathbf{μ}_{a} \right)^{\rm{T}}\mathbf{Ⲗ}_{{aa}}\left( \mathbf{x}_{a}-\mathbf{μ}_{a} \right) - \left( \mathbf{x}_{a}-\mathbf{μ}_{a} \right)^{\rm{T}}\mathbf{Ⲗ}_{{ab}}\left( \mathbf{x}_{b}-\mathbf{μ}_{b} \right)-\frac{1}{2}\left( \mathbf{x}_{b}-\mathbf{μ}_{b} \right)^{\rm{T}}\mathbf{Ⲗ}_{{bb}}\left( \mathbf{x}_{b}-\mathbf{μ}_{b} \right) \\
+&amp;= - \frac{1}{2}\mathbf{x}_{a}^{\rm{T}}\mathbf{Ⲗ}_{{aa}}\mathbf{x}_{a} + \mathbf{x}_{a}^{\rm{T}}\mathbf{Ⲗ}_{{aa}}\mathbf{μ}_{a}-\mathbf{x}_{a}^{\rm{T}}\mathbf{Ⲗ}_{{ab}}\left( \mathbf{x}_{b}-\mathbf{μ}_{b} \right)\mathbf{+}\text{constant} \\
+&amp;= - \frac{1}{2}\mathbf{x}_{a}^{\rm{T}}\mathbf{Ⲗ}_{{aa}}\mathbf{x}_{a} + \mathbf{x}_{a}^{\rm{T}}\mathbf{Ⲗ}_{{aa}}\left( \mathbf{μ}_{a}-\mathbf{Ⲗ}_{{aa}}^{- 1}\mathbf{Ⲗ}_{{ab}}\left( \mathbf{x}_{b}-\mathbf{μ}_{b} \right) \right)\mathbf{+}\text{constant} \end{aligned}\end{split}\]</div>
+<p>By <a class="reference internal" href="#lemma-guassian-special-exponential-term-format"><span class="std std-ref">Lemma 1-1</span></a>, it follows that <span><span class="theorem-highlight"> if <span class="math notranslate nohighlight">\(\mathbf{\Sigma}_{{aa}}\)</span> is
+non-singular, then <span class="math notranslate nohighlight">\(p\left( \mathbf{x}_{a}\mathbf{|}\mathbf{x}_{b} \right)\)</span> is Gaussian</span></span>.
+Denote <span class="math notranslate nohighlight">\(\mathbf{x}_{a}\mathbf{|}\mathbf{x}_{b}\mathbf{\sim}\operatorname{Gaussian}\left( \mathbf{μ}_{a|b}\mathbf{,}\mathbf{\Sigma}_{a|b} \right)\)</span>, we have</p>
+<div class="math notranslate nohighlight">
+\[\colorbox{theorem}{$\mathbf{μ}_{a|b}=\mathbf{μ}_{a}-\mathbf{Ⲗ}_{{aa}}^{- 1}\mathbf{Ⲗ}_{{ab}}\left( \mathbf{x}_{b}-\mathbf{μ}_{b} \right)\mathbf{,}\mathbf{\Sigma}_{a|b}=\mathbf{Ⲗ}_{{aa}}^{- 1}$}\]</div>
+<p>If in addition <span class="math notranslate nohighlight">\(\mathbf{\Sigma}_{{bb}}\)</span> is non-singular, using
+<a class="reference internal" href="#fact-matrix-block-inverse"><span class="std std-ref">Fact 1-6</span></a> and <span class="math notranslate nohighlight">\(\begin{pmatrix} \mathbf{\Sigma}_{{aa}} &amp; \mathbf{\Sigma}_{{ab}} \\ \mathbf{\Sigma}_{{ba}} &amp; \mathbf{\Sigma}_{{bb}} \\ \end{pmatrix}^{- 1} = \begin{pmatrix} \mathbf{Ⲗ}_{{aa}} &amp; \mathbf{Ⲗ}_{{ab}} \\ \mathbf{Ⲗ}_{{ba}} &amp; \mathbf{Ⲗ}_{{bb}} \\ \end{pmatrix}\)</span>, we have</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\{ {\begin{array}{*{20}{l}}
+{{Ⲗ _{aa}} = {{\left( {{{\mathbf{\Sigma }}_{aa}} - {{\mathbf{\Sigma }}_{ab}}{\mathbf{\Sigma }}_{bb}^{ - 1}{{\mathbf{\Sigma }}_{ba}}} \right)}^{ - 1}}} \\
+{{Ⲗ _{ab}} =  - {Ⲗ _{aa}}{{\mathbf{\Sigma }}_{ab}}{\mathbf{\Sigma }}_{bb}^{ - 1}}
+\end{array}} \right. \Rightarrow \left\{ {\begin{array}{*{20}{l}}
+{Ⲗ _{aa}^{ - 1}{Ⲗ _{ab}} =  - {{\mathbf{\Sigma }}_{ab}}{\mathbf{\Sigma }}_{bb}^{ - 1}} \\
+{Ⲗ _{aa}^{ - 1} = {{\mathbf{\Sigma }}_{aa}} - {{\mathbf{\Sigma }}_{ab}}{\mathbf{\Sigma }}_{bb}^{ - 1}{{\mathbf{\Sigma }}_{ba}}}
+\end{array}} \right.\end{split}\]</div>
+<p>Plug into <a class="reference internal" href="00_index.html#equation-eq-gaussian-conditional-mean-and-cov-a">Eq.1.9</a> we have</p>
+<div class="math notranslate nohighlight">
+\[\colorbox{theorem}{${{\mathbf{μ }}_{a|b}}
+= {{\mathbf{μ }}_a} + {{\mathbf{\Sigma }}_{ab}}{\mathbf{\Sigma }}_{bb}^{ - 1}\left( {{{\mathbf{x}}_b} - {{\mathbf{μ }}_b}} \right),{{\mathbf{\Sigma }}_{a|b}}
+= {{\mathbf{\Sigma }}_{aa}} - {{\mathbf{\Sigma }}_{ab}}{\mathbf{\Sigma }}_{bb}^{ - 1}{{\mathbf{\Sigma }}_{ba}}$}\]</div>
+<p>Similarly, if <span class="math notranslate nohighlight">\(\mathbf{\Sigma}_{{bb}}\)</span> is non-singular, then <span class="math notranslate nohighlight">\(p\left( \mathbf{x}_{b}|\mathbf{x}_{a} \right)\)</span> is Gaussian. Following
+<a class="reference internal" href="00_index.html#equation-eq-gaussian-conditional-mean-key-inference">Eq.1.8</a> we have</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned} - \frac{1}{2}\left( \mathbf{x} - \mathbf{μ} \right)^{\rm{T}}\mathbf{Ⲗ}\left( \mathbf{x} - \mathbf{μ} \right) &amp;= - \frac{1}{2}\mathbf{x}_{b}^{\rm{T}}\mathbf{Ⲗ}_{{bb}}\mathbf{x}_{b} + \mathbf{x}_{b}^{\rm{T}}\mathbf{Ⲗ}_{{bb}}\mathbf{μ}_{b}-\left( \mathbf{x}_{a}-\mathbf{μ}_{a} \right)^{\rm{T}}\mathbf{Ⲗ}_{{ab}}\mathbf{x}_{b}\mathbf{+}\text{constant} \\
+&amp;= - \frac{1}{2}\mathbf{x}_{b}^{\rm{T}}\mathbf{Ⲗ}_{{bb}}\mathbf{x}_{b} + \mathbf{x}_{b}^{\rm{T}}\mathbf{Ⲗ}_{{bb}}\mathbf{μ}_{b}-\mathbf{x}_{b}^{\rm{T}}\mathbf{Ⲗ}_{{ba}}\left( \mathbf{x}_{a}-\mathbf{μ}_{a} \right)\mathbf{+}\text{constant} \\
+&amp;= - \frac{1}{2}\mathbf{x}_{b}^{\rm{T}}\mathbf{Ⲗ}_{{bb}}\mathbf{x}_{b} + \mathbf{x}_{b}^{\rm{T}}\mathbf{Ⲗ}_{{bb}}\left( \mathbf{μ}_{b}-\mathbf{Ⲗ}_{{bb}}^{- 1}\mathbf{Ⲗ}_{{ba}}\left( \mathbf{x}_{a}-\mathbf{μ}_{a} \right) \right)\mathbf{+}\text{constant}\end{aligned}\end{split}\]</div>
+<p>If in addition <span class="math notranslate nohighlight">\(\mathbf{\Sigma}_{{aa}}\)</span> is non-singular, using
+<a class="reference internal" href="#fact-matrix-block-inverse"><span class="std std-ref">Fact 1-6</span></a> we have</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{Ⲗ}_{{bb}}^{- 1}\mathbf{Ⲗ}_{{ba}}\mathbf{= -}\mathbf{\Sigma}_{{ba}}\mathbf{\Sigma}_{{aa}}^{- 1}\mathbf{,}\mathbf{Ⲗ}_{{bb}}^{- 1}=\mathbf{\Sigma}_{{bb}}-\mathbf{\Sigma}_{{ba}}\mathbf{\Sigma}_{{aa}}^{- 1}\mathbf{\Sigma}_{{ab}}\]</div>
+<p>Finally,</p>
+<div class="math notranslate nohighlight">
+\[\colorbox{theorem}{$\mathbf{μ}_{b|a}=\mathbf{μ}_{b}-\mathbf{Ⲗ}_{{bb}}^{- 1}\mathbf{Ⲗ}_{{ba}}\left( \mathbf{x}_{a}-\mathbf{μ}_{a} \right)=\mathbf{μ}_{b}\mathbf{+}\mathbf{\Sigma}_{{ba}}\mathbf{\Sigma}_{{aa}}^{- 1}\left( \mathbf{x}_{a}-\mathbf{μ}_{a} \right)$}\]</div>
+<div class="math notranslate nohighlight">
+\[\colorbox{theorem}{$\mathbf{\Sigma}_{b|a}=\mathbf{Ⲗ}_{{bb}}^{- 1}=\mathbf{\Sigma}_{{bb}}-\mathbf{\Sigma}_{{ba}}\mathbf{\Sigma}_{{aa}}^{- 1}\mathbf{\Sigma}_{{ab}}$}\]</div>
+<p>We <span class="emp">note</span> 1) <span><span class="comment-highlight"> the conditional mean and variance can be simpler in terms of precision, as seen in <a class="reference internal" href="00_index.html#equation-eq-gaussian-conditional-mean-and-cov-a">Eq.1.9</a> and <a class="reference internal" href="00_index.html#equation-eq-gaussian-conditional-covariance-b">Eq.1.10</a></span></span>;
+2) <span><span class="comment-highlight"> the conditional mean <span class="math notranslate nohighlight">\(\mathbf{μ}_{a|b}\)</span> is independent of <span class="math notranslate nohighlight">\(\mathbf{x}_{a}\)</span>, <span class="math notranslate nohighlight">\(\mathbf{μ}_{b|a}\)</span> is independent of
+<span class="math notranslate nohighlight">\(\mathbf{x}_{b}\)</span>, and both <span class="math notranslate nohighlight">\(\mathbf{\Sigma}_{a|b}\mathbf{,}\mathbf{\Sigma}_{b|a}\)</span> are independent of <span class="math notranslate nohighlight">\(\mathbf{x}\)</span></span></span>, which is expected because the conditional mean and covariance should be determined by the distribution itself and the conditions,
+but should not be related to the “unknown” RVs.</p>
+</li></ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Tony Chen, Drexel University.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.0.1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

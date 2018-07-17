@@ -42,6 +42,14 @@
   color: rgb(25, 112, 48);
   font-weight: bold;
   text-decoration: underline;
+  background: rgba(25, 112, 48,0.2);
+}
+
+.ititle2 {
+  color: rgb(112, 25, 101);
+  font-weight: bold;
+  text-decoration: underline;
+  background: rgba(112, 25, 101,0.2);
 }
 
 .theorem-highlight {
@@ -75,4 +83,44 @@
 
 .strike {
   text-decoration: line-through;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    color: rgb(96, 82, 193);
+    border-bottom: 1px dotted blue;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 240px;
+    background-color: rgb(26, 13, 88);
+    color: rgb(240, 240, 240);
+    text-align: center;
+    border-radius: 12px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
 }

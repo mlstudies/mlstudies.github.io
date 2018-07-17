@@ -11,10 +11,26 @@
 .. role:: uline
 .. role:: ibold
 .. role:: strike
+.. role:: python(code)
+   :language: python
+.. role:: latex(code)
+   :language: latex
 
 .. |list-div| raw:: html
 
    <ul style="left-margin:20px">
+
+.. |end-list-div| raw:: html
+
+   </ul>
+
+.. |enum-div| raw:: html
+
+   <ol style="left-margin:20px">
+
+.. |end-enum-div| raw:: html
+
+   </ol>
 
 .. |item-div| raw:: html
 
@@ -23,10 +39,6 @@
 .. |item| raw:: html
 
    <li>
-
-.. |end-list-div| raw:: html
-
-   </ul>
 
 .. |end-item-div| raw:: html
 
@@ -96,6 +108,10 @@
 
    <span><span class="exdef">
 
+.. |hidden-cell| raw:: html
+
+   <div class="hidden_cell" style="display:none">01
+
 .. |indent-div| raw:: html
 
    <div><div style="text-indent: 20px;">
@@ -103,6 +119,14 @@
 .. |end-div| raw:: html
 
    </div></div>
+
+.. |span-center| raw:: html
+
+   <span style="text-align:center;display:block">
+
+.. |span-right| raw:: html
+
+   <span style="text-align:right;display:block">
 
 .. |end-span| raw:: html
 
@@ -135,7 +159,7 @@
 Covariance Matrix
 -----------------
 
-Given two RVs :math:`X` and :math:`Y`, then the covariance matrix
+|para| Given two scalar RVs :math:`X` and :math:`Y`, then the covariance
 :math:`\colorbox{fact}{$\operatorname{cov} \left( {X,Y} \right) = \mathbb{E}\left[ {\left( {X - \mathbb{E}X} \right)\left( {Y - \mathbb{E}Y} \right)} \right]$}`.
 Given a RV vector :math:`X = \left( {\begin{array}{*{20}{c}}{{X_1}} \\   \vdots  \\  {{X_M}}\end{array}} \right)`,
 define :math:`\mathbb{E}X = \left( {\begin{array}{*{20}{c}}{\mathbb{E}{X_1}} \\\vdots  \\{\mathbb{E}{X_M}}\end{array}} \right)`
@@ -195,7 +219,7 @@ In addition, :emp:`note` :math:`\operatorname{cov} \left( {{\mathbf{x}},{\mathbf
 
 |para|  |exdef| :index:`Pearson's correlation` |end-span| is the normalized version of covariance, defined as
 :math:`\operatorname{corr}\left( X,Y \right) = \frac{\operatorname{cov}\left( X,Y \right)}{\sqrt{\operatorname{var}\left( X \right)}\sqrt{\operatorname{var}\left( Y \right)}}`
-for two RVs :math:`X,Y`, and
+for two scalar RVs :math:`X,Y`, and
 :math:`\operatorname{corr}\left( \mathbf{x},\mathbf{y} \right) = \frac{\operatorname{cov}\left( \mathbf{x},\mathbf{y} \right)}{\sqrt{\operatorname{var}\left( \mathbf{x} \right)}\sqrt{\operatorname{var}\left( \mathbf{y} \right)}}`
 for two samples :math:`\mathbf{x},\mathbf{y}`. A  |def| :index:`correlation matrix` |end-span| for a
 RV vector :math:`X = \begin{pmatrix} X_{1} \\  \vdots \\ X_{M} \\ \end{pmatrix}` or a sample matrix :math:`\mathbf{X} = \begin{pmatrix} \mathbf{x}_{1}^{\rm{T}} \\  \vdots \\ \mathbf{x}_{M}^{\rm{T}} \\ \end{pmatrix}` are just replacing
@@ -241,9 +265,7 @@ as the  |exdef| :index:`standardized sample` |end-span| (or  |exdef| :index:`nor
 |result| :math:`\operatorname{}\left( X \right) = \operatorname{E}{\lbrack{\widetilde{X}\widetilde{X}}^{\rm{T}}\rbrack},\Sigma_{\text{corr}}\left( \mathbf{X} \right) = \frac{1}{N - 1}\widetilde{\mathbf{X}}{\widetilde{\mathbf{X}}}^{\rm{T}}`,
 where we see correlation matrix is just the concept of covariance matrix applied on standardize (normalized) RV or sample. |end-span|
 
- |def| :index:`Cross-covariance matrix` |end-span| and  |def| :index:`cross-correlation matrix` |end-span| is a generalized concept of covariance matrix and correlation matrix that
-consider two RV vectors :math:`X,Y` or two sample matrices :math:`\mathbf{X},\mathbf{Y}`. For example, suppose :math:`X,Y` are of lengths
-:math:`M_{1},M_{2}`, following (1?€?1), the cross-covariance matrix for :math:`X,Y` is defined as a :math:`M_{1} \times M_{2}` matrix (:emp:`note` need not be a square matrix),
+|para|  |def| :index:`Cross-covariance matrix` |end-span| and  |def| :index:`cross-correlation matrix` |end-span| is a generalized concept of covariance matrix and correlation matrix that consider two RV vectors :math:`X,Y` or two sample matrices :math:`\mathbf{X},\mathbf{Y}`. For example, suppose :math:`X,Y` are of lengths :math:`M_{1},M_{2}`, following :eq:`eq_rv_cov`, the cross-covariance matrix for :math:`X,Y` is defined as a :math:`M_{1} \times M_{2}` matrix (:emp:`note` need not be a square matrix),
 
 .. math::
  \begin{aligned} \operatorname{\Sigma}\left( X,Y \right)
@@ -264,25 +286,25 @@ And all others can be defined in the same way, summarized as :math:`\colorbox{fa
 :math:`\colorbox{fact}{$\operatorname{}\left( X,Y \right) = \operatorname{E}{\lbrack{\widetilde{X}\widetilde{Y}}^{\rm{T}}\rbrack}$}`, and :math:`\colorbox{fact}{$\Sigma_{\text{corr}}\left( \mathbf{X,Y} \right) = \frac{1}{N - 1}\widetilde{\mathbf{X}}{\widetilde{\mathbf{Y}}}^{\rm{T}}$}`
 
 
-.. caution::
-  In machine learning problems, we are often given a data matrix :math:`{\mathbf{X}} = \left( {{{\mathbf{x}}_1}, \ldots ,{{\mathbf{x}}_N}} \right)`
-  with the columns :math:`{{\mathbf{x}}_1}, \ldots ,{{\mathbf{x}}_N}` as data entries.
-  The bold small-letter symbol ":math:`\mathbf{x}`" very often represents a data entry in the content of machine learning,
-  but in statistics it often instead represents a feature vector (as in above discussion), and sometimes this causes confusion.
-  Therefore, we note it is necessary to understand what “:math:`\mathbf{x}`” represents in the context.
+.. caution:: 
+ In machine learning problems, we are often given a data matrix :math:`{\mathbf{X}} = \left( {{{\mathbf{x}}_1}, \ldots ,{{\mathbf{x}}_N}} \right)`
+ with the columns :math:`{{\mathbf{x}}_1}, \ldots ,{{\mathbf{x}}_N}` as data entries.
+ The bold small-letter symbol ":math:`\mathbf{x}`" very often represents a data entry in the content of machine learning,
+ but in statistics it often instead represents a feature vector (as in above discussion), and sometimes this causes confusion.
+ Therefore, we note it is necessary to understand what “:math:`\mathbf{x}`” represents in the context.
 
-  The other possible confusion is about the "samples". It is possible both the data entries and feature vectors are referred to as samples in different contexts.
-  We again :emp:`note` :red:`sample covariance is always w.r.t. the feature vectors, not data entries`.
-  Therefore, the "samples" in :eq:`eq_sample_cov` refers to feature vectors.
+ The other possible confusion is about the "samples". It is possible both the data entries and feature vectors are referred to as samples in different contexts.
+ We again :emp:`note` :red:`sample covariance is always w.r.t. the feature vectors, not data entries`.
+ Therefore, the "samples" in :eq:`eq_sample_cov` refers to feature vectors.
+
+
 
 |list-div|
-
 
 |item| 
 
 
 .. _property_cov_to_expectation:
-
 
 :ititle:`Property 1-1.` :bemp:`Classic representation of covariance by expectation (or mean).`
 ^^^^^^^^^^^^^^^^^^^^
@@ -332,7 +354,7 @@ which implies
 We can verify above inference directly works for cross-covariance, and therefore
 
 .. math::
- \colorbox{result}{$\operatorname{\Sigma}\left( X,Y \right) = \mathbf{E}\mathrm{\lbrack}XY^{\mathrm{T}}\mathrm{\rbrack} - \mathbf{E}X\mathbf{E}^{\rm{T}}Y,\Sigma\left( \mathbf{X,Y} \right) = \frac{1}{N - 1}\left( \mathbf{X}\mathbf{Y}^{\rm{T}}\mathbf{-}\overline{\mathbf{X}}{\overline{\mathbf{Y}}}^{\rm{T}} \right)$}
+ \colorbox{result}{$\operatorname{\Sigma}\left( X,Y \right) = \mathbb{E}\mathrm{\lbrack}XY^{\mathrm{T}}\mathrm{\rbrack} - \mathbb{E}X\mathbb{E}^{\rm{T}}Y,\Sigma\left( \mathbf{X,Y} \right) = \frac{1}{N - 1}\left( \mathbf{X}\mathbf{Y}^{\rm{T}}\mathbf{-}\overline{\mathbf{X}}{\overline{\mathbf{Y}}}^{\rm{T}} \right)$}
 
 
 |end-item|
@@ -565,4 +587,5 @@ The other two summations are zero matrices. For example,
 Now the identity of :eq:`eq_cov_block_decomposition` is obvious.
 
 |end-item| |end-list-div|
+
 

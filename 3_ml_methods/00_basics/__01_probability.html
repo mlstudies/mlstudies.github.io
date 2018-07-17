@@ -1,0 +1,383 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Probability Theory Overview &mdash; Study Notes in Machine Learning 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/coloring.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/eqposfix.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Study Notes in Machine Learning
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="00_index.html">1. Preliminaries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_neural_networks/00_index.html">2. Basic Neural Networks</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Study Notes in Machine Learning</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</div></li><li>Probability Theory Overview</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/3_ml_methods/00_basics/__01_probability.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: { extensions: ["color.js","autoload-all.js"] }
+  });
+
+      MathJax.Hub.Register.StartupHook("TeX color Ready", function() {
+   var color = MathJax.Extension["TeX/color"];
+   color.colors["theorem"] = color.getColor('RGB','255,229,153');
+       color.colors["result"] = color.getColor('RGB','189,214,238');
+       color.colors["fact"] = color.getColor('RGB','255,255,204');
+       color.colors["emperical"] = color.getColor('RGB','253,240,207');
+       color.colors["comment"] = color.getColor('RGB','204,255,204');
+   color.colors["thm"] = color.getColor('RGB','255,229,153');
+       color.colors["rlt"] = color.getColor('RGB','189,214,238');
+       color.colors["emp"] = color.getColor('RGB','253,240,207');
+       color.colors["comm"] = color.getColor('RGB','204,255,204');
+       color.colors["conn1"] = color.getColor('RGB','255,0,255');
+       color.colors["conn2"] = color.getColor('RGB','237,125,49');
+       color.colors["conn3"] = color.getColor('RGB','112,48,160');
+      });
+</script><div class="section" id="probability-theory-overview">
+<h1>Probability Theory Overview<a class="headerlink" href="#probability-theory-overview" title="Permalink to this headline">¶</a></h1>
+<p><span style="padding-left:20px"></span> Modern probability theory is built upon measure theory for rigorous
+insight of the nature of probabilities, where even an introductory
+course needs deep mathematical background and hundreds of pages, way
+beyond the scope of this text. Here we overview basic concepts and
+results that could help better understand machine learning models that
+heavily involve probabilities, like Gaussian process or generative models.</p>
+<p><span style="padding-left:20px"></span> In probability theory, a set <span class="math notranslate nohighlight">\(\Omega\)</span> containing all possible outcomes
+of an  <span><span class="exdef"> <span class="target" id="index-0"></span>experiment</span></span> is called a  <span><span class="exdef"> <span class="target" id="index-1"></span>sample space</span></span>. For example, in the
+experiment of coin flip, we can define <span class="math notranslate nohighlight">\(\Omega = \left\{ 0,1 \right\}\)</span>
+where <span class="math notranslate nohighlight">\(0\)</span> represents head and <span class="math notranslate nohighlight">\(1\)</span> represents tail. <span class="math notranslate nohighlight">\(\Omega\)</span> can be
+finite, countably infinite or uncountably infinite. <span class="emp">Note</span>
+this “experiment” is not a concrete “experiment” we do in machine
+learning to measure performance of a model; rather it is an abstract
+concept, and can be mathematically viewed as being defined by the sample
+space – if we know what the sample space is, then the “experiment” is
+completely determined. For example, if we let
+<span class="math notranslate nohighlight">\(\Omega = \left\{ 0,1 \right\}\)</span>, then the experiment behind this
+<span class="math notranslate nohighlight">\(\Omega\)</span> is mathematically equivalent to the coin-flip experiment.</p>
+<p><span style="padding-left:20px"></span> In addition, we define a set <span class="math notranslate nohighlight">\(\mathcal{F}\)</span> that contains subsets of
+<span class="math notranslate nohighlight">\(\Omega\)</span> and is named  <span><span class="exdef"> <span class="target" id="index-2"></span>𝜎-algebra</span></span>. It must satisfy three axioms: <span><span class="fact-highlight"> 1)
+<span class="math notranslate nohighlight">\(\mathcal{F}\)</span> is non-empty; 2) for any <span class="math notranslate nohighlight">\(A\in \mathcal{ F}\)</span> then
+<span class="math notranslate nohighlight">\(\Omega\backslash A\in \mathcal{ F}\)</span>; 3) for countable many
+<span class="math notranslate nohighlight">\(A_{\mathrm{1}},A_{2},\text{...},A_{n}\mathcal{,\ldots \in F}\)</span>, then
+<span class="math notranslate nohighlight">\(\bigcup A_{k}\in \mathcal{ F}\)</span></span></span>. The axioms are actually very intuitive
+if we view 𝜎-algebra as being “modeling”  <span><span class="exdef"> <span class="target" id="index-3"></span>partitions</span></span> of <span class="math notranslate nohighlight">\(\Omega\)</span> and
+“merge” of these partitions. For example, if we have a finite partition
+<span class="math notranslate nohighlight">\(\Omega_{1},\ldots,\Omega_{n}\)</span> of <span class="math notranslate nohighlight">\(\Omega\)</span> s.t.
+<span class="math notranslate nohighlight">\(\Omega_{i}\bigcap\Omega_{j} = \varnothing,\forall i \neq j\)</span> and
+<span class="math notranslate nohighlight">\(\bigcup_{i = 1}^{n}\Omega_{i} = \Omega\)</span>, then the set containing all
+possible unions of any subset of <span class="math notranslate nohighlight">\(\Omega_{1},\ldots,\Omega_{n}\)</span>, plus
+the empty set, is a 𝜎-algebra. For another example, the  <span><span class="exdef"> <span class="target" id="index-4"></span>power set</span></span> of
+<span class="math notranslate nohighlight">\(\Omega\)</span> is a 𝜎-algebra. Each set in <span class="math notranslate nohighlight">\(\mathcal{F}\)</span> is referred to as an  <span><span class="exdef"> <span class="target" id="index-5"></span>event</span></span>. An event is also called a  <span><span class="exdef"> <span class="target" id="index-6"></span>measurable set</span></span> in mathematical
+text. The pair <span class="math notranslate nohighlight">\(\left( \Omega,\mathcal{F} \right)\)</span> a  <span><span class="exdef"> <span class="target" id="index-7"></span>measurable space</span></span>.</p>
+<p><span style="padding-left:20px"></span> A  <span><span class="exdef"> <span class="target" id="index-8"></span>measure</span></span> is mathematical concept that rigorously models essential
+real-life concepts like length, area, volume, etc. The most widely used
+measure is called  <span><span class="exdef"> <span class="target" id="index-9"></span>Lebesgue measure</span></span>, which is consistent with our
+common sense. Under this measure, the length of a line, the area of a
+square, or the volume of a ball, etc. is calculated with our usual
+formulas. <span><span class="fact-highlight"> All ordinary integrations we learned in calculus are w.r.t. Lebesgue measure</span></span>. A measure <span class="math notranslate nohighlight">\(μ\)</span> is formally defined over a 𝜎-algebra <span class="math notranslate nohighlight">\(\mathcal{F}\)</span> as
+a <span class="math notranslate nohighlight">\(\mathcal{F} \rightarrow \lbrack 0, + \infty)\)</span> function s.t. <span><span class="fact-highlight"> 1)
+<span class="math notranslate nohighlight">\(\mathbb{P}\left( \varnothing \right) = 0\)</span>; 2)
+<span class="math notranslate nohighlight">\(A,B\in \mathcal{ F,}A\bigcap B\mathbb{= \varnothing \Rightarrow P}\left( A \right)\mathbb{+ P}\left( B \right)\mathbb{= P}\left( A\bigcup B \right)\)</span></span></span>.
+A measure has many intuitive properties we would expect from “area” or
+“volume”, for example, let <span class="math notranslate nohighlight">\(A,B \in \mathcal{F}\)</span>, then
+<span class="math notranslate nohighlight">\(μ\left( A\bigcup B \right) \leq μ\left( A \right) + μ\left( B \right)\)</span>
+and <span class="math notranslate nohighlight">\(A \subseteq B \Rightarrow μ\left( A \right) \leq μ\left( B \right)\)</span>
+Probability is formally defined a measure over each event in
+<span class="math notranslate nohighlight">\(\mathcal{F}\)</span>, called  <span><span class="exdef"> <span class="target" id="index-10"></span>probability measure</span></span>, usually denoted by
+<span class="math notranslate nohighlight">\(\mathbb{P}\)</span>. <span><span class="fact-highlight"> A probability measure has all axioms of a measure, and adds a third axiom
+that <span class="math notranslate nohighlight">\(\mathbb{P}\left( \Omega \right) = 1\)</span></span></span>, called the  <span><span class="exdef"> <span class="target" id="index-11"></span>probability normalization axiom</span></span> . For example, if <span class="math notranslate nohighlight">\(\Omega = \left\{ 0,1 \right\}\)</span>,
+then <span class="math notranslate nohighlight">\(\left\{ \left\{ 0 \right\},\left\{ 1 \right\},\left\{ 0,1 \right\},\varnothing \right\}\)</span>
+is a 𝜎-algebra of <span class="math notranslate nohighlight">\(\Omega\)</span> and we can define
+<span class="math notranslate nohighlight">\(\mathbb{P}\left( \left\{ 0 \right\} \right) = 0.3,\mathbb{P}\left( \left\{ 1 \right\} \right) = 0.7,\mathbb{P}\left( \left\{ 0,1 \right\} \right) = 1,\mathbb{P}\left( \varnothing \right) = 0\)</span>.
+We call <span class="math notranslate nohighlight">\(\left( \Omega,\mathcal{F}\mathbb{,P} \right)\)</span> a  <span><span class="exdef"> <span class="target" id="index-12"></span>probability space</span></span>.</p>
+<p><span style="padding-left:20px"></span> A  <span><span class="exdef"> <span class="target" id="index-13"></span>random variable</span></span> often abbreviated as “RV” in our text, is a
+<span class="math notranslate nohighlight">\(\Omega \rightarrow S\)</span> function where <span class="math notranslate nohighlight">\((S\mathcal{,E)}\)</span> is a measurable
+space may or may not be the same as <span class="math notranslate nohighlight">\(\left( \Omega,\mathcal{F} \right)\)</span>
+<span class="math notranslate nohighlight">\(X\)</span> need to be a  <span><span class="exdef"> <span class="target" id="index-14"></span>measurable function</span></span>, roughly meaning that sets like
+<span class="math notranslate nohighlight">\(\left\{ \omega:X\left( \omega \right) = 1 \right\}\)</span>,
+<span class="math notranslate nohighlight">\(\left\{ \omega:X\left( \omega \right) \geq 2 \right\}\)</span>, etc. must be
+events (i.e. they exist in <span class="math notranslate nohighlight">\(\mathcal{F}\)</span>). <span class="math notranslate nohighlight">\(S\)</span> is named the  <span><span class="exdef"> <span class="target" id="index-15"></span>state space</span></span>. <span class="emp">For example</span>, <span class="math notranslate nohighlight">\(\Omega = \left\{ 1,\ldots,5 \right\}\)</span>,
+<span class="math notranslate nohighlight">\(S = \left\{ 0,1 \right\}\)</span>, <span class="math notranslate nohighlight">\(X\left( \omega \right) = \left\{ \begin{matrix} 0 &amp; \omega \leq 3 \\ 1 &amp; \omega &gt; 3 \\ \end{matrix} \right.\ \)</span>. Now if <span class="math notranslate nohighlight">\(\mathbb{P}\)</span> is “uniform” over <span class="math notranslate nohighlight">\(\Omega\)</span>,
+i.e. <span class="math notranslate nohighlight">\(\mathbb{P}\left( \left\{ \omega \right\} \right) = \frac{1}{5},\forall\omega \in \Omega\)</span>,
+then we have <span class="math notranslate nohighlight">\(\mathbb{P}\left( X = 0 \right) = \frac{3}{5}\)</span> and
+<span class="math notranslate nohighlight">\(\mathbb{P}\left( X = 1 \right) = \frac{2}{5}\)</span>. If <span class="math notranslate nohighlight">\(S\)</span> is finite or
+countable, then <span class="math notranslate nohighlight">\(X\)</span> is a  <span><span class="exdef"> <span class="target" id="index-16"></span>discrete random variable</span></span> and the
+<span class="math notranslate nohighlight">\(S \rightarrow \left\lbrack 0,1 \right\rbrack\)</span> function
+<span class="math notranslate nohighlight">\(p\left( x \right):=\mathbb{P}\left( X = x \right),x \in S\)</span> is the  <span><span class="exdef"> <span class="target" id="index-17"></span>discrete distribution</span></span> of <span class="math notranslate nohighlight">\(X\)</span>, and each <span class="math notranslate nohighlight">\(p\left( x \right)\)</span> can be
+called the  <span><span class="exdef"> <span class="target" id="index-18"></span>probability mass</span></span> at <span class="math notranslate nohighlight">\(x\)</span>. If <span class="math notranslate nohighlight">\(S\)</span> is uncountable, things
+become more complicated, and a theorem called  <span><span class="exdef"> <span class="target" id="index-19"></span>Radom-Nikodym theorem</span></span>
+guarantees <span><span class="fact-highlight"> given any measure <span class="math notranslate nohighlight">\(μ\)</span> defined on the <span class="math notranslate nohighlight">\((S,\mathcal{E})\)</span>, there exists a unique corresponding density function
+<span class="math notranslate nohighlight">\(f\left( x \right):S \rightarrow \left\lbrack 0, + \infty \right\rbrack\)</span>
+consistent with the underlying probability measure <span class="math notranslate nohighlight">\(\mathbb{P}\)</span> in a way that <span class="math notranslate nohighlight">\(\int_{B}^{}f\text{d}μ=\mathbb{P}\left\{ X^{- 1}\left( B \right) \right\}\)</span></span></span>.
+<span><span class="fact-highlight"> If we choose μ as Lebesgue measure, then we have ordinary density functions we commonly use</span></span>.
+We also refer to <span class="math notranslate nohighlight">\(f\)</span> as the  <span><span class="exdef"> <span class="target" id="index-20"></span>distribution</span></span> of <span class="math notranslate nohighlight">\(X\)</span>, <span class="math notranslate nohighlight">\(X\)</span>  <span><span class="exdef"> <span class="target" id="index-21"></span>obeys</span></span> the
+distribution <span class="math notranslate nohighlight">\(f\)</span>, and <span class="math notranslate nohighlight">\(f\left( x \right)\)</span> is the  <span><span class="exdef"> <span class="target" id="index-22"></span>density</span></span> of the
+distribution at <span class="math notranslate nohighlight">\(x\)</span>. Random-Nikodym applies to both discrete and
+continuous RV, so probability mass is a special type of probability
+density, but we should <span class="emp">note</span> probability density is not
+probability and its value can be much higher than <span class="math notranslate nohighlight">\(1\)</span> (like in a
+Gaussian distribution with a high peak). <span class="emp">Every time</span> we mention a random variable, we assume these setups of measurable spaces,
+the probability measure and the probability density, although we might not explicitly mention that.</p>
+<p><span style="padding-left:20px"></span> A random variable can be a vector, e.g.
+<span class="math notranslate nohighlight">\(\left( X_{1},X_{2},X_{3} \right)\)</span>, called a  <span><span class="exdef"> <span class="target" id="index-23"></span>random vector</span></span>; then a  <span><span class="exdef"> <span class="target" id="index-24"></span>marginal random variable</span></span> removes some dimensions of the random
+vector, e.g. <span class="math notranslate nohighlight">\(X_{1}\)</span>, or <span class="math notranslate nohighlight">\(\left( X_{1},X_{2} \right)\)</span> or
+<span class="math notranslate nohighlight">\(\left( X_{2},X_{3} \right)\)</span>, etc., whose 𝜎-algebra only contains events
+not dependent on the removed dimensions. The removal of some dimensions
+of a random vector is called  <span><span class="exdef"> <span class="target" id="index-25"></span>marginalization</span></span>. More formally, suppose the original RV is
+<span class="math notranslate nohighlight">\(\left( X,Y \right)\)</span> with measurable space
+<span class="math notranslate nohighlight">\(\left( \Omega_{X,Y},\mathcal{F}_{X,Y} \right)\)</span>
+and density <span class="math notranslate nohighlight">\(f\left( \mathbf{x},\mathbf{y} \right)\)</span> where
+<span class="math notranslate nohighlight">\(Y,Y\)</span> are themselves random vectors and we intend to
+marginalize out <span class="math notranslate nohighlight">\(Y\)</span>, then the marginal RV <span class="math notranslate nohighlight">\(Y\)</span> has  <span><span class="exdef"> <span class="target" id="index-26"></span>𝜎-algebra closure</span></span> of
+<span class="math notranslate nohighlight">\(\left\{ \left\{ Y = \mathbf{x} \right\}\mathbf{:}\left( \mathbf{x},\mathbf{y} \right) \in \Omega_{\mathbf{x},\mathbf{y}} \right\}\)</span>
+as its 𝜎-algebra, which is the smallest 𝜎-algebra that contains the set.
+The density of <span class="math notranslate nohighlight">\(Y\)</span> is called the  <span><span class="exdef"> <span class="target" id="index-27"></span>marginal density</span></span>, and it can be shown to be exactly
+<span class="math notranslate nohighlight">\(f\left( \mathbf{x} \right) = \int_{}^{}{f\left( \mathbf{x},\mathbf{y} \right)d\mathbf{y}}\)</span>
+where the integration is w.r.t. the measure chosen for <span class="math notranslate nohighlight">\((S\mathcal{,E)}\)</span>, typically Lebesgue measure.</p>
+<p><span style="padding-left:20px"></span> A  <span><span class="exdef"> <span class="target" id="index-28"></span>conditional random variable</span></span> of <span class="math notranslate nohighlight">\(X\)</span> conditioned on an event
+<span class="math notranslate nohighlight">\(A\in \mathcal{ F}\)</span>, denoted by <span class="math notranslate nohighlight">\(X|A\)</span>. It can be viewed as a RV defined
+on measurable space <span class="math notranslate nohighlight">\(\left( A,\{ B\bigcap A:B\in \mathcal{ F\}} \right)\)</span>.
+A conditional random variable conditioned on another <span class="math notranslate nohighlight">\(Y\)</span>, denoted by
+<span class="math notranslate nohighlight">\(X|Y\)</span>, can be viewed as a <span class="math notranslate nohighlight">\(\Omega^{2}\mathbb{\rightarrow R}\)</span> function
+where an underlying measurable space for <span class="math notranslate nohighlight">\(\Omega^{2}\)</span> is defined. A
+conditional RV has its own  <span><span class="exdef"> <span class="target" id="index-29"></span>conditional distribution</span></span>. The  <span><span class="exdef"> <span class="target" id="index-30"></span>conditional density function</span></span> <span class="math notranslate nohighlight">\(f\left( x;y \right)\)</span> we see more often
+in practice can either be viewed a density function of conditional RV
+<span class="math notranslate nohighlight">\(X|Y = y\)</span> conditioned on event <span class="math notranslate nohighlight">\(Y = y\)</span>, or just the density function of
+<span class="math notranslate nohighlight">\(X|Y\)</span>. The  <span><span class="exdef"> <span class="target" id="index-31"></span>expectation</span></span> of a random variable <span class="math notranslate nohighlight">\(X\)</span> is defined as
+<span class="math notranslate nohighlight">\(\mathbb{E}X = \int_{\Omega}^{}{\text{Xd}\mathbb{P}}\)</span>, the integration
+of function <span class="math notranslate nohighlight">\(X\)</span> over entire sample space under measure <span class="math notranslate nohighlight">\(\mathbb{P}\)</span>. The  <span><span class="exdef"> <span class="target" id="index-32"></span>conditional expectation</span></span> conditioned on an event <span class="math notranslate nohighlight">\(A\in \mathcal{ F}\)</span>
+is defined as
+<span class="math notranslate nohighlight">\(\mathbb{E}\left\lbrack X|A \right\rbrack = \int_{A}^{}{\text{Xd}\mathbb{P}}\)</span>,
+the integration of function <span class="math notranslate nohighlight">\(X\)</span> over <span class="math notranslate nohighlight">\(A\)</span> under measure <span class="math notranslate nohighlight">\(\mathbb{P}\)</span>. The  <span><span class="exdef"> <span class="target" id="index-33"></span>conditional expectation</span></span> conditioned on another random variable <span class="math notranslate nohighlight">\(Y\)</span>,
+denoted as <span class="math notranslate nohighlight">\(\mathbb{E}\left\lbrack X|Y \right\rbrack\)</span> is itself a random
+variable because <span class="math notranslate nohighlight">\(Y\)</span> is random.</p>
+<p><span style="padding-left:20px"></span> A  <span><span class="exdef"> <span class="target" id="index-34"></span>stochastic process</span></span> or a  <span><span class="exdef"> <span class="target" id="index-35"></span>random process</span></span> is a collection of RVs
+<span class="math notranslate nohighlight">\(X\left( t \right),t \in T\)</span> where <span class="math notranslate nohighlight">\(T\)</span> is a finite, countable or
+uncountable  <span><span class="exdef"> <span class="target" id="index-36"></span>index set</span></span>.” Note the random variables in this general
+definition do not have intrinsic order, even though the word “process”
+suggests “series”. The order of RVs can be added by concrete
+definitions, for example, a  <span><span class="exdef"> <span class="target" id="index-37"></span>Markov chain</span></span> is a stochastic process
+where <span class="math notranslate nohighlight">\(T = \left\{ 0,1,2,\ldots \right\}\mathbb{= N}\)</span> s.t. the
+distribution of <span class="math notranslate nohighlight">\(X\left( t + 1 \right)\)</span> is only dependent on
+<span class="math notranslate nohighlight">\(X\left( t \right)\)</span> for <span class="math notranslate nohighlight">\(t = 1,2\ldots\)</span> In such case when the “process”
+is ordered, <span class="math notranslate nohighlight">\(T\)</span> can usually be interpreted as time. We can often see
+processes like  <span><span class="exdef"> <span class="target" id="index-38"></span>Gaussian process</span></span>,  <span><span class="exdef"> <span class="target" id="index-39"></span>Poisson process</span></span>,  <span><span class="exdef"> <span class="target" id="index-40"></span>Dirichlet process</span></span>
+etc. in probabilistic machine learning, and the pattern of
+their definitions are <span class="emp">simply</span> stochastic processes
+<span class="math notranslate nohighlight">\(X\left( t \right),t \in T\)</span> s.t. for any finite subset
+<span class="math notranslate nohighlight">\(\left\{ t_{1},\ldots,t_{N} \right\}\)</span> of <span class="math notranslate nohighlight">\(T\)</span> of arbitrary
+<span class="math notranslate nohighlight">\(N \in \mathbb{N}^{+}\)</span> satisfying certain condition (dependent on the
+concrete process definition),
+<span class="math notranslate nohighlight">\(\left( X\left( t_{1} \right),\ldots,X\left( t_{N} \right) \right)\)</span> in
+some way obeys corresponding distributions (Gaussian distribution,
+Poisson distribution, Dirichlet distribution etc.). :emp:<a href="#id1"><span class="problematic" id="id2">``</span></a>For
+example`, we may define <span class="math notranslate nohighlight">\(X\left( t \right)\)</span> obeys a
+Gaussian process <span class="math notranslate nohighlight">\(\operatorname{GP}\left( μ,\Sigma \right)\)</span> if
+<span class="math notranslate nohighlight">\(\forall N \geq 1,t_{1},\ldots,t_{N} \in T\)</span>,
+<span class="math notranslate nohighlight">\(μ\left( X\left( t_{1} \right),\ldots,X\left( t_{N} \right) \right)\)</span>
+is the  <span><span class="exdef"> <span class="target" id="index-41"></span>mean function</span></span> that yields a vector of length <span class="math notranslate nohighlight">\(N\)</span>, and
+<span class="math notranslate nohighlight">\(\Sigma\)</span> is the  <span><span class="exdef"> <span class="target" id="index-42"></span>covariance function</span></span> that yields a <span class="math notranslate nohighlight">\(N \times N\)</span>
+matrix. <span class="emp">For another example</span>, the Dirichlet process
+assumes the RVs <span class="math notranslate nohighlight">\(X\left( t \right)\)</span> are probability-measure-valued (i.e.
+the state space <span class="math notranslate nohighlight">\(S\)</span> of <span class="math notranslate nohighlight">\(X\)</span> are probability measures), and lets the index
+set <span class="math notranslate nohighlight">\(T\)</span> be a 𝜎-algebra, and define
+<span class="math notranslate nohighlight">\(X\left( t \right)\sim\operatorname{DP}\left( α,H \right)\)</span> for some  <span><span class="exdef"> <span class="target" id="index-43"></span>base probability measure</span></span> <span class="math notranslate nohighlight">\(H\)</span> and  <span><span class="exdef"> <span class="target" id="index-44"></span>concentration parameter</span></span>
+<span class="math notranslate nohighlight">\(α\)</span>, if for any finite partition <span class="math notranslate nohighlight">\(t_{1},\ldots,t_{N}\)</span> in <span class="math notranslate nohighlight">\(T\)</span> (a
+𝜎-algebra must contain finite partitions due to its axioms),
+<span class="math notranslate nohighlight">\(\left( X\left( t_{1} \right),\ldots,X\left( t_{N} \right) \right)\)</span>
+obeys Dirichlet distribution
+<span class="math notranslate nohighlight">\(\operatorname{Dirichlet}\left(α H \left( t_{1} \right),\ldots,α H\left( t_{N} \right) \right)\)</span>.</p>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Tony Chen, Drexel University.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.0.1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
