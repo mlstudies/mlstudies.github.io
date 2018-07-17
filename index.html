@@ -83,6 +83,7 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="3_ml_methods/00_basics/00_index.html">1. Preliminaries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3_ml_methods/02_neural_networks/00_index.html">2. Basic Neural Networks</a></li>
 </ul>
 
             
@@ -154,18 +155,18 @@
 
       MathJax.Hub.Register.StartupHook("TeX color Ready", function() {
    var color = MathJax.Extension["TeX/color"];
-   color.colors["theorem"] = color.getColor('RGB','225,229,153');
+   color.colors["theorem"] = color.getColor('RGB','255,229,153');
        color.colors["result"] = color.getColor('RGB','189,214,238');
        color.colors["fact"] = color.getColor('RGB','255,255,204');
        color.colors["emperical"] = color.getColor('RGB','253,240,207');
        color.colors["comment"] = color.getColor('RGB','204,255,204');
-   color.colors["thm"] = color.getColor('RGB','225,229,153');
+   color.colors["thm"] = color.getColor('RGB','255,229,153');
        color.colors["rlt"] = color.getColor('RGB','189,214,238');
        color.colors["emp"] = color.getColor('RGB','253,240,207');
        color.colors["comm"] = color.getColor('RGB','204,255,204');
        color.colors["conn1"] = color.getColor('RGB','255,0,255');
        color.colors["conn2"] = color.getColor('RGB','237,125,49');
-       color.colors["conn2"] = color.getColor('RGB','112,48,160');
+       color.colors["conn3"] = color.getColor('RGB','112,48,160');
       });
 </script><div class="section" id="study-notes-in-machine-learning">
 <h1>Study Notes in Machine Learning<a class="headerlink" href="#study-notes-in-machine-learning" title="Permalink to this headline">¶</a></h1>
@@ -173,12 +174,30 @@
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="3_ml_methods/00_basics/00_index.html">1. Preliminaries</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="3_ml_methods/00_basics/00_index.html#covariance-matrix">1.1. Covariance Matrix</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="3_ml_methods/00_basics/00_index.html#property-1-1-classic-representation-of-covariance-by-expectation-or-mean">1.1.1. <span class="ititle">Property 1-1.</span> <span class="bemp">Classic representation of covariance by expectation (or mean).</span></a></li>
-<li class="toctree-l3"><a class="reference internal" href="3_ml_methods/00_basics/00_index.html#property-1-2-invariance-to-centralization">1.1.2. <span class="ititle">Property 1-2.</span> <span class="bemp">Invariance to centralization.</span></a></li>
-<li class="toctree-l3"><a class="reference internal" href="3_ml_methods/00_basics/00_index.html#theorem-1-1-matrix-arithmetics-of-covariance-matrix">1.1.3. <span class="ititle">Theorem 1-1.</span> <span class="bemp">Matrix arithmetics of covariance matrix.</span></a></li>
-<li class="toctree-l3"><a class="reference internal" href="3_ml_methods/00_basics/00_index.html#theorem-1-2-positive-definiteness-of-covariance-matrix">1.1.4. <span class="ititle">Theorem 1-2.</span> <span class="bemp">Positive definiteness of covariance matrix.</span></a></li>
-<li class="toctree-l3"><a class="reference internal" href="3_ml_methods/00_basics/00_index.html#property-1-3-covariance-represneted-by-rank-1-sum">1.1.5. <span class="ititle">Property 1-3.</span> <span class="bemp">Covariance represneted by rank-1 sum.</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="3_ml_methods/00_basics/00_index.html#probability-theory-overview">1.1. Probability Theory Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3_ml_methods/00_basics/00_index.html#covariance-matrix">1.2. Covariance Matrix</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="3_ml_methods/00_basics/00_index.html#property-1-1-classic-representation-of-covariance-by-expectation-or-mean">1.2.1. <span class="ititle">Property 1-1.</span> <span class="bemp">Classic representation of covariance by expectation (or mean).</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="3_ml_methods/00_basics/00_index.html#property-1-2-invariance-to-centralization">1.2.2. <span class="ititle">Property 1-2.</span> <span class="bemp">Invariance to centralization.</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="3_ml_methods/00_basics/00_index.html#theorem-1-1-matrix-arithmetics-of-covariance-matrix">1.2.3. <span class="ititle">Theorem 1-1.</span> <span class="bemp">Matrix arithmetics of covariance matrix.</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="3_ml_methods/00_basics/00_index.html#theorem-1-2-positive-definiteness-of-covariance-matrix">1.2.4. <span class="ititle">Theorem 1-2.</span> <span class="bemp">Positive definiteness of covariance matrix.</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="3_ml_methods/00_basics/00_index.html#property-1-3-sample-covariance-represneted-by-rank-1-sum">1.2.5. <span class="ititle">Property 1-3.</span> <span class="bemp">Sample covariance represneted by rank-1 sum.</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="3_ml_methods/00_basics/00_index.html#theorem-1-3-block-decomposition-of-covariance-matrix">1.2.6. <span class="ititle">Theorem 1-3.</span> <span class="bemp">Block decomposition of covariance matrix.</span></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="3_ml_methods/00_basics/00_index.html#multivariate-gaussian-distribution">1.3. Multivariate Gaussian Distribution</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="3_ml_methods/00_basics/00_index.html#theorem-1-1-gaussian-maximum-likelihood-estimators">1.3.1. <span class="ititle">Theorem 1-1.</span> <span class="bemp">Gaussian maximum likelihood estimators.</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="3_ml_methods/00_basics/00_index.html#theorem-1-2-bias-of-gaussian-mle">1.3.2. <span class="ititle">Theorem 1-2.</span> <span class="bemp">Bias of Gaussian MLE.</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="3_ml_methods/00_basics/00_index.html#property-1-1-shape-of-contours-of-gaussian-density">1.3.3. <span class="ititle">Property 1-1.</span> <span class="bemp">Shape of contours of Gaussian density.</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="3_ml_methods/00_basics/00_index.html#theorem-1-3-conditional-density-of-multivariate-guassian">1.3.4. <span class="ititle">Theorem 1-3.</span> <span class="bemp">Conditional density of multivariate Guassian.</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="3_ml_methods/02_neural_networks/00_index.html">2. Basic Neural Networks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="3_ml_methods/02_neural_networks/00_index.html#recurrent-networks">2.1. Recurrent Networks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="3_ml_methods/02_neural_networks/00_index.html#model-3-1-lstm-with-single-forget-gate">2.1.1. <span class="ititle">Model 3-1.</span> <span class="bemp">LSTM with Single Forget Gate.</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="3_ml_methods/02_neural_networks/00_index.html#model-3-2-lstm-with-multiple-forget-gate">2.1.2. <span class="ititle">Model 3-2.</span> <span class="bemp">LSTM with Multiple Forget Gate.</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="3_ml_methods/02_neural_networks/00_index.html#pytorch-implementation-of-basic-lstm-classifier">2.1.3. PyTorch implementation of basic LSTM classifier</a></li>
 </ul>
 </li>
 </ul>
