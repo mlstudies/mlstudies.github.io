@@ -18,7 +18,7 @@
 
 .. |list-div| raw:: html
 
-   <ul style="left-margin:20px">
+   <ul style="margin-left:20px">
 
 .. |end-list-div| raw:: html
 
@@ -26,7 +26,7 @@
 
 .. |enum-div| raw:: html
 
-   <ol style="left-margin:20px">
+   <ol style="margin-left:20px">
 
 .. |end-enum-div| raw:: html
 
@@ -34,11 +34,11 @@
 
 .. |item-div| raw:: html
 
-   <li>
+   <li style="margin-top:10px">
 
 .. |item| raw:: html
 
-   <li>
+   <li style="margin-top:10px">
 
 .. |end-item-div| raw:: html
 
@@ -127,6 +127,10 @@
 .. |span-right| raw:: html
 
    <span style="text-align:right;display:block">
+
+.. |span-justify| raw:: html
+
+   <span style="text-align:justify">
 
 .. |end-span| raw:: html
 

@@ -19,6 +19,15 @@
       text-align: justify
 }
 
+.wy-table-responsive table td, .wy-table-responsive table th {
+    white-space: normal;
+}
+
+.wy-table-responsive {
+    margin-bottom: 10px;
+    max-width: 100%;
+    overflow: visible;
+}
 /* .p
 {
   margin: 4;

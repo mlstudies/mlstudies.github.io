@@ -18,7 +18,7 @@
 
 .. |list-div| raw:: html
 
-   <ul style="left-margin:20px">
+   <ul style="margin-left:20px">
 
 .. |end-list-div| raw:: html
 
@@ -26,7 +26,7 @@
 
 .. |enum-div| raw:: html
 
-   <ol style="left-margin:20px">
+   <ol style="margin-left:20px">
 
 .. |end-enum-div| raw:: html
 
@@ -34,11 +34,11 @@
 
 .. |item-div| raw:: html
 
-   <li>
+   <li style="margin-top:10px">
 
 .. |item| raw:: html
 
-   <li>
+   <li style="margin-top:10px">
 
 .. |end-item-div| raw:: html
 
@@ -128,6 +128,10 @@
 
    <span style="text-align:right;display:block">
 
+.. |span-justify| raw:: html
+
+   <span style="text-align:justify">
+
 .. |end-span| raw:: html
 
    </span></span>
@@ -161,58 +165,14 @@ Some Title For First Chapter
 =============
 
 
+.. raw:: html
 
-|enum-div|
+   <table class="docutils" style="background:none; border:none;" ><tbody><tr class="row-odd"><td  style="background:none; border:none;">text1</td><td  style="background:none; border:none;">text2</td></tr><tr><td  style="background:none; border:none;">text3</td><td  style="background:none; border:none;">$$cell_01$$</td></tr></tbody></table>
 
 
 .. raw:: html
 
-   <li value="1">
-The dimension of hidden states :math:`\mathbf{h}_{t}` is free to choose, but the dimension of outputs :math:`{\widehat{\mathbf{y}}}_{t}` is designed to be
-equal to :math:`\left| L \right|`. Moreover, we can design
-:math:`{\widehat{\mathbf{y}}}_{t}` as a discrete probability distribution. All
-these designs are for the loss function \-- the well-known
-negative-log-likelihood now can be chosen as the loss function \--
-taking negative logarithm on the one element of
-:math:`{\widehat{\mathbf{y}}}_{t}` indexed by true label :math:`y_{t}`, i.e.
-
-.. math::
- \mathcal{l = -}\sum_{t = 1}^{N}{\log\left( {\widehat{\mathbf{y}}}_{t}\left( y_{t} \right) \right)}
-
-
-|end-item|
-
-
-.. raw:: html
-
-   <li value="2">
-Now in order for :math:`{\widehat{\mathbf{y}}}_{t} = g\left( \mathbf{h}_{t};𝛌_{t} \right)`
-to be a probability distribution vector of dimension equal to the size
-of label set, we can let
-
-.. math::
- g\left( \mathbf{h}_{t};𝛌_{t} \right) := \operatorname{softmax}\left( \mathbf{c + W}\left( \text{sigmoid}\left( \mathbf{b}^{\left( g \right)} + \mathbf{U}^{\left( g \right)}\mathbf{h}_{t} + \mathbf{V}^{\left( g \right)}\mathbf{x}_{t} \right) \circ \tanh\left( \mathbf{h}_{t} \right) \right) \right)
-where :math:`\mathbf{c \in}\mathbf{R}^{\left| L \right|}` and
-:math:`\mathbf{W} \in \mathbb{R}^{\left| L \right| \times \dim\mathbf{h}_{t}}`,
-and
-:math:`\log\left( \cdot \right),\operatorname{softmax}\left( \cdot \right)`
-are applied element-wise if the input is a vector.
-
-|end-item| |end-enum-div|
-
-
-
-
-
-
-.. raw:: html
-
-   <table class="docutils" style="background:none; border:none;"><tbody><tr class="row-odd"><td  style="background:none; border:none;">text1</td><td  style="background:none; border:none;">text2</td></tr><tr><td  style="background:none; border:none;">text3</td><td  style="background:none; border:none;">$$cell_01$$</td></tr></tbody></table>
-
-
-.. raw:: html
-
-   <div class="hidden_cell" style="display: none">$$cell_01$$
+   <div class="hidden_cell_cell" style="display: none">$$cell_01$$
 
 .. math::
  \begin{align}
@@ -222,11 +182,23 @@ are applied element-wise if the input is a vector.
  \end{align}
 
 
+.. raw:: html
+
+   $$end_cell_01$$</div>
 
 
 .. raw:: html
 
-   $$end_cell_01$$</div>
+   <div class="hidden_cell_note" style="display: none">$$cell_test title$$
+
+ useless 
+.. raw:: html
+
+   $$end_cell_test title$$</div>
+
+.. note::
+
+ test note
 
 For example, if :math:`\Omega = \left\{ 0,1 \right\}`, then
 :math:`\left\{ \left\{ 0 \right\},\left\{ 1 \right\},\left\{ 0,1 \right\},\varnothing \right\}` is a 𝜎-algebra of :math:`\Omega` and we can define
@@ -278,7 +250,17 @@ Again, :conn2:`something` has connection with :conn2:`another thing`.
 
 Again, |bold| :conn3:`something` |end-span| has connection with :conn3:`another thing`.
 
-.. note:: 
+
+.. raw:: html
+
+   <div class="hidden_cell_note" style="display: none">$$cell_$$
+
+ useless 
+.. raw:: html
+
+   $$end_cell_$$</div>
+
+.. note::
  We can use latex \\colorbox to partially highlight a formula, e.g. :math:`\frac{\colorbox{thm}{$\sin(x)$} \times \cos(x)}{\colorbox{rlt}{$x^2+y^2=1$}}`. The following is math block.
 
  We can use latex \\color to color formula.
@@ -312,12 +294,12 @@ Inline math examples: :math:`\color{blue}{σ_{1}}` equals :math:`\colorbox{thm}{
 
 .. _property_aa:
 
-:ititle:`Property 1-1.` Some property aa here.
+:ititle:`Property 1-8.` Some property aa here.
 
 
 .. _theorem_aa:
 
-:ititle:`Theorem 1-1.` Some theorem aa here.
+:ititle:`Theorem 1-11.` Some theorem aa here.
 
 Math block example:
 
@@ -344,12 +326,12 @@ Test again for direct inline latex pre-process extension :math:`\frac{x^2}{a^2}+
 
 .. _property_bb:
 
-:ititle:`Property 1-2.` Some property bb here.
+:ititle:`Property 1-9.` Some property bb here.
 
 
 .. _theorem_bb:
 
-:ititle:`Theorem 1-2.` Some theorem bb here.
+:ititle:`Theorem 1-12.` Some theorem bb here.
 
 Level 2 Title
 ****************
@@ -357,23 +339,33 @@ Level 2 Title
 
 .. _property_cc:
 
-:ititle:`Property 1-3.` Some property cc here.
+:ititle:`Property 1-10.` Some property cc here.
 
 
 .. _theorem_cc:
 
-:ititle:`Theorem 1-3.` Some theorem cc here.
+:ititle:`Theorem 1-13.` Some theorem cc here.
 
 
 Level 3 Title
 --------------------------
 Here also presents an itemized list.
 
-* Here is a link to :ref:`Property 1-2 <property_bb>`
-* This is a link to :ref:`Theorem 1-1 <theorem_aa>`
+* Here is a link to :ref:`Property 1-9 <property_bb>`
+* This is a link to :ref:`Theorem 1-11 <theorem_aa>`
 * This is a link to :eq:`round`.
 
-.. note:: You may also specify inline note
+
+.. raw:: html
+
+   <div class="hidden_cell_note" style="display: none">$$cell_You may also specify inline note$$
+
+ useless 
+.. raw:: html
+
+   $$end_cell_You may also specify inline note$$</div>
+
+.. note::
 
 Level 4 Title
 ~~~~~~~~~~~~~~~~~~~~~~~

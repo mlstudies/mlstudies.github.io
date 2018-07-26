@@ -18,7 +18,7 @@
 
 .. |list-div| raw:: html
 
-   <ul style="left-margin:20px">
+   <ul style="margin-left:20px">
 
 .. |end-list-div| raw:: html
 
@@ -26,7 +26,7 @@
 
 .. |enum-div| raw:: html
 
-   <ol style="left-margin:20px">
+   <ol style="margin-left:20px">
 
 .. |end-enum-div| raw:: html
 
@@ -34,11 +34,11 @@
 
 .. |item-div| raw:: html
 
-   <li>
+   <li style="margin-top:10px">
 
 .. |item| raw:: html
 
-   <li>
+   <li style="margin-top:10px">
 
 .. |end-item-div| raw:: html
 
@@ -127,6 +127,10 @@
 .. |span-right| raw:: html
 
    <span style="text-align:right;display:block">
+
+.. |span-justify| raw:: html
+
+   <span style="text-align:justify">
 
 .. |end-span| raw:: html
 
@@ -294,7 +298,8 @@ And all others can be defined in the same way, summarized as :math:`\colorbox{fa
  Therefore, we note it is necessary to understand what “:math:`\mathbf{x}`” represents in the context.
 
  The other possible confusion is about the "samples". It is possible both the data entries and feature vectors are referred to as samples in different contexts.
- We again :emp:`note` :red:`sample covariance is always w.r.t. the feature vectors, not data entries`.
+ We again :emp:`note` :red:`sample covariance is always w.r.t. the feature vectors, not data entries`,
+ because it studies how the quantities of different features vary with each other.
  Therefore, the "samples" in :eq:`eq_sample_cov` refers to feature vectors.
 
 
@@ -306,7 +311,7 @@ And all others can be defined in the same way, summarized as :math:`\colorbox{fa
 
 .. _property_cov_to_expectation:
 
-:ititle:`Property 1-1.` :bemp:`Classic representation of covariance by expectation (or mean).`
+:ititle:`Property 1-4.` :bemp:`Classic representation of covariance by expectation (or mean).`
 ^^^^^^^^^^^^^^^^^^^^
 Using the fact that :math:`\colorbox{fact}{$\operatorname{cov}\left( X,Y \right)\mathbb{= E}XY - \mathbb{E}X\mathbb{E}Y$}` for scalar RVs :math:`X,Y`, the covariance matrix has another form
 
@@ -364,7 +369,7 @@ We can verify above inference directly works for cross-covariance, and therefore
 
 .. _property_cov_invariant_to_centralization:
 
-:ititle:`Property 1-2.` :bemp:`Invariance to centralization.`
+:ititle:`Property 1-5.` :bemp:`Invariance to centralization.`
 ^^^^^^^^^^^^^^^^^^^^
 For any random vector :math:`X`, we have :math:`\colorbox{result}{$\Sigma\left( X - \mathbb{E}X \right) = \Sigma(X)$}`,
 since :math:`\mathbb{E}\left\lbrack X - \mathbb{E}X \right\rbrack = \mathbf{0}` and
@@ -389,7 +394,7 @@ for exactly the same reason.
 
 .. _theorem_cov_matrix_arithmetic_rules:
 
-:ititle:`Theorem 1-1.` :bemp:`Matrix arithmetics of covariance matrix.`
+:ititle:`Theorem 1-5.` :bemp:`Matrix arithmetics of covariance matrix.`
 ^^^^^^^^^^^^^^^^^^^^
 |theorem| Given :math:`X = \left( X_{1},\ldots,X_{n} \right)^{\mathrm{T}}`,
 :math:`\operatorname{var}\left( \mathbf{α}^{\rm{T}}X \right) = \operatorname{var}\left( X^{\rm{T}}\mathbf{α} \right) = \mathbf{α}^{\rm{T}}\operatorname{\Sigma}\left( X \right)\mathbf{α}`  |end-span|.
@@ -400,7 +405,7 @@ for exactly the same reason.
 
 Also :math:`\mathrm{\mathbf{α}}^{\mathrm{T}}X` is a scalar RV, and so
 :math:`\left( \mathrm{\mathbf{α}}^{\mathrm{T}}X \right)^{2}={\left( \mathrm{\mathbf{α}}^{\mathrm{T}}X \right)\left( \mathrm{\mathbf{α}}^{\mathrm{T}}X \right)}^{\mathrm{T}} = \mathrm{\mathbf{α}}^{\mathrm{T}}XX^{\mathrm{T}}\mathrm{\mathbf{α}}`.
-Recall :math:`\operatorname{var} \left( X \right)=\mathbb{E}X^{2} - \mathbb{E}^{2}X`, then using :ref:`Property 1-1 <property_cov_to_expectation>`, we have
+Recall :math:`\operatorname{var} \left( X \right)=\mathbb{E}X^{2} - \mathbb{E}^{2}X`, then using :ref:`Property 1-4 <property_cov_to_expectation>`, we have
 
 .. math::
  \operatorname{var} \left( \mathrm{\mathbf{α}}^{\mathrm{T}}X \right) = \mathbb{E}\mathrm{\lbrack}\mathrm{\mathbf{α}}^{\mathrm{T}}X\left( \mathrm{\mathbf{α}}^{\mathrm{T}}X \right)^{\mathrm{T}}\mathrm{\rbrack} - \mathbb{E}\left\lbrack \mathrm{\mathbf{α}}^{\mathrm{T}}X \right\rbrack\mathbb{E}^{\mathrm{T}}\left\lbrack \mathrm{\mathbf{α}}^{\mathrm{T}}X \right\rbrack = \mathrm{\mathbf{α}}^{\mathrm{T}}\mathbb{E}\mathrm{\lbrack}XX^{\mathrm{T}}\mathrm{\rbrack}\mathrm{\mathbf{α}} - \mathrm{\mathbf{α}}^{\mathrm{T}}\mathbb{E}X\mathbb{E}^{\mathrm{T}}X\mathrm{\mathbf{α}}=\mathrm{\mathbf{α}}^{\mathrm{T}}\mathbf{(}\mathbb{E}\mathrm{\lbrack}XX^{\mathrm{T}}\mathrm{\rbrack} - \mathbb{E}X\mathbb{E}^{\mathrm{T}}X\mathrm{)}\mathrm{\mathbf{α}}=\mathrm{\mathbf{α}}^{\mathrm{T}}\operatorname{\Sigma}\left( X \right)\mathrm{\mathbf{α}}
@@ -453,9 +458,9 @@ For the same reason, |theorem| a square cross-covariance matrix is positive-semi
 
 .. _theorem_cov_semipositiveness:
 
-:ititle:`Theorem 1-2.` :bemp:`Positive definiteness of covariance matrix.`
+:ititle:`Theorem 1-6.` :bemp:`Positive definiteness of covariance matrix.`
 ^^^^^^^^^^^^^^^^^^^^
-|theorem| Covariance matrix is clearly symmetric, and moreover they are semi-positive definite |end-span|, since for any constant vector :math:`\mathbf{α}`, using :ref:`Theorem 1-1 <theorem_cov_matrix_arithmetic_rules>`, we have
+|theorem| Covariance matrix is clearly symmetric, and moreover they are semi-positive definite |end-span|, since for any constant vector :math:`\mathbf{α}`, using :ref:`Theorem 1-5 <theorem_cov_matrix_arithmetic_rules>`, we have
 
 .. math::
  \begin{aligned}
@@ -478,7 +483,7 @@ For sample covariance matrix, check that (omiting the coefficient)
 
 .. _property_cov_as_rank1_sum:
 
-:ititle:`Property 1-3.` :bemp:`Sample covariance represneted by rank-1 sum.`
+:ititle:`Property 1-6.` :bemp:`Sample covariance represneted by rank-1 sum.`
 ^^^^^^^^^^^^^^^^^^^^
 Recall :math:`\mathbf{X} = \begin{pmatrix} \mathbf{x}_{1}^{\rm{T}} \\  \vdots \\ \mathbf{x}_{M}^{\rm{T}} \\ \end{pmatrix}` are feature vectors, and the covariance matrix in :eq:`eq_sample_cov` is defined w.r.t. the feature vectors. Suppose
 :math:`\mathbf{X} = \left( \mathbf{𝓍}_{1},\ldots,\mathbf{𝓍}_{N} \right)`
@@ -516,7 +521,7 @@ The above identity immediately implies :eq:`eq_cov_rank1_data_entry_representati
 
 .. _corollary_cov_as_mixed:
 
-:ititle2:`Corollary 1-1.` :math:`\colorbox{result}{$\mathbf{X}\mathbf{X}^{\rm{T}} = \left( N - 1 \right)\Sigma\left( \mathbf{X} \right) + N\overline{\mathbf{𝓍}}{\overline{\mathbf{𝓍}}}^{\rm{T}}$}`.
+:ititle2:`Corollary 1-4.` :math:`\colorbox{result}{$\mathbf{X}\mathbf{X}^{\rm{T}} = \left( N - 1 \right)\Sigma\left( \mathbf{X} \right) + N\overline{\mathbf{𝓍}}{\overline{\mathbf{𝓍}}}^{\rm{T}}$}`.
 Check that :math:`\mathbf{\text{XX}}^{\rm{T}} = \begin{pmatrix} \mathbf{x}_{1}^{\rm{T}}\mathbf{}_{1} & \cdots & \mathbf{x}_{1}^{\rm{T}}\mathbf{x}_{M} \\  \vdots & \ddots & \vdots \\ \mathbf{x}_{M}^{\rm{T}}\mathbf{x}_{1} & \cdots & \mathbf{x}_{M}^{  T}\mathbf{x}_{M} \\ \end{pmatrix}`, and by the same inference as :eq:`eq_cov_elementwise_representation_by_data_entries`
 we have |tip| :math:`\mathbf{\text{XX}}^{\rm{T}} = \sum_{k = 1}^{N}{\mathbf{𝓍}_{k}{\mathbf{𝓍}_{k}}^{\rm{T}}}` |tiptxt| This is the rank-1 decomposition of any symmetric matrix in linear algebra. |end-span|,
 and then use :eq:`eq_cov_rank1_data_entry_representation`, we have
@@ -536,7 +541,7 @@ and then use :eq:`eq_cov_rank1_data_entry_representation`, we have
 
 .. _theorem_cov_as_rank1_sum:
 
-:ititle:`Theorem 1-3.` :bemp:`Block decomposition of covariance matrix.`
+:ititle:`Theorem 1-7.` :bemp:`Block decomposition of covariance matrix.`
 ^^^^^^^^^^^^^^^^^^^^
 Again consider :math:`\mathbf{X} = \left( \mathbf{𝓍}_{1},\ldots,\mathbf{𝓍}_{N} \right)`
 where :math:`\mathbf{𝓍}_{1},\ldots,\mathbf{𝓍}_{N}` are data entries, and

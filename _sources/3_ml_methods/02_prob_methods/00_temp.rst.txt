@@ -11,34 +11,22 @@
 .. role:: uline
 .. role:: ibold
 .. role:: strike
-.. role:: python(code)
-   :language: python
-.. role:: latex(code)
-   :language: latex
 
 .. |list-div| raw:: html
 
-   <ul style="margin-left:20px">
+   <ul style="left-margin:20px">
+
+.. |item-div| raw:: html
+
+   <li>
+
+.. |item| raw:: html
+
+   <li>
 
 .. |end-list-div| raw:: html
 
    </ul>
-
-.. |enum-div| raw:: html
-
-   <ol style="margin-left:20px">
-
-.. |end-enum-div| raw:: html
-
-   </ol>
-
-.. |item-div| raw:: html
-
-   <li style="margin-top:10px">
-
-.. |item| raw:: html
-
-   <li style="margin-top:10px">
 
 .. |end-item-div| raw:: html
 
@@ -108,10 +96,6 @@
 
    <span><span class="exdef">
 
-.. |hidden-cell| raw:: html
-
-   <div class="hidden_cell" style="display:none">01
-
 .. |indent-div| raw:: html
 
    <div><div style="text-indent: 20px;">
@@ -119,18 +103,6 @@
 .. |end-div| raw:: html
 
    </div></div>
-
-.. |span-center| raw:: html
-
-   <span style="text-align:center;display:block">
-
-.. |span-right| raw:: html
-
-   <span style="text-align:right;display:block">
-
-.. |span-justify| raw:: html
-
-   <span style="text-align:justify">
 
 .. |end-span| raw:: html
 
@@ -158,20 +130,4 @@
 	 color.colors["conn2"] = color.getColor('RGB','237,125,49');
 	 color.colors["conn3"] = color.getColor('RGB','112,48,160');
 	});
-  </script>
-Study Notes in Machine Learning
-====================================
-
-.. toctree:: 
- :maxdepth: 4
- :caption: Contents:
- :numbered:
-
- 3_ml_methods/00_basics/00_index.rst
- 3_ml_methods/02_neural_networks/00_index.rst
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`search`
+  </script>A  |def| :index:`Bayes Network` |end-span| a directed acyclic graph (DAG) associated with a probabilistic chain rule interpretation. For example, 

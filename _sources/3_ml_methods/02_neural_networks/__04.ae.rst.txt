@@ -1,0 +1,404 @@
+.. role:: red
+.. role:: def
+.. role:: exdef
+.. role:: emp
+.. role:: bemp
+.. role:: ititle
+.. role:: ititle2
+.. role:: conn1
+.. role:: conn2
+.. role:: conn3
+.. role:: uline
+.. role:: ibold
+.. role:: strike
+.. role:: python(code)
+   :language: python
+.. role:: latex(code)
+   :language: latex
+
+.. |list-div| raw:: html
+
+   <ul style="left-margin:20px">
+
+.. |end-list-div| raw:: html
+
+   </ul>
+
+.. |enum-div| raw:: html
+
+   <ol style="left-margin:20px">
+
+.. |end-enum-div| raw:: html
+
+   </ol>
+
+.. |item-div| raw:: html
+
+   <li>
+
+.. |item| raw:: html
+
+   <li>
+
+.. |end-item-div| raw:: html
+
+   </li>
+
+.. |end-item| raw:: html
+
+   </li>
+
+.. |tip| raw:: html
+
+   <span class="tooltip">
+
+.. |tiptxt| raw:: html
+
+   <span class="tooltiptext">
+
+.. |theorem| raw:: html
+
+   <span><span class="theorem-highlight">	
+
+.. |result| raw:: html
+
+   <span><span class="result-highlight">
+
+.. |fact| raw:: html
+
+   <span><span class="fact-highlight">
+
+.. |comment| raw:: html
+
+   <span><span class="comment-highlight">
+
+.. |emperical| raw:: html
+
+   <span><span class="emperical-highlight">
+
+.. |strike| raw:: html
+
+   <span><span class="strike">
+   
+.. |uline| raw:: html
+
+   <span><span class="uline">
+   
+.. |ibold| raw:: html
+
+   <span><span class="ibold">
+   
+.. |bold| raw:: html
+
+   <span><span style="font-weight: bold;">
+   
+.. |italic| raw:: html
+
+   <span><span style="font-style: italic;">
+   
+.. |para| raw:: html
+
+   <span style="padding-left:20px"></span>
+
+.. |def| raw:: html
+
+   <span><span class="def">
+
+.. |exdef| raw:: html
+
+   <span><span class="exdef">
+
+.. |hidden-cell| raw:: html
+
+   <div class="hidden_cell" style="display:none">01
+
+.. |indent-div| raw:: html
+
+   <div><div style="text-indent: 20px;">
+
+.. |end-div| raw:: html
+
+   </div></div>
+
+.. |span-center| raw:: html
+
+   <span style="text-align:center;display:block">
+
+.. |span-right| raw:: html
+
+   <span style="text-align:right;display:block">
+
+.. |end-span| raw:: html
+
+   </span></span>
+   
+.. raw:: html
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      TeX: { extensions: ["color.js","autoload-all.js"] }
+    });
+
+	MathJax.Hub.Register.StartupHook("TeX color Ready", function() {
+     var color = MathJax.Extension["TeX/color"];
+     color.colors["theorem"] = color.getColor('RGB','255,229,153');
+	 color.colors["result"] = color.getColor('RGB','189,214,238');
+	 color.colors["fact"] = color.getColor('RGB','255,255,204');
+	 color.colors["emperical"] = color.getColor('RGB','253,240,207');
+	 color.colors["comment"] = color.getColor('RGB','204,255,204');
+     color.colors["thm"] = color.getColor('RGB','255,229,153');
+	 color.colors["rlt"] = color.getColor('RGB','189,214,238');
+	 color.colors["emp"] = color.getColor('RGB','253,240,207');
+	 color.colors["comm"] = color.getColor('RGB','204,255,204');
+	 color.colors["conn1"] = color.getColor('RGB','255,0,255');
+	 color.colors["conn2"] = color.getColor('RGB','237,125,49');
+	 color.colors["conn3"] = color.getColor('RGB','112,48,160');
+	});
+  </script>
+
+Autoencoder Networks
+-----------------
+
+|para| Given data :math:`\mathbf{x}_{1},\ldots,\mathbf{x}_{N}`, a basic  |def| :index:`autoencoder` |end-span| is a two-layer function composition
+:math:`g_{𝛉} \circ f_{𝛌}` aiming at self-regression, i.e. the objective of autoencoder is to find a function
+:math:`f_{𝛉}`, known as  |def| :index:`encoder` |end-span|, and another function :math:`g_{𝛌}`, known as  |def| :index:`decoder` |end-span|, such that
+
+
+.. raw:: html
+
+   <div class="hidden_cell" style="display: none">$$cell_031$$
+
+.. image:: ./basic_ae.png
+  :scale: 100%
+
+
+.. raw:: html
+
+   $$end_cell_031$$</div>
+
+
+.. raw:: html
+
+   <div class="hidden_cell" style="display: none">$$cell_032$$
+
+.. math::
+ \mathbf{x}_{k} \approx {\widehat{\mathbf{x}}}_{k} = g_{𝛌}\left( f_{𝛉}\left( \mathbf{x}_{k} \right) \right),k = 1,\ldots,N
+ :label: eq_ae_basic
+
+
+.. raw:: html
+
+   $$end_cell_032$$</div>
+
+
+.. raw:: html
+
+   <div class="hidden_cell" style="display: none">$$cell_033$$
+
+
+.. _figure_ae_basic:
+
+|span-center| |ibold| Figure -1 |end-span| The diagram of basic autoencoder. |end-span|
+
+
+.. raw:: html
+
+   $$end_cell_033$$</div>
+
+
+.. raw:: html
+
+   <table class="colwidths - given docutils" style="background:none; border:none;"><colgroup><col width = "31%" /><col width = "69%" /></colgroup><tbody><tr class="row-odd" style="text-align:center; vertical-align:middle; "><td  style="background:none; border:none;">$$cell_031$$</td><td  rowspan="2" style="background:none; border:none;">$$cell_032$$</td></tr><tr style="text-align:center; vertical-align:middle; "><td  style="background:none; border:none;">$$cell_033$$</td><td  style="background:none; border:none;"></td></tr></tbody></table>
+
+|para| Since each function is associated with its own parameters, we may omit
+the parameters and denote the functions as just :math:`f,g` for simplicity.
+The loss function :math:`ℓ` is defined for  |def| :index:`reconstruction` |end-span|
+:math:`{\widehat{\mathbf{x}}}_{k}`s and original input :math:`\mathbf{x}_{k}` s, such
+like the squared error :math:`ℓ=\sum_{k = 1}^{N}\left\| \mathbf{x}_{k} - {\widehat{\mathbf{x}}}_{k} \right\|_{2}^{2}`.
+One :emp:`main purpose` of autoencoder is to find
+representation of the original data, which is an essential task in
+almost all machine learning problems. Let
+:math:`\mathbf{h}_{k} = f\left( \mathbf{x}_{k} \right)` and call the
+collection of :math:`\mathbf{h}_{1},\ldots,\mathbf{h}_{N}` as the  |def| :index:`hidden layer` |end-span| of the autoencoder,
+and together with :math:`f,g`, they can be viewed
+as a  |exdef| :index:`representation` |end-span| of :math:`\mathbf{x}_{1},\ldots,\mathbf{x}_{N}`. :emp:`For example`,
+if :math:`f,g` are affine functions like
+:math:`f\left( \mathbf{x} \right) = \mathbf{V}\mathbf{x} + \mathbf{b}` and
+:math:`g\left( \mathbf{h} \right) = \mathbf{\text{Uh}} + \mathbf{c}`, then
+:math:`\mathbf{U},\mathbf{c},\mathbf{h}_{1},\ldots,\mathbf{h}_{k}` constitute
+the representation of the original data
+:math:`\mathbf{x}_{1},\ldots,\mathbf{x}_{N}`. Very often we design
+:math:`\dim\mathbf{h}_{k} < \dim\mathbf{x}_{k},\forall k`, so that we achieve  |exdef| :index:`dimension reduction` |end-span|,
+then we call such autoencoder  |def| :index:`undercomplete` |end-span|
+and those :math:`\mathbf{h}_{k}` s as  |def| :index:`undercomplete representations` |end-span|; on the
+contrary, if we let :math:`\dim\mathbf{h}_{k} > \dim\mathbf{x}_{k},\forall k`,
+then we call such autoencoder  |def| :index:`overcomplete` |end-span| and those
+:math:`\mathbf{h}_{k}` s as  |def| :index:`overcomplete representations` |end-span|, which maps
+data points to higher dimensional space and can be useful for classification.
+
+|para| From :eq:`eq_ae_basic` and :ref:`Figure -1 <figure_ae_basic>`, it is clear |result| an autoencoder of above basic
+structure is a feed-forward network |end-span|, therefore any discussion of FFN
+applies to autoencoder, for example, the back propagation process, and
+that adding additional layers such as
+:math:`\mathbf{x}_{k} \approx g \circ f_{l} \circ f_{l - 1} \circ \ldots \circ f_{1}\left( \mathbf{x}_{k} \right)`
+can result in better self-regression performance. :emp:`Also`,
+|comment| autoencoder is usually applied as part of a more complex model |end-span|. The goal
+of autoencoder is typically not self-regression itself, rather, it
+should serve the purpose of the entire model. In practice, usually the
+self-regression can perform arbitrarily well when :math:`\mathbf{h}_{k}` is
+"complete enough", e.g. :math:`\mathbf{h}_{k}` has a dimension near
+:math:`\dim\mathbf{x}_{k}` or an overcomplete dimension, in which case
+:math:`\mathbf{h}_{k}` could simply just copy :math:`\mathbf{x}_{k}` and :math:`f,g` could
+turn out "nearly" identity functions. :emp:`Therefore`, |comment| how
+well does the autoencoder self-regresses make sense as one of the
+quality indicators of the representation when other main objectives are
+satisfied |end-span|. :emp:`For example`, if we aim at dimension reduction, the
+self-regression performance makes sense when a certain level of
+"compression rate" is achieved.
+
+.. note:: 
+ |para| The famous dimension reduction technique  |exdef| :index:`singular value decomposition` |end-span| (SVD)
+ exactly falls in the category of autoencoder.
+ Recall given data matrix
+ :math:`\mathbf{X} = \left( \mathbf{x}_{1},\ldots,\mathbf{x}_{N} \right) \in \mathbb{R}^{m \times N}`
+ with columns being data entries and rows being feature vectors, then it
+ decomposes :math:`\mathbf{X}` as
+
+ .. math::
+  \mathbf{X} = \mathbf{U}\mathbf{\Sigma}\mathbf{V}^{\rm{T}}
+
+ where both :math:`\mathbf{U},\mathbf{V}` are  |exdef| :index:`orthogonal matrices` |end-span|,
+ :math:`\mathbf{U} \in \mathbb{R}^{m \times s},\mathbf{\Sigma} \in \mathbb{R}^{s \times s}`
+ and :math:`\mathbf{V} \in \mathbb{R}^{s \times N}` where
+ :math:`s = \operatorname{rank}\mathbf{X} \leq m` and :math:`\mathbf{\Sigma}` is a
+ diagonal matrix with :math:`s` eigenvalues of :math:`\mathbf{X}` descendingly
+ arranged in the diagonal. If we only keep the top :math:`r < s` eigenvalues in
+ :math:`\mathbf{\Sigma}`, denoted as :math:`\mathbf{\Sigma}_{r}`, then we only need
+ to keep the first :math:`r` columns of :math:`\mathbf{U}` and :math:`\mathbf{V}` and have
+ approximation
+
+ .. math::
+  \widehat{\mathbf{X}} = \mathbf{U}_{r}\mathbf{\Sigma}_{r}\mathbf{V}_{r}^{\rm{T}} \approx \mathbf{X}
+
+ in terms of minimum loss of 2-norm or Frobenius norm. From perspective
+ of autoencoder, :math:`\mathbf{h}_{k} = f\left( \mathbf{x}_{k} \right) = \mathbf{\Sigma}_{r}\mathbf{V}_{r}^{\rm{T}}\left( k \right)`
+ is the encoder (a non-linear encoder), and
+ :math:`g\left( \mathbf{h}_{k} \right) = \mathbf{U}_{r}\mathbf{h}_{k}` is the
+ decoder. The original data has :math:`\text{mN}` numbers. When
+ :math:`r < \frac{\text{mN}}{m + N}`, the representation has :math:`mr + rN < mN`
+ numbers and saves space. When :math:`N` is large, the inequality is dominated
+ by :math:`N`, and basically any :math:`r < m` can save space.
+
+ |para| Likewise, the  |exdef| :index:`Principal Component Analysis` |end-span| (PCA) is also an
+ autoencoder. PCA first calculates the  |exdef| :index:`covariance matrix` |end-span| :math:`\mathbf{S}`
+ w.r.t. the feature vectors (rows of :math:`\mathbf{X}`), and then all
+ orthonormal eigenvectors of :math:`\mathbf{S}` constitutes the columns of an  |exdef| :index:`orthonormal matrix` |end-span| :math:`\mathbf{P}` s.t.
+ :math:`\mathbf{S} = \mathbf{\text{P??}}\mathbf{P}^{\rm{T}}`, and then let
+ :math:`\mathbf{Y} = \mathbf{P}^{\rm{T}}\mathbf{X} = \mathbf{P}^{- 1}\mathbf{X}`
+ (:math:`\mathbf{P}^{\rm{T}} = \mathbf{P}^{- 1}` because :math:`\mathbf{P}` is an
+ orthogonal matrix). The columns of :math:`\mathbf{P}` are called  |exdef| :index:`principal components` |end-span|. Then clearly
+
+ .. math::
+  \mathbf{X} = \mathbf{P}\mathbf{Y}\mathbf{=}\mathbf{P}\left( \mathbf{P}^{\rm{T}}\mathbf{X} \right)
+
+ If we choose to keep only the first :math:`r < m` principal components, i.e.
+ the first :math:`r` columns of :math:`\mathbf{P}`, denoted by
+ :math:`\mathbf{P}_{r}`, and let
+ :math:`\mathbf{H}\mathbf{=}\mathbf{P}_{r}^{\rm{T}}\mathbf{X}`, then the PCA theory indicates
+
+ .. math::
+  \widehat{\mathbf{X}}\mathbf{=}\mathbf{P}_{r}\mathbf{H}\mathbf{=}\mathbf{P}_{r}\mathbf{P}_{r}^{\rm{T}}\mathbf{X}\mathbf{\approx}\mathbf{X}
+
+ where the approximation is in terms of minimum loss of  |exdef| :index:`total variance` |end-span|. From the perspective of autoencoder,
+ :math:`f\left( \mathbf{x} \right) = \mathbf{P}_{r}^{\rm{T}}\mathbf{x}` is the
+ encoder, and :math:`g\left( \mathbf{h} \right) = \mathbf{P}_{r}\mathbf{h}` is
+ the decoder.
+
+ |para| As a summary, |result| autoencoder is a generalization of classic dimension
+ reduction techniques |end-span|; it allows for any non-linear or liner encoders or
+ decoders to be derived from optimization so all techniques for
+ optimizations can come into play (e.g. regularization), and it allows
+ for mapping data to higher dimensional space.
+
+|para| A widely used variant of the vanilla autoencoder model in :eq:`eq_ae_basic` is named  |def| :index:`denoising autoencoder` |end-span| (DAE),
+whose :emp:`objective` is to reconstruct the original data even when the input data are corrupted, or
+simply put DAE is trying to be more robust than the vanilla model.
+Besides finding a robust representation, an immediate application of DAE
+is clearly  |def| :index:`data denoising` |end-span| -- given corrupted data, estimating the
+original data. |comment| The basic DAE is straightforward, but assumes the data in
+the training set is noiseless |end-span|. Then a stochastic layer
+:math:`{\widetilde{\mathbf{x}}}_{k}\mathbb{\sim P}\left( \cdot |\mathbf{x}_{k} \right)`
+is added between :math:`\mathbf{x}_{k}` and :math:`\mathbf{h}_{k}`, which means a
+noisy sample is first drawn from a distribution dependent on
+:math:`\mathbf{x}_{k}` (e.g. with :math:`\mathbf{x}_{k}` as its mean, or randomly
+setting some components of :math:`\mathbf{x}_{k}` as zero, depending on the
+modeling needs), and then input :math:`{\widetilde{\mathbf{x}}}_{k}` into the
+encoder-decoder process as the following. :math:`\mathbb{P}` is predefined and
+has no learnable parameters; :math:`{\widetilde{\mathbf{x}}}_{k}` needs to be
+resampled for every iteration or at least for every few iterations of
+training to avoid bias. :emp:`Note` the loss function
+:math:`ℓ` is still defined for reconstruction
+:math:`{\widehat{\mathbf{x}}}_{k}` s and original input :math:`\mathbf{x}_{k}` s.
+
+
+.. raw:: html
+
+   <div class="hidden_cell" style="display: none">$$cell_041$$
+
+.. image:: ./basic_dae.png
+  :scale: 100%
+
+
+.. raw:: html
+
+   $$end_cell_041$$</div>
+
+
+.. raw:: html
+
+   <div class="hidden_cell" style="display: none">$$cell_042$$
+
+.. math::
+ \mathbf{x}_{k} \approx g_{𝛌}\left( f_{𝛉}\left( {\widetilde{\mathbf{x}}}_{k} \right) \right),{\widetilde{\mathbf{x}}}_{k}\mathbb{\sim P}\left( \cdot |\mathbf{x}_{k} \right),k = 1,\ldots,N
+ :label: eq_dae_basic
+
+
+.. raw:: html
+
+   $$end_cell_042$$</div>
+
+
+.. raw:: html
+
+   <div class="hidden_cell" style="display: none">$$cell_043$$
+
+
+.. _figure_dae_basic:
+
+|span-center| |ibold| Figure -1 |end-span| The diagram of basic denoising autoencoder. |end-span|
+
+
+.. raw:: html
+
+   $$end_cell_043$$</div>
+
+
+.. raw:: html
+
+   <table class="colwidths - given docutils" style="background:none; border:none;"><colgroup><col width = "40%" /><col width = "60%" /></colgroup><tbody><tr class="row-odd" style="text-align:center; vertical-align:middle; "><td  style="background:none; border:none;">$$cell_041$$</td><td  rowspan="2" style="background:none; border:none;">$$cell_042$$</td></tr><tr style="text-align:center; vertical-align:middle; "><td  style="background:none; border:none;">$$cell_043$$</td><td  style="background:none; border:none;"></td></tr></tbody></table>
+
+|para| A third popular variant is called the  |def| :index:`contractive autoencoder` |end-span|. It is
+basically not a new model, but simply adds a norm
+:math:`\left\| \mathbf{J}_{\mathbf{x}_{k}}f \right\|` of the Jacobian matrix
+:math:`\mathbf{J}_{\mathbf{x}_{k}}f = \begin{pmatrix} \frac{\partial\mathbf{h}_{k}\left( 1 \right)}{\partial\mathbf{x}_{k}\left( 1 \right)} & \cdots & \frac{\partial\mathbf{h}_{k}\left( m \right)}{\partial\mathbf{x}_{k}\left( 1 \right)} \\  \vdots & \ddots & \vdots \\ \frac{\partial\mathbf{h}_{k}\left( m \right)}{\partial\mathbf{x}_{k}\left( 1 \right)} & \cdots & \frac{\partial\mathbf{h}_{k}\left( m \right)}{\partial\mathbf{x}_{k}\left( m \right)} \\ \end{pmatrix}` as a penalty to the loss function, which can be combined
+with any other design of autoencoder. |fact| Such penalty is a common practice
+in numerical functional approximation to improve numerical stability |end-span|. We
+call :math:`\left\| \mathbf{J}_{\mathbf{x}_{k}}f \right\|` the  |def| :index:`contraction loss` |end-span|, where an :emp:`intuitive explanation` is that
+:math:`\left\| \mathbf{J}_{\mathbf{x}_{k}}f \right\|` is small if its elements
+:math:`\frac{\partial\mathbf{h}_{k}\left( i \right)}{\partial\mathbf{x}_{k}\left( j \right)},i,j = 1,\ldots,m`
+are small, which means the contraction loss prevents all components of
+the encoder :math:`f` from having large derivatives along any axis, so that a
+mall perturbation in :math:`\mathbf{x}_{k}` does not cause large change in :math:`\mathbf{h}_{k}`.
+
+.. note:: 
+ test note

@@ -126,9 +126,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../index.html">Docs</a> &raquo;</li>
-        
-      <li>Recurrent Networks</li>
+      <li><a href="../../index.html">Docs</a> &raquo;</div></li><li>Recurrent Networks</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -143,7 +141,7 @@
 
   
   <hr/>
-</div>
+
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
@@ -169,8 +167,8 @@
       });
 </script><div class="section" id="recurrent-networks">
 <h1>Recurrent Networks<a class="headerlink" href="#recurrent-networks" title="Permalink to this headline">¶</a></h1>
-<p><span style="padding-left:20px"></span> This section introduces  <span><span class="exdef"> <span class="target" id="index-0"></span>recurrent networks </span></span>, another major category
-of neural networks that primarily deal with  <span><span class="exdef"> <span class="target" id="index-1"></span>sequential data </span></span> like
+<p><span style="padding-left:20px"></span> This section introduces  <span><span class="exdef"> <span class="target" id="index-0"></span>recurrent networks</span></span>, another major category
+of neural networks that primarily deal with  <span><span class="exdef"> <span class="target" id="index-1"></span>sequential data</span></span> like
 time series and natural language texts. <span class="emp">Again</span>, our data
 <span class="math notranslate nohighlight">\(\left( \mathbf{X},\mathbf{Y} \right)\)</span> consist of the data vectors
 <span class="math notranslate nohighlight">\(\mathbf{X} = \left( \mathbf{x}_{1},\mathbf{x}_{2},\ldots\mathbf{x}_{N} \right)\)</span>
@@ -180,14 +178,14 @@ and the objective is to find a neural network <span class="math notranslate nohi
 approximately solves the regression problem
 <span class="math notranslate nohighlight">\(\mathbf{y}_{1},\ldots,\mathbf{y}_{N}\mathcal{\approx N}\left( \mathbf{x}_{1},\mathbf{x}_{2},\ldots\mathbf{x}_{N} \right)\)</span>.
 Specially, when <span class="math notranslate nohighlight">\(\mathbf{y}_{1},\ldots,\mathbf{y}_{N}\)</span> are categorical
-scalars, we have a classification problem. As mentioned before, a  <span><span class="exdef"> <span class="target" id="index-2"></span>neural network </span></span> <span class="math notranslate nohighlight">\(\mathcal{N}\)</span>
-is a function derived from a complicated composition of  <span><span class="exdef"> <span class="target" id="index-3"></span>elementary functions </span></span>.</p>
-<p><span style="padding-left:20px"></span> We say <span class="math notranslate nohighlight">\(\left( \mathbf{X},\mathbf{Y} \right)\)</span> is  <span><span class="def"> <span class="target" id="index-4"></span>sequential data </span></span> if
+scalars, we have a classification problem. As mentioned before, a  <span><span class="exdef"> <span class="target" id="index-2"></span>neural network</span></span> <span class="math notranslate nohighlight">\(\mathcal{N}\)</span>
+is a function derived from a complicated composition of  <span><span class="exdef"> <span class="target" id="index-3"></span>elementary functions</span></span>.</p>
+<p><span style="padding-left:20px"></span> We say <span class="math notranslate nohighlight">\(\left( \mathbf{X},\mathbf{Y} \right)\)</span> is  <span><span class="def"> <span class="target" id="index-4"></span>sequential data</span></span> if
 we assume <span class="math notranslate nohighlight">\(\mathbf{y}_{t}\)</span> is dependent only on the present and the
 past, i.e. assuming there exists underlying functions <span class="math notranslate nohighlight">\(𝒻_{t}\)</span>
 s.t.
 <span class="math notranslate nohighlight">\(\mathbf{y}_{t} = 𝒻_{t}\left( \mathbf{x}_{1},\ldots,\mathbf{x}_{t} \right),t = 1,\ldots,N\)</span>.
-A  <span><span class="def"> <span class="target" id="index-5"></span>recurrent network </span></span>, denoted by <span class="math notranslate nohighlight">\(\mathcal{R}\)</span>, aims at approximating
+A  <span><span class="def"> <span class="target" id="index-5"></span>recurrent network</span></span>, denoted by <span class="math notranslate nohighlight">\(\mathcal{R}\)</span>, aims at approximating
 <span class="math notranslate nohighlight">\(\mathcal{R \approx}\left( 𝒻_{1},\ldots,𝒻_{N} \right)\)</span>
 by the following recursive compositions</p>
 <div class="math notranslate nohighlight">
@@ -199,36 +197,34 @@ by the following recursive compositions</p>
 \mathbf{h}_{N} &amp;= f\left( \mathbf{h}_{N - 1},\mathbf{x}_{N};𝛉_{N} \right),{\widehat{\mathbf{y}}}_{N} = g\left( \mathbf{h}_{N};𝛌_{N} \right)
 \end{aligned}\end{split}\]</div>
 <p>where 1) the intermediate variables
-<span class="math notranslate nohighlight">\(\mathbf{h}_{1},\mathbf{h}_{2},\ldots,\mathbf{h}_{N}\)</span> are called  <span><span class="def"> <span class="target" id="index-6"></span>hidden states </span></span>
-or collectively called the  <span><span class="def"> <span class="target" id="index-7"></span>hidden layer </span></span>, and the
-derivation of <span class="math notranslate nohighlight">\(\mathbf{h}_{t + 1}\)</span> from <span class="math notranslate nohighlight">\(\mathbf{h}_{t}\)</span> is called  <span><span class="def"> <span class="target" id="index-8"></span>hidden state transition </span></span>;
+<span class="math notranslate nohighlight">\(\mathbf{h}_{1},\mathbf{h}_{2},\ldots,\mathbf{h}_{N}\)</span> are called  <span><span class="def"> <span class="target" id="index-6"></span>hidden states</span></span>
+or collectively called the  <span><span class="def"> <span class="target" id="index-7"></span>hidden layer</span></span>, and the
+derivation of <span class="math notranslate nohighlight">\(\mathbf{h}_{t + 1}\)</span> from <span class="math notranslate nohighlight">\(\mathbf{h}_{t}\)</span> is called  <span><span class="def"> <span class="target" id="index-8"></span>hidden state transition</span></span>;
 since <span class="math notranslate nohighlight">\(\mathbf{h}_{t}\)</span> is recursively dependent on <span class="math notranslate nohighlight">\(\mathbf{h}_{\mathbf{t - 1}}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{x}_{t}\)</span>, then
-clearly <span class="math notranslate nohighlight">\(\mathbf{h}_{t}\)</span> is only dependent on
-<span class="math notranslate nohighlight">\(\mathbf{x}_{1},\ldots,\mathbf{x}_{t}\)</span>, the past and the present; 2)
+clearly <span><span class="result-highlight"> <span class="math notranslate nohighlight">\(\mathbf{h}_{t}\)</span> is only dependent on
+<span class="math notranslate nohighlight">\(\mathbf{x}_{1},\ldots,\mathbf{x}_{t}\)</span>, the past and the present</span></span>; 2)
 <span class="math notranslate nohighlight">\({\widehat{\mathbf{y}}}_{1},\ldots,{\widehat{\mathbf{y}}}_{N}\)</span> are
-called the  <span><span class="exdef"> <span class="target" id="index-9"></span>regressed target values </span></span> or collective called the  <span><span class="def"> <span class="target" id="index-10"></span>output layer </span></span>,
+called the  <span><span class="exdef"> <span class="target" id="index-9"></span>regressed target values</span></span> or collective called the  <span><span class="def"> <span class="target" id="index-10"></span>output layer</span></span>,
 which we hope to be good approximation of
 <span class="math notranslate nohighlight">\(\mathbf{y}_{1},\ldots,\mathbf{y}_{N}\)</span>; 3)
 <span class="math notranslate nohighlight">\(f\left( \mathbf{h},\mathbf{x};𝛉 \right)\)</span> and
 <span class="math notranslate nohighlight">\(g\left( \mathbf{h};𝛌 \right)\)</span> are two function families
-and we can see <span class="math notranslate nohighlight">\(g\left( \mathbf{h}_{t};𝛌_{t} \right)\)</span> is
-only dependent on the past and the present data
-<span class="math notranslate nohighlight">\(\mathbf{x}_{1},\ldots,\mathbf{x}_{t}\)</span> since <span class="math notranslate nohighlight">\(\mathbf{h}_{t}\)</span> is only
-dependent on them, so function
+and we can see <span class="math notranslate nohighlight">\(\colorbox{result}{$g\left( \mathbf{h}_{t};𝛌_{t} \right)$ is only dependent on the past and the present data $\mathbf{x}_{1},\ldots,\mathbf{x}_{t}$}\)</span> since <span class="math notranslate nohighlight">\(\mathbf{h}_{t}\)</span> is only
+dependent on them, so <span><span class="result-highlight"> function
 <span class="math notranslate nohighlight">\(g \left( \mathbf{h};𝛌_{t} \right)\)</span>
-is our approximation of the underlying true function <span class="math notranslate nohighlight">\(𝒻_{t}\)</span>;
+is our approximation of the underlying true function <span class="math notranslate nohighlight">\(𝒻_{t}\)</span> </span></span>;
 4) <span class="math notranslate nohighlight">\(𝛉_{t},𝛌_{t},t = 1,2,\ldots\)</span> are
 parameters to be inferred through optimization together with estimation
 of <span class="math notranslate nohighlight">\(\mathbf{h}_{t},{\widehat{\mathbf{y}}}_{t},t = 1,2,\ldots\)</span>
 The model scheme in <a class="reference internal" href="00_index.html#equation-eq-rnn-general">Eq.2.1</a> specifies the general architecture of RNN, and hence we also refer to it specifically as the general recurrent network
 The plate diagram of model represented by <a class="reference internal" href="00_index.html#equation-eq-rnn-general">Eq.2.1</a> is shown in .</p>
-<div class="hidden_cell" style="display: none">$$cell_001$$<a class="reference internal image-reference" href="3_ml_methods\02_neural_networks\./basic_rnn_unfolded.png"><img alt="3_ml_methods\02_neural_networks\./basic_rnn_unfolded.png" src="3_ml_methods\02_neural_networks\./basic_rnn_unfolded.png" /></a>
-$$end_cell_001$$</div><div class="hidden_cell" style="display: none">$$cell_002$$<p><span class="math notranslate nohighlight">\(\Leftrightarrow\)</span></p>
-$$end_cell_002$$</div><div class="hidden_cell" style="display: none">$$cell_003$$<a class="reference internal image-reference" href="3_ml_methods\02_neural_networks\./basic_rnn_folded.png"><img alt="3_ml_methods\02_neural_networks\./basic_rnn_folded.png" src="3_ml_methods\02_neural_networks\./basic_rnn_folded.png" /></a>
-$$end_cell_003$$</div><table class="colwidths - given docutils" style="background:none; border:none;"><colgroup><col width = "80%" /><col width = "2%" /><col width = "17%" /></colgroup><tbody><tr class="row-odd" style="text-align:center; vertical-align:middle; "><td  style="background:none; border:none;">$$cell_001$$</td><td  style="background:none; border:none;">$$cell_002$$</td><td  style="background:none; border:none;">$$cell_003$$</td></tr><tr style="text-align:center; vertical-align:middle; "><td  style="background:none; border:none;">(a)</td><td  style="background:none; border:none;"></td><td  style="background:none; border:none;">(b)</td></tr></tbody></table><p id="figure-basic-rnn"><span style="text-align:center;display:block"> <span><span class="ibold"> Figure 3-1 </span></span> The plate diagram of the recurrent network.
+<table class="colwidths - given docutils" style="background:none; border:none;" ><colgroup><col width = "80%" /><col width = "2%" /><col width = "17%" /></colgroup><tbody><tr class="row-odd" style="text-align:center; vertical-align:middle; "><td  style="background:none; border:none;"><a class="reference internal image-reference" href="basic_rnn_unfolded.png"><img alt="basic_rnn_unfolded.png" src="basic_rnn_unfolded.png" /></a>
+</td><td  style="background:none; border:none;"><p><span class="math notranslate nohighlight">\(\Leftrightarrow\)</span></p>
+</td><td  style="background:none; border:none;"><a class="reference internal image-reference" href="basic_rnn_folded.png"><img alt="basic_rnn_folded.png" src="basic_rnn_folded.png" /></a>
+</td></tr><tr style="text-align:center; vertical-align:middle; "><td  style="background:none; border:none;">(a)</td><td  style="background:none; border:none;"></td><td  style="background:none; border:none;">(b)</td></tr></tbody></table><p id="figure-basic-rnn"><span style="text-align:justify"> <span><span class="ibold"> Figure 3-1</span></span> The plate diagram of the recurrent network.
 (a) the unfolded diagram, with back propagation direction illustrated;
-(b) the folded diagram. </span></span></p>
-<p><span style="padding-left:20px"></span> For <a class="reference internal" href="00_index.html#equation-eq-rnn-general">Eq.2.1</a>, <span class="emp">note</span> very often we may use  <span><span class="exdef"> <span class="target" id="index-11"></span>time-homogenous parameters </span></span>,
+(b) the folded diagram.</span></span></p>
+<p><span style="padding-left:20px"></span> For <a class="reference internal" href="00_index.html#equation-eq-rnn-general">Eq.2.1</a>, <span class="emp">note</span> very often we may use  <span><span class="exdef"> <span class="target" id="index-11"></span>time-homogenous parameters</span></span>,
 i.e. letting <span class="math notranslate nohighlight">\(𝛉_{t} \equiv 𝛉_{1}\)</span> and/or
 <span class="math notranslate nohighlight">\(𝛌_{t} \equiv 𝛌_{1}\)</span> to reduce model
 complexity. <span class="emp">Also note</span> the dimensions of different
@@ -238,14 +234,16 @@ dimensions; <span class="emp">even</span> a regressed vector <span class="math n
 and its corresponding target vector <span class="math notranslate nohighlight">\(\mathbf{y}_{t}\)</span> can have the different dimensions,
 as long as a proper differentiable loss function can be chosen for them, see the later
 example of <a class="reference internal" href="00_index.html#equation-eq-lstm-classifier-nllloss">Eq.2.12</a>.</p>
-<p><span style="padding-left:20px"></span> To optimize our neural network, we must choose a  <span><span class="exdef"> <span class="target" id="index-12"></span>loss function </span></span>
+<p><span style="padding-left:20px"></span> To optimize our neural network, we must choose a  <span><span class="exdef"> <span class="target" id="index-12"></span>loss function</span></span>
 <span class="math notranslate nohighlight">\(ℓ\)</span>, which is a differentiable function dependent on the
 regressed values <span class="math notranslate nohighlight">\(\widehat{\mathbf{y}}\)</span> s and true target vectors
 <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> s. For convenience, denote
 <span class="math notranslate nohighlight">\(f_{𝛉}\left( \mathbf{h},\mathbf{x} \right) := f\left( \mathbf{h,x};𝛉 \right)\)</span>
 and
 <span class="math notranslate nohighlight">\(g_{𝛌}\left( \mathbf{h} \right) := \left( \mathbf{h};𝛌 \right)\)</span>.
-After <span class="math notranslate nohighlight">\(ℓ\)</span> is chosen, the  <span><span class="exdef"> <span class="target" id="index-13"></span>back propagation </span></span> for <a class="reference internal" href="00_index.html#equation-eq-rnn-general">Eq.2.1</a> is the
+After <span class="math notranslate nohighlight">\(ℓ\)</span> is chosen, note again we need to adjust values for
+<span class="math notranslate nohighlight">\({\widehat{\mathbf{y}}}_{t}\)</span>, <span class="math notranslate nohighlight">\(𝛌_{t}\)</span>, <span class="math notranslate nohighlight">\(\mathbf{h}_{t}\)</span>, <span class="math notranslate nohighlight">\(𝛉_{t}\)</span>
+through gradient-based optimization, the  <span><span class="exdef"> <span class="target" id="index-13"></span>back propagation</span></span> for <a class="reference internal" href="00_index.html#equation-eq-rnn-general">Eq.2.1</a> is the
 following process of gradient calculation: 1) the gradients of
 output-layer unknowns <span class="math notranslate nohighlight">\(\widehat{\mathbf{y}}\)</span> s and parameters <span class="math notranslate nohighlight">\(𝛌\)</span> s,</p>
 <div class="math notranslate nohighlight">
@@ -297,15 +295,14 @@ replaced by</p>
 \frac{\partialℓ}{\partial𝛉}
 &amp;= \sum_{t = 1}^{N}{{\color{conn2} \frac{\partialℓ}{\partial\mathbf{h}_{t}}}\frac{\partial f_{𝛉}\left( \mathbf{h}_{t - 1},\mathbf{x}_{t} \right)}{\partial𝛉}}
 \end{aligned}\end{split}\]</div>
-<p><ul style="left-margin:20px"></p>
-<p><li></p>
+<ul style="margin-left:20px">
+<p><li style="margin-top:10px"></p>
 <div class="section" id="model-3-1-lstm-with-single-forget-gate">
-<span id="model-lstm-single-gate"></span><h2><span class="ititle">Model 3-1.</span> <span class="bemp">LSTM with Single Forget Gate.</span><a class="headerlink" href="#model-3-1-lstm-with-single-forget-gate" title="Permalink to this headline">¶</a></h2>
-<p>A well-known variant of RNN <a class="reference internal" href="00_index.html#equation-eq-rnn-general">Eq.2.1</a> is the  <span><span class="def"> <span class="target" id="index-14"></span>long short-term memory </span></span>
+<span id="model-lstm-single-gate"></span><h2 style="display: inline; font-size:16px"><span class="ititle">Model 3-1.</span> <span class="bemp">LSTM with Single Forget Gate.</span><a class="headerlink" href="#model-3-1-lstm-with-single-forget-gate" title="Permalink to this headline">¶</a></h2>A well-known variant of RNN <a class="reference internal" href="00_index.html#equation-eq-rnn-general">Eq.2.1</a> is the  <span><span class="def"> <span class="target" id="index-14"></span>long short-term memory</span></span>
 network (LSTM), whose <span class="emp">essential idea</span> is to introduce the
-vector-valued  <span><span class="def"> <span class="target" id="index-15"></span>forget rate function </span></span> or  <span><span class="def"> <span class="target" id="index-16"></span>forget gate function </span></span> or  <span><span class="def"> <span class="target" id="index-17"></span>damping factor function </span></span>
+vector-valued  <span><span class="def"> <span class="target" id="index-15"></span>forget rate function</span></span> or  <span><span class="def"> <span class="target" id="index-16"></span>forget gate function</span></span> or  <span><span class="def"> <span class="target" id="index-17"></span>damping factor function</span></span>
 <span class="math notranslate nohighlight">\(σ_{𝛉^{\left( σ \right)}} = \left( σ_{1},\ldots,σ_{m}\  \right)_{𝛉^{\left( σ \right)}} \in \left\lbrack 0,1 \right\rbrack^{m}\)</span>
-to the hidden states such as the following, where “<span class="math notranslate nohighlight">\(\circ\)</span>” denotes element-wise product,</p>
+to the hidden states such as the following, where “<span class="math notranslate nohighlight">\(\circ\)</span>” denotes element-wise product,
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 \mathbf{h}_{1}
@@ -318,29 +315,29 @@ to the hidden states such as the following, where “<span class="math notransla
 \mathbf{h}_{N}
 &amp;= σ\left( \mathbf{h}_{N - 1},\mathbf{x}_{N};𝛉_{N}^{\left( σ \right)} \right) \circ f\left( \mathbf{h}_{N - 1},\mathbf{x}_{N};𝛉_{N} \right),{\widehat{\mathbf{y}}}_{N} = g\left( \mathbf{h}_{N};𝛌_{N} \right)
 \end{aligned}\end{split}\]</div>
-<p>We often call the forget gate function as simply a  <span><span class="def"> <span class="target" id="index-18"></span>forget gate </span></span> for
-simplicity and refer to the model represented by <a class="reference internal" href="00_index.html#equation-eq-lstm-sg-general">Eq.2.5</a> as the  <span><span class="def"> <span class="target" id="index-19"></span>LSTM with single forget gate </span></span>.
+<p>We often call the forget gate function as simply a  <span><span class="def"> <span class="target" id="index-18"></span>forget gate</span></span> for
+simplicity and refer to the model represented by <a class="reference internal" href="00_index.html#equation-eq-lstm-sg-general">Eq.2.5</a> as the  <span><span class="def"> <span class="target" id="index-19"></span>LSTM with single forget gate</span></span>.
 It be viewed as a special design of the general form of RNN in <a class="reference internal" href="00_index.html#equation-eq-rnn-general">Eq.2.1</a> by letting
 <span class="math notranslate nohighlight">\(f\left( \mathbf{h}_{t - 1},\mathbf{x}_{t};𝛉_{t} \right) := σ\left( \mathbf{h}_{t - 1},\mathbf{x}_{t};𝛉_{t}^{\left( σ \right)} \right)f\left( \mathbf{h}_{t - 1},\mathbf{x}_{t};𝛉_{t} \right)\)</span>;
 or conversely you may also view RNN as a special case of the LSTM using constant
 <span class="math notranslate nohighlight">\(σ_{𝛉^{\left( σ \right)}} \equiv 1\)</span> as the
 forgetting rate. The <span class="emp">philosophy</span> behind LSTM is so that
-the effects of a hidden state <span class="math notranslate nohighlight">\(\mathbf{h}_{t}\)</span> should have a limited
+<span><span class="comment-highlight"> the effects of a hidden state <span class="math notranslate nohighlight">\(\mathbf{h}_{t}\)</span> should have a limited
 effect on a far-away future hidden states <span class="math notranslate nohighlight">\(\mathbf{h}_{t + T},T \gg 0\)</span>
 when more recent data are provided, or the network’s current state
 should gradually “forget” the far-away past and hence the “short-term”
-memory. This philosophy intuitively makes sense for many applications,
+memory</span></span>. This philosophy intuitively makes sense for many applications,
 e.g. today’s stock price is likely to be more dependent on this
 months’ historical prices, rather than last month’s price history. A
 concrete example of such “history forgetting” is in <a class="reference internal" href="00_index.html#equation-eq-lstm-sg-example-model">Eq.2.6</a> and <a class="reference internal" href="00_index.html#equation-eq-lstm-sg-example-model-forgetting-illustration">Eq.2.8</a>.
 The plate diagram of this general LSTM is given in Figure .</p>
-<div class="hidden_cell" style="display: none">$$cell_011$$<a class="reference internal image-reference" href="3_ml_methods\02_neural_networks\./lstm_single_gate_unfolded.png"><img alt="3_ml_methods\02_neural_networks\./lstm_single_gate_unfolded.png" src="3_ml_methods\02_neural_networks\./lstm_single_gate_unfolded.png" /></a>
-$$end_cell_011$$</div><div class="hidden_cell" style="display: none">$$cell_012$$<p><span class="math notranslate nohighlight">\(\Leftrightarrow\)</span></p>
-$$end_cell_012$$</div><div class="hidden_cell" style="display: none">$$cell_013$$<a class="reference internal image-reference" href="3_ml_methods\02_neural_networks\./lstm_single_gate_folded.png"><img alt="3_ml_methods\02_neural_networks\./lstm_single_gate_folded.png" src="3_ml_methods\02_neural_networks\./lstm_single_gate_folded.png" /></a>
-$$end_cell_013$$</div><table class="colwidths - given docutils" style="background:none; border:none;"><colgroup><col width = "80%" /><col width = "2%" /><col width = "17%" /></colgroup><tbody><tr class="row-odd" style="text-align:center; vertical-align:middle; "><td  style="background:none; border:none;">$$cell_011$$</td><td  style="background:none; border:none;">$$cell_012$$</td><td  style="background:none; border:none;">$$cell_013$$</td></tr><tr style="text-align:center; vertical-align:middle; "><td  style="background:none; border:none;">(a)</td><td  style="background:none; border:none;"></td><td  style="background:none; border:none;">(b)</td></tr></tbody></table><p id="figure-lstm-single-gate"><span style="text-align:center;display:block"> <span><span class="ibold"> Figure 3-2 </span></span> The unfolded and folded plate diagram of the LSTM with single forget gate.
+<table class="colwidths - given docutils" style="background:none; border:none;" ><colgroup><col width = "80%" /><col width = "2%" /><col width = "17%" /></colgroup><tbody><tr class="row-odd" style="text-align:center; vertical-align:middle; "><td  style="background:none; border:none;"><a class="reference internal image-reference" href="lstm_single_gate_unfolded.png"><img alt="lstm_single_gate_unfolded.png" src="lstm_single_gate_unfolded.png" /></a>
+</td><td  style="background:none; border:none;"><p><span class="math notranslate nohighlight">\(\Leftrightarrow\)</span></p>
+</td><td  style="background:none; border:none;"><a class="reference internal image-reference" href="lstm_single_gate_folded.png"><img alt="lstm_single_gate_folded.png" src="lstm_single_gate_folded.png" /></a>
+</td></tr><tr style="text-align:center; vertical-align:middle; "><td  style="background:none; border:none;">(a)</td><td  style="background:none; border:none;"></td><td  style="background:none; border:none;">(b)</td></tr></tbody></table><p id="figure-lstm-single-gate"><span style="text-align:justify"> <span><span class="ibold"> Figure 3-2</span></span> The unfolded and folded plate diagram of the LSTM with single forget gate.
 LSTM can be viewed as a special case of general RNN such that it defines a forgetting rate function
 to dampen the effects of far-away past on the current state; or conversely the general RNN can be viewed
-as a special case of LSTM by setting forgetting rate as the constant 1. </span></span></p>
+as a special case of LSTM by setting forgetting rate as the constant 1.</span></span></p>
 <p><span class="emp">For example</span>, if the all labels in
 <span class="math notranslate nohighlight">\(\mathbf{y}_{1},\ldots,\mathbf{y}_{N}\)</span> are in or can be normalized to
 range <span class="math notranslate nohighlight">\(\left\lbrack - 1,1 \right\rbrack\)</span> (the range of the <span class="math notranslate nohighlight">\(\tanh\)</span>
@@ -379,16 +376,15 @@ based on above design, we have</p>
 <p>will be a vector of very small quantities when <span class="math notranslate nohighlight">\(T\)</span> is large, effectively
 limiting the effect of <span class="math notranslate nohighlight">\(\mathbf{h}_{t}\)</span> on <span class="math notranslate nohighlight">\(\mathbf{h}_{t + T}\)</span> and
 hence <span class="math notranslate nohighlight">\({\widehat{\mathbf{y}}}_{t + T}\)</span>.</p>
-<p></li></p>
-<p><li></p>
+</li>
+<p><li style="margin-top:10px"></p>
 </div>
 <div class="section" id="model-3-2-lstm-with-multiple-forget-gate">
-<span id="model-lstm-multiple-gates"></span><h2><span class="ititle">Model 3-2.</span> <span class="bemp">LSTM with Multiple Forget Gate.</span><a class="headerlink" href="#model-3-2-lstm-with-multiple-forget-gate" title="Permalink to this headline">¶</a></h2>
-<p>A further canonical development of <a class="reference internal" href="00_index.html#equation-eq-lstm-sg-general">Eq.2.5</a> is to introduce multiple forget
+<span id="model-lstm-multiple-gates"></span><h2 style="display: inline; font-size:16px"><span class="ititle">Model 3-2.</span> <span class="bemp">LSTM with Multiple Forget Gate.</span><a class="headerlink" href="#model-3-2-lstm-with-multiple-forget-gate" title="Permalink to this headline">¶</a></h2>A further canonical development of <a class="reference internal" href="00_index.html#equation-eq-lstm-sg-general">Eq.2.5</a> is to introduce multiple forget
 gates to achieve more flexibility, as in <a class="reference internal" href="00_index.html#equation-eq-lstm-mg-general">Eq.2.9</a>, where
 <span class="math notranslate nohighlight">\(σ^{\left( j \right)},j = 1,\ldots,K\)</span> are forget gate functions,</p>
-<div class="hidden_cell" style="display: none">$$cell_021$$<a class="reference internal image-reference" href="3_ml_methods\02_neural_networks\./lstm_multiple_gate_folded.png"><img alt="3_ml_methods\02_neural_networks\./lstm_multiple_gate_folded.png" src="3_ml_methods\02_neural_networks\./lstm_multiple_gate_folded.png" /></a>
-$$end_cell_021$$</div><div class="hidden_cell" style="display: none">$$cell_022$$<div class="math notranslate nohighlight">
+<table class="colwidths - given docutils" style="background:none; border:none;" ><colgroup><col width = "25%" /><col width = "75%" /></colgroup><tbody><tr class="row-odd" style="text-align:center; vertical-align:middle; "><td  style="background:none; border:none;"><a class="reference internal image-reference" href="lstm_multiple_gate_folded.png"><img alt="lstm_multiple_gate_folded.png" src="lstm_multiple_gate_folded.png" /></a>
+</td><td  rowspan="2" style="background:none; border:none;"><div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 \mathbf{h}_{1}
 &amp;= \sum_{j = 1}^{K}{σ^{\left( j \right)}\left( \mathbf{h}_{0},\mathbf{x}_{1};𝛉_{1}^{\left( σ,j \right)} \right) \circ f^{\left( j \right)}\left( \mathbf{h}_{0},\mathbf{x}_{1};𝛉_{1}^{\left( j \right)} \right)},{\widehat{\mathbf{y}}}_{1} = g\left( \mathbf{h}_{1};𝛌_{1} \right) \\
@@ -400,8 +396,8 @@ $$end_cell_021$$</div><div class="hidden_cell" style="display: none">$$cell_022$
 \mathbf{h}_{N}
 &amp;= \sum_{j = 1}^{K}{σ^{\left( j \right)}\left( \mathbf{h}_{N - 1},\mathbf{x}_{N};𝛉_{N}^{\left( σ,j \right)} \right) \circ f^{\left( j \right)}\left( \mathbf{h}_{N - 1},\mathbf{x}_{N};𝛉_{N}^{\left( j \right)} \right)},{\widehat{\mathbf{y}}}_{N} = g\left( \mathbf{h}_{N};𝛌_{N} \right)
 \end{aligned}\end{split}\]</div>
-$$end_cell_022$$</div><div class="hidden_cell" style="display: none">$$cell_023$$<p id="figure-lstm-multiple-gates"><span style="text-align:center;display:block"> <span><span class="ibold"> Figure -1 </span></span> The folded diagram of a 2-forget-gate LSTM. </span></span></p>
-$$end_cell_023$$</div><table class="colwidths - given docutils" style="background:none; border:none;"><colgroup><col width = "25%" /><col width = "75%" /></colgroup><tbody><tr class="row-odd" style="text-align:center; vertical-align:middle; "><td  style="background:none; border:none;">$$cell_021$$</td><td  rowspan="2" style="background:none; border:none;">$$cell_022$$</td></tr><tr style="text-align:center; vertical-align:middle; "><td  style="background:none; border:none;">$$cell_023$$</td><td  style="background:none; border:none;"></td></tr></tbody></table><p>To see why <a class="reference internal" href="00_index.html#equation-eq-lstm-mg-general">Eq.2.9</a> makes sense, we can have a network with design similar to <a class="reference internal" href="00_index.html#equation-eq-lstm-sg-example-model">Eq.2.6</a> as</p>
+</td></tr><tr style="text-align:center; vertical-align:middle; "><td  style="background:none; border:none;"><p id="figure-lstm-multiple-gates"><span style="text-align:justify"> <span><span class="ibold"> Figure 3-3</span></span> The folded diagram of a 2-forget-gate LSTM.</span></span>
+</td><td  style="background:none; border:none;"></td></tr></tbody></table><p>To see why <a class="reference internal" href="00_index.html#equation-eq-lstm-mg-general">Eq.2.9</a> makes sense, we can have a network with design similar to <a class="reference internal" href="00_index.html#equation-eq-lstm-sg-example-model">Eq.2.6</a> as</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 σ^{\left( j \right)}\left( \mathbf{h}_{t - 1},\mathbf{x}_{t};𝛉_{t}^{\left( σ,j \right)} \right)
@@ -416,7 +412,7 @@ with independent sigmoid functions applied to the two addends.</p>
 <div class="math notranslate nohighlight">
 \[\mathbf{h}_{t} = \text{sigmoid}\left( \mathbf{b}^{\left( σ,1 \right)} + \mathbf{U}^{\left( σ,1 \right)}\mathbf{h}_{t - 1} + \mathbf{V}^{\left( σ,1 \right)}\mathbf{x}_{t} \right) \circ \mathbf{h}_{t - 1} + \text{sisigmoid}\left( \mathbf{b}^{\left( σ,2 \right)} + \mathbf{U}^{\left( σ,2 \right)}\mathbf{h}_{t - 1} + \mathbf{V}^{\left( σ,2 \right)}\mathbf{x}_{t} \right) \circ \text{sigmoid}\left( \mathbf{b}^{\left( f \right)} + \mathbf{U}^{\left( f \right)}\mathbf{h}_{t - 1} + \mathbf{V}^{\left( f \right)}\mathbf{x}_{t} \right)\]</div>
 <p>The model represented by <a class="reference internal" href="00_index.html#equation-eq-lstm-mg-example-model">Eq.2.10</a> is implemented by <code class="code python docutils literal notranslate"><span class="name"><span class="pre">torch</span></span><span class="operator"><span class="pre">.</span></span><span class="name"><span class="pre">nn</span></span><span class="operator"><span class="pre">.</span></span><span class="name"><span class="pre">LSTM</span></span></code> in PyTorch.</p>
-<p></li> </ul></p>
+</li></ul>
 </div>
 <div class="section" id="pytorch-implementation-of-basic-lstm-classifier">
 <h2>PyTorch implementation of basic LSTM classifier<a class="headerlink" href="#pytorch-implementation-of-basic-lstm-classifier" title="Permalink to this headline">¶</a></h2>
@@ -440,8 +436,8 @@ We use <code class="code python docutils literal notranslate"><span class="name"
 output of <a class="reference internal" href="00_index.html#equation-eq-lstm-mg-example-model">Eq.2.10</a> is a vector, the target values for classification are
 categorical scalar labels; <span class="emp">therefore</span>, the model is tuned
 as the following to suit our situation,</p>
-<p><ol style="left-margin:20px"></p>
-<li value="1"><p>The dimension of hidden states <span class="math notranslate nohighlight">\(\mathbf{h}_{t}\)</span> is free to choose, but the dimension
+<p><ol style="margin-left:20px"></p>
+<li value="1" style="margin-top:10px"><p>The dimension of hidden states <span class="math notranslate nohighlight">\(\mathbf{h}_{t}\)</span> is free to choose, but the dimension
 of outputs <span class="math notranslate nohighlight">\({\widehat{\mathbf{y}}}_{t}\)</span> is designed to be equal to <span class="math notranslate nohighlight">\(\left| L \right|\)</span>.
 Moreover, we can design <span class="math notranslate nohighlight">\({\widehat{\mathbf{y}}}_{t}\)</span> as a discrete probability distribution.
 All these designs are for the loss function – the well-known
@@ -450,8 +446,8 @@ taking negative logarithm on the one element of
 <span class="math notranslate nohighlight">\({\widehat{\mathbf{y}}}_{t}\)</span> indexed by true label <span class="math notranslate nohighlight">\(y_{t}\)</span>, i.e.</p>
 <div class="math notranslate nohighlight">
 \[\mathcal{l = -}\sum_{t = 1}^{N}{\log\left( {\widehat{\mathbf{y}}}_{t}\left( y_{t} \right) \right)}\]</div>
-<p></li></p>
-<li value="2"><p>Now in order for <span class="math notranslate nohighlight">\({\widehat{\mathbf{y}}}_{t} = g\left( \mathbf{h}_{t};𝛌_{t} \right)\)</span>
+</li>
+<li value="2" style="margin-top:10px"><p>Now in order for <span class="math notranslate nohighlight">\({\widehat{\mathbf{y}}}_{t} = g\left( \mathbf{h}_{t};𝛌_{t} \right)\)</span>
 to be a probability distribution vector of dimension equal to the size
 of label set, we can let</p>
 <div class="math notranslate nohighlight">

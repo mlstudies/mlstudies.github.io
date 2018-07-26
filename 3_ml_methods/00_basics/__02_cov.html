@@ -33,7 +33,7 @@
     <link rel="search" title="Search" href="../../search.html" /> 
 
   
-  <script src="_static/js/modernizr.min.js"></script>
+  <script src="../../_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -260,7 +260,7 @@ as the  <span><span class="exdef"> <span class="target" id="index-14"></span>sta
 <span class="math notranslate nohighlight">\(\widetilde{\mathbf{X}} = \begin{pmatrix} {\widetilde{\mathbf{x}}}_{1}^{\rm{T}} \\  \vdots \\ {\widetilde{\mathbf{x}}}_{M}^{\rm{T}} \\ \end{pmatrix}\)</span>, and therefore
 <span><span class="result-highlight"> <span class="math notranslate nohighlight">\(\operatorname{}\left( X \right) = \operatorname{E}{\lbrack{\widetilde{X}\widetilde{X}}^{\rm{T}}\rbrack},\Sigma_{\text{corr}}\left( \mathbf{X} \right) = \frac{1}{N - 1}\widetilde{\mathbf{X}}{\widetilde{\mathbf{X}}}^{\rm{T}}\)</span>,
 where we see correlation matrix is just the concept of covariance matrix applied on standardize (normalized) RV or sample.</span></span></p>
-<p><span style="padding-left:20px"></span>  <span><span class="def"> <span class="target" id="index-18"></span>Cross-covariance matrix</span></span> and  <span><span class="def"> <span class="target" id="index-19"></span>cross-correlation matrix</span></span> is a generalized concept of covariance matrix and correlation matrix that consider two RV vectors <span class="math notranslate nohighlight">\(X,Y\)</span> or two sample matrices <span class="math notranslate nohighlight">\(\mathbf{X},\mathbf{Y}\)</span>. For example, suppose <span class="math notranslate nohighlight">\(X,Y\)</span> are of lengths <span class="math notranslate nohighlight">\(M_{1},M_{2}\)</span>, following <a class="reference internal" href="00_index.html#equation-eq-rv-cov">Eq.1.1</a>, the cross-covariance matrix for <span class="math notranslate nohighlight">\(X,Y\)</span> is defined as a <span class="math notranslate nohighlight">\(M_{1} \times M_{2}\)</span> matrix (<span class="emp">note</span> need not be a square matrix),</p>
+<p><span style="padding-left:20px"></span>  <span><span class="def"> <span class="target" id="index-18"></span>Cross-covariance matrix</span></span> and  <span><span class="def"> <span class="target" id="index-19"></span>cross-correlation matrix</span></span> is a generalized concept of covariance matrix and correlation matrix that consider two RV vectors <span class="math notranslate nohighlight">\(X,Y\)</span> or two sample matrices <span class="math notranslate nohighlight">\(\mathbf{X},\mathbf{Y}\)</span>. For example, suppose <span class="math notranslate nohighlight">\(X,Y\)</span> are of lengths <span class="math notranslate nohighlight">\(M_{1},M_{2}\)</span>, following <a class="reference internal" href="00_index.html#equation-eq-rv-cov">Eq.1.5</a>, the cross-covariance matrix for <span class="math notranslate nohighlight">\(X,Y\)</span> is defined as a <span class="math notranslate nohighlight">\(M_{1} \times M_{2}\)</span> matrix (<span class="emp">note</span> need not be a square matrix),</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned} \operatorname{\Sigma}\left( X,Y \right)
 &amp;= \begin{pmatrix}
@@ -285,13 +285,14 @@ The bold small-letter symbol “<span class="math notranslate nohighlight">\(\ma
 but in statistics it often instead represents a feature vector (as in above discussion), and sometimes this causes confusion.
 Therefore, we note it is necessary to understand what “<span class="math notranslate nohighlight">\(\mathbf{x}\)</span>” represents in the context.</p>
 <p class="last">The other possible confusion is about the “samples”. It is possible both the data entries and feature vectors are referred to as samples in different contexts.
-We again <span class="emp">note</span> <span class="red">sample covariance is always w.r.t. the feature vectors, not data entries</span>.
-Therefore, the “samples” in <a class="reference internal" href="00_index.html#equation-eq-sample-cov">Eq.1.2</a> refers to feature vectors.</p>
+We again <span class="emp">note</span> <span class="red">sample covariance is always w.r.t. the feature vectors, not data entries</span>,
+because it studies how the quantities of different features vary with each other.
+Therefore, the “samples” in <a class="reference internal" href="00_index.html#equation-eq-sample-cov">Eq.1.6</a> refers to feature vectors.</p>
 </div>
-<ul style="left-margin:20px">
-<li>
-<div class="section" id="property-1-1-classic-representation-of-covariance-by-expectation-or-mean">
-<span id="property-cov-to-expectation"></span><h2 style="display: inline; font-size:16px"><span class="ititle">Property 1-1.</span> <span class="bemp">Classic representation of covariance by expectation (or mean).</span><a class="headerlink" href="#property-1-1-classic-representation-of-covariance-by-expectation-or-mean" title="Permalink to this headline">¶</a></h2>Using the fact that <span class="math notranslate nohighlight">\(\colorbox{fact}{$\operatorname{cov}\left( X,Y \right)\mathbb{= E}XY - \mathbb{E}X\mathbb{E}Y$}\)</span> for scalar RVs <span class="math notranslate nohighlight">\(X,Y\)</span>, the covariance matrix has another form
+<ul style="margin-left:20px">
+<p><li style="margin-top:10px"></p>
+<div class="section" id="property-1-4-classic-representation-of-covariance-by-expectation-or-mean">
+<span id="property-cov-to-expectation"></span><h2 style="display: inline; font-size:16px"><span class="ititle">Property 1-4.</span> <span class="bemp">Classic representation of covariance by expectation (or mean).</span><a class="headerlink" href="#property-1-4-classic-representation-of-covariance-by-expectation-or-mean" title="Permalink to this headline">¶</a></h2>Using the fact that <span class="math notranslate nohighlight">\(\colorbox{fact}{$\operatorname{cov}\left( X,Y \right)\mathbb{= E}XY - \mathbb{E}X\mathbb{E}Y$}\)</span> for scalar RVs <span class="math notranslate nohighlight">\(X,Y\)</span>, the covariance matrix has another form
 <div class="math notranslate nohighlight">
 \[\begin{split}\operatorname{\Sigma}\left( X \right) = \begin{pmatrix}
 \mathbb{E}X_{1}^{2} - \mathbb{E}^{2}X_{1} &amp; \cdots &amp; \mathbb{E}{X_{1}X_{M}}\mathbb{- E}X_{1}\mathbb{E}X_{M} \\
@@ -325,10 +326,11 @@ then</p>
 <p>We can verify above inference directly works for cross-covariance, and therefore</p>
 <div class="math notranslate nohighlight">
 \[\colorbox{result}{$\operatorname{\Sigma}\left( X,Y \right) = \mathbb{E}\mathrm{\lbrack}XY^{\mathrm{T}}\mathrm{\rbrack} - \mathbb{E}X\mathbb{E}^{\rm{T}}Y,\Sigma\left( \mathbf{X,Y} \right) = \frac{1}{N - 1}\left( \mathbf{X}\mathbf{Y}^{\rm{T}}\mathbf{-}\overline{\mathbf{X}}{\overline{\mathbf{Y}}}^{\rm{T}} \right)$}\]</div>
-</div></li><li>
-
-<div class="section" id="property-1-2-invariance-to-centralization">
-<span id="property-cov-invariant-to-centralization"></span><h2 style="display: inline; font-size:16px"><span class="ititle">Property 1-2.</span> <span class="bemp">Invariance to centralization.</span><a class="headerlink" href="#property-1-2-invariance-to-centralization" title="Permalink to this headline">¶</a></h2>For any random vector <span class="math notranslate nohighlight">\(X\)</span>, we have <span class="math notranslate nohighlight">\(\colorbox{result}{$\Sigma\left( X - \mathbb{E}X \right) = \Sigma(X)$}\)</span>,
+</li>
+<p><li style="margin-top:10px"></p>
+</div>
+<div class="section" id="property-1-5-invariance-to-centralization">
+<span id="property-cov-invariant-to-centralization"></span><h2 style="display: inline; font-size:16px"><span class="ititle">Property 1-5.</span> <span class="bemp">Invariance to centralization.</span><a class="headerlink" href="#property-1-5-invariance-to-centralization" title="Permalink to this headline">¶</a></h2>For any random vector <span class="math notranslate nohighlight">\(X\)</span>, we have <span class="math notranslate nohighlight">\(\colorbox{result}{$\Sigma\left( X - \mathbb{E}X \right) = \Sigma(X)$}\)</span>,
 since <span class="math notranslate nohighlight">\(\mathbb{E}\left\lbrack X - \mathbb{E}X \right\rbrack = \mathbf{0}\)</span> and
 <div class="math notranslate nohighlight">
 \[\Sigma\left( X - \mathbb{E}X \right)
@@ -336,21 +338,22 @@ since <span class="math notranslate nohighlight">\(\mathbb{E}\left\lbrack X - \m
 = \mathbb{E}{\lbrack{\left( X - \mathbb{E}X \right)\left( X - \mathbb{E}X \right)}^{\mathrm{T}}\rbrack} = \Sigma(X)\]</div>
 <p>Similarly <span class="math notranslate nohighlight">\(\colorbox{result}{$\Sigma\left( \mathbf{X} - \overline{\mathbf{X}} \right) = \Sigma\left( \mathbf{X} \right)$}\)</span>,
 because <span class="math notranslate nohighlight">\(\mathbf{x} - \overline{\mathbf{x}} - \overline{\mathbf{x} - \overline{\mathbf{x}}} = \mathbf{x} - \overline{\mathbf{x}}\)</span>
-for any sample <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>, and the result following by applying this on <a class="reference internal" href="00_index.html#equation-eq-sample-cov">Eq.1.2</a>. For cross-covariance matrix, we have
+for any sample <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>, and the result following by applying this on <a class="reference internal" href="00_index.html#equation-eq-sample-cov">Eq.1.6</a>. For cross-covariance matrix, we have
 <span class="math notranslate nohighlight">\(\colorbox{result}{$\Sigma\left( X - \mathbb{E}X,Y - \mathbb{E}Y \right) = \Sigma\left( X,Y \right)$}\)</span>
 and <span class="math notranslate nohighlight">\(\colorbox{result}{$\Sigma\left( \mathbf{X} - \overline{\mathbf{X}},\mathbf{Y} - \overline{\mathbf{Y}} \right) = \Sigma\left( \mathbf{X,}\mathbf{Y} \right)$}\)</span>
 for exactly the same reason.</p>
-</div></li><li>
-
-<div class="section" id="theorem-1-1-matrix-arithmetics-of-covariance-matrix">
-<span id="theorem-cov-matrix-arithmetic-rules"></span><h2 style="display: inline; font-size:16px"><span class="ititle">Theorem 1-1.</span> <span class="bemp">Matrix arithmetics of covariance matrix.</span><a class="headerlink" href="#theorem-1-1-matrix-arithmetics-of-covariance-matrix" title="Permalink to this headline">¶</a></h2><span><span class="theorem-highlight"> Given <span class="math notranslate nohighlight">\(X = \left( X_{1},\ldots,X_{n} \right)^{\mathrm{T}}\)</span>,
+</li>
+<p><li style="margin-top:10px"></p>
+</div>
+<div class="section" id="theorem-1-5-matrix-arithmetics-of-covariance-matrix">
+<span id="theorem-cov-matrix-arithmetic-rules"></span><h2 style="display: inline; font-size:16px"><span class="ititle">Theorem 1-5.</span> <span class="bemp">Matrix arithmetics of covariance matrix.</span><a class="headerlink" href="#theorem-1-5-matrix-arithmetics-of-covariance-matrix" title="Permalink to this headline">¶</a></h2><span><span class="theorem-highlight"> Given <span class="math notranslate nohighlight">\(X = \left( X_{1},\ldots,X_{n} \right)^{\mathrm{T}}\)</span>,
 <span class="math notranslate nohighlight">\(\operatorname{var}\left( \mathbf{α}^{\rm{T}}X \right) = \operatorname{var}\left( X^{\rm{T}}\mathbf{α} \right) = \mathbf{α}^{\rm{T}}\operatorname{\Sigma}\left( X \right)\mathbf{α}\)</span></span></span>.
 <span class="emp">Note</span> <span class="math notranslate nohighlight">\(α^{\rm{T}}\Sigma{X}\)</span> is a scalar random variable, and
 <div class="math notranslate nohighlight">
 \[\mathbb{E}\left( \mathrm{\mathbf{α}}^{\mathrm{T}}X \right)\mathbb{= E}\left( X^{\mathrm{T}}\mathrm{\mathbf{α}} \right) = \mathrm{\mathbf{α}}^{\mathrm{T}}\mathbb{E}X = \left( \mathbb{E}^{\mathrm{T}}X \right)\mathrm{\mathbf{α}}\]</div>
 <p>Also <span class="math notranslate nohighlight">\(\mathrm{\mathbf{α}}^{\mathrm{T}}X\)</span> is a scalar RV, and so
 <span class="math notranslate nohighlight">\(\left( \mathrm{\mathbf{α}}^{\mathrm{T}}X \right)^{2}={\left( \mathrm{\mathbf{α}}^{\mathrm{T}}X \right)\left( \mathrm{\mathbf{α}}^{\mathrm{T}}X \right)}^{\mathrm{T}} = \mathrm{\mathbf{α}}^{\mathrm{T}}XX^{\mathrm{T}}\mathrm{\mathbf{α}}\)</span>.
-Recall <span class="math notranslate nohighlight">\(\operatorname{var} \left( X \right)=\mathbb{E}X^{2} - \mathbb{E}^{2}X\)</span>, then using <a class="reference internal" href="#property-cov-to-expectation"><span class="std std-ref">Property 1-1</span></a>, we have</p>
+Recall <span class="math notranslate nohighlight">\(\operatorname{var} \left( X \right)=\mathbb{E}X^{2} - \mathbb{E}^{2}X\)</span>, then using <a class="reference internal" href="#property-cov-to-expectation"><span class="std std-ref">Property 1-4</span></a>, we have</p>
 <div class="math notranslate nohighlight">
 \[\operatorname{var} \left( \mathrm{\mathbf{α}}^{\mathrm{T}}X \right) = \mathbb{E}\mathrm{\lbrack}\mathrm{\mathbf{α}}^{\mathrm{T}}X\left( \mathrm{\mathbf{α}}^{\mathrm{T}}X \right)^{\mathrm{T}}\mathrm{\rbrack} - \mathbb{E}\left\lbrack \mathrm{\mathbf{α}}^{\mathrm{T}}X \right\rbrack\mathbb{E}^{\mathrm{T}}\left\lbrack \mathrm{\mathbf{α}}^{\mathrm{T}}X \right\rbrack = \mathrm{\mathbf{α}}^{\mathrm{T}}\mathbb{E}\mathrm{\lbrack}XX^{\mathrm{T}}\mathrm{\rbrack}\mathrm{\mathbf{α}} - \mathrm{\mathbf{α}}^{\mathrm{T}}\mathbb{E}X\mathbb{E}^{\mathrm{T}}X\mathrm{\mathbf{α}}=\mathrm{\mathbf{α}}^{\mathrm{T}}\mathbf{(}\mathbb{E}\mathrm{\lbrack}XX^{\mathrm{T}}\mathrm{\rbrack} - \mathbb{E}X\mathbb{E}^{\mathrm{T}}X\mathrm{)}\mathrm{\mathbf{α}}=\mathrm{\mathbf{α}}^{\mathrm{T}}\operatorname{\Sigma}\left( X \right)\mathrm{\mathbf{α}}\]</div>
 <p>Similarly, using
@@ -385,10 +388,11 @@ then
 since <span class="math notranslate nohighlight">\(\ \Sigma\left( \mathbf{a}_{i}^{\rm{T}}\mathbf{X}\mathbf{,}\mathbf{a}_{j}^{\rm{T}}\mathbf{X} \right) = \mathbf{a}_{i}^{\rm{T}}\operatorname{\Sigma}\left( \mathbf{X} \right)\mathbf{a}_{j}\)</span>;
 of course we also have <span><span class="theorem-highlight"> <span class="math notranslate nohighlight">\(\Sigma(\mathbf{A}^{\text{T}}\mathbf{X,}\mathbf{B}^{\rm{T}}\mathbf{Y}) = \mathbf{A}^{\rm{T}}\Sigma(\mathbf{X,Y})\mathbf{B}\)</span> for cross-covariance</span></span>.</p>
 <p>For the same reason, <span><span class="theorem-highlight"> a square cross-covariance matrix is positive-semidefinite</span></span>.</p>
-</div></li><li>
-
-<div class="section" id="theorem-1-2-positive-definiteness-of-covariance-matrix">
-<span id="theorem-cov-semipositiveness"></span><h2 style="display: inline; font-size:16px"><span class="ititle">Theorem 1-2.</span> <span class="bemp">Positive definiteness of covariance matrix.</span><a class="headerlink" href="#theorem-1-2-positive-definiteness-of-covariance-matrix" title="Permalink to this headline">¶</a></h2><span><span class="theorem-highlight"> Covariance matrix is clearly symmetric, and moreover they are semi-positive definite</span></span>, since for any constant vector <span class="math notranslate nohighlight">\(\mathbf{α}\)</span>, using <a class="reference internal" href="#theorem-cov-matrix-arithmetic-rules"><span class="std std-ref">Theorem 1-1</span></a>, we have
+</li>
+<p><li style="margin-top:10px"></p>
+</div>
+<div class="section" id="theorem-1-6-positive-definiteness-of-covariance-matrix">
+<span id="theorem-cov-semipositiveness"></span><h2 style="display: inline; font-size:16px"><span class="ititle">Theorem 1-6.</span> <span class="bemp">Positive definiteness of covariance matrix.</span><a class="headerlink" href="#theorem-1-6-positive-definiteness-of-covariance-matrix" title="Permalink to this headline">¶</a></h2><span><span class="theorem-highlight"> Covariance matrix is clearly symmetric, and moreover they are semi-positive definite</span></span>, since for any constant vector <span class="math notranslate nohighlight">\(\mathbf{α}\)</span>, using <a class="reference internal" href="#theorem-cov-matrix-arithmetic-rules"><span class="std std-ref">Theorem 1-5</span></a>, we have
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 {{\mathbf{α }}^{\text{T}}}\left( {\Sigma \left( X \right)} \right){\mathbf{α }} &amp;= \Sigma \left( {{{\mathbf{α }}^{\text{T}}}X} \right) \hfill \\
@@ -399,10 +403,11 @@ of course we also have <span><span class="theorem-highlight"> <span class="math 
 <div class="math notranslate nohighlight">
 \[\mathbf{α}^{\rm{T}}\left( \Sigma\left( \mathbf{X} \right) \right)\mathbf{α}
 =\Sigma\left( \mathbf{\text{Xα}} \right) \propto \left( \mathbf{\text{Xα}} - \overline{\mathbf{\text{Xα}}} \right)^{\rm{T}}\left( \mathbf{\text{Xα}} - \overline{\mathbf{\text{Xα}}} \right) \geq 0\]</div>
-</div></li><li>
-
-<div class="section" id="property-1-3-sample-covariance-represneted-by-rank-1-sum">
-<span id="property-cov-as-rank1-sum"></span><h2 style="display: inline; font-size:16px"><span class="ititle">Property 1-3.</span> <span class="bemp">Sample covariance represneted by rank-1 sum.</span><a class="headerlink" href="#property-1-3-sample-covariance-represneted-by-rank-1-sum" title="Permalink to this headline">¶</a></h2>Recall <span class="math notranslate nohighlight">\(\mathbf{X} = \begin{pmatrix} \mathbf{x}_{1}^{\rm{T}} \\  \vdots \\ \mathbf{x}_{M}^{\rm{T}} \\ \end{pmatrix}\)</span> are feature vectors, and the covariance matrix in <a class="reference internal" href="00_index.html#equation-eq-sample-cov">Eq.1.2</a> is defined w.r.t. the feature vectors. Suppose
+</li>
+<p><li style="margin-top:10px"></p>
+</div>
+<div class="section" id="property-1-6-sample-covariance-represneted-by-rank-1-sum">
+<span id="property-cov-as-rank1-sum"></span><h2 style="display: inline; font-size:16px"><span class="ititle">Property 1-6.</span> <span class="bemp">Sample covariance represneted by rank-1 sum.</span><a class="headerlink" href="#property-1-6-sample-covariance-represneted-by-rank-1-sum" title="Permalink to this headline">¶</a></h2>Recall <span class="math notranslate nohighlight">\(\mathbf{X} = \begin{pmatrix} \mathbf{x}_{1}^{\rm{T}} \\  \vdots \\ \mathbf{x}_{M}^{\rm{T}} \\ \end{pmatrix}\)</span> are feature vectors, and the covariance matrix in <a class="reference internal" href="00_index.html#equation-eq-sample-cov">Eq.1.6</a> is defined w.r.t. the feature vectors. Suppose
 <span class="math notranslate nohighlight">\(\mathbf{X} = \left( \mathbf{𝓍}_{1},\ldots,\mathbf{𝓍}_{N} \right)\)</span>
 where <span class="math notranslate nohighlight">\(\mathbf{𝓍}_{1},\ldots,\mathbf{𝓍}_{N}\)</span> are columns of
 <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> as data entries, and similarly <span class="math notranslate nohighlight">\(\mathbf{Y} = \left( \mathbf{𝓎}_{1},\ldots,\mathbf{𝓎}_{N} \right)\)</span>
@@ -412,7 +417,7 @@ sum of rank-1 addends dependent on the data entries (rather than the feature vec
 <div class="math notranslate nohighlight">
 \[\Sigma\left( \mathbf{X,Y} \right) = \frac{1}{N - 1}\sum_{k = 1}^{N}{\left( \mathbf{𝓍}_{k} - \overline{\mathbf{𝓍}} \right)\left( \mathbf{𝓎}_{k} - \overline{\mathbf{𝓎}} \right)^{\rm{T}}}\]</div>
 <p>Let <span class="math notranslate nohighlight">\(\mathbf{\Sigma} := \Sigma\left( \mathbf{X},\mathbf{Y} \right)\)</span> for convenience.
-By <a class="reference internal" href="00_index.html#equation-eq-sample-cov">Eq.1.2</a>, we have (omitting the coefficient)</p>
+By <a class="reference internal" href="00_index.html#equation-eq-sample-cov">Eq.1.6</a>, we have (omitting the coefficient)</p>
 <div class="math notranslate nohighlight">
 \[\mathbf{\Sigma}\left( i,j \right) \propto \left( \mathbf{x}_{i} - \overline{\mathbf{x}_{i}} \right)^{\rm{T}}\left( \mathbf{y}_{j} - \overline{\mathbf{y}_{j}} \right)\]</div>
 <p>Note <span class="math notranslate nohighlight">\(\mathbf{𝓍}_{j}\left( i \right) = x_{i,j} = \mathbf{x}_{i}\left( j \right)\)</span>
@@ -425,21 +430,22 @@ we have</p>
 &amp;= \sum_{k = 1}^{N}{\left( \mathbf{𝓍}_{k}\left( i \right) - \overline{x_{i}} \right)\left( \mathbf{𝓎}_{k}\left( j \right) - \overline{y_{j}} \right)}
 = \sum_{k = 1}^{N}{\left( \mathbf{𝓍}_{k}\left( i \right) - \overline{\mathbf{𝓍}}\left( i \right) \right)\left( \mathbf{𝓎}_{k}\left( j \right) - \overline{\mathbf{𝓎}}\left( j \right) \right)} \\
 &amp;= \sum_{k = 1}^{N}{\left( \left( \mathbf{𝓍}_{k} - \overline{\mathbf{𝓍}} \right)\left( \mathbf{𝓎}_{k} - \overline{\mathbf{𝓎}} \right)^{\rm{T}} \right)\left( i,j \right)} \end{aligned}\end{split}\]</div>
-<p>The above identity immediately implies <a class="reference internal" href="00_index.html#equation-eq-cov-rank1-data-entry-representation">Eq.1.3</a>.</p>
-<p id="corollary-cov-as-mixed"><span class="ititle2">Corollary 1-1.</span> <span class="math notranslate nohighlight">\(\colorbox{result}{$\mathbf{X}\mathbf{X}^{\rm{T}} = \left( N - 1 \right)\Sigma\left( \mathbf{X} \right) + N\overline{\mathbf{𝓍}}{\overline{\mathbf{𝓍}}}^{\rm{T}}$}\)</span>.
-Check that <span class="math notranslate nohighlight">\(\mathbf{\text{XX}}^{\rm{T}} = \begin{pmatrix} \mathbf{x}_{1}^{\rm{T}}\mathbf{}_{1} &amp; \cdots &amp; \mathbf{x}_{1}^{\rm{T}}\mathbf{x}_{M} \\  \vdots &amp; \ddots &amp; \vdots \\ \mathbf{x}_{M}^{\rm{T}}\mathbf{x}_{1} &amp; \cdots &amp; \mathbf{x}_{M}^{  T}\mathbf{x}_{M} \\ \end{pmatrix}\)</span>, and by the same inference as <a class="reference internal" href="00_index.html#equation-eq-cov-elementwise-representation-by-data-entries">Eq.1.4</a>
+<p>The above identity immediately implies <a class="reference internal" href="00_index.html#equation-eq-cov-rank1-data-entry-representation">Eq.1.7</a>.</p>
+<p id="corollary-cov-as-mixed"><span class="ititle2">Corollary 1-4.</span> <span class="math notranslate nohighlight">\(\colorbox{result}{$\mathbf{X}\mathbf{X}^{\rm{T}} = \left( N - 1 \right)\Sigma\left( \mathbf{X} \right) + N\overline{\mathbf{𝓍}}{\overline{\mathbf{𝓍}}}^{\rm{T}}$}\)</span>.
+Check that <span class="math notranslate nohighlight">\(\mathbf{\text{XX}}^{\rm{T}} = \begin{pmatrix} \mathbf{x}_{1}^{\rm{T}}\mathbf{}_{1} &amp; \cdots &amp; \mathbf{x}_{1}^{\rm{T}}\mathbf{x}_{M} \\  \vdots &amp; \ddots &amp; \vdots \\ \mathbf{x}_{M}^{\rm{T}}\mathbf{x}_{1} &amp; \cdots &amp; \mathbf{x}_{M}^{  T}\mathbf{x}_{M} \\ \end{pmatrix}\)</span>, and by the same inference as <a class="reference internal" href="00_index.html#equation-eq-cov-elementwise-representation-by-data-entries">Eq.1.8</a>
 we have <span class="tooltip"> <span class="math notranslate nohighlight">\(\mathbf{\text{XX}}^{\rm{T}} = \sum_{k = 1}^{N}{\mathbf{𝓍}_{k}{\mathbf{𝓍}_{k}}^{\rm{T}}}\)</span> <span class="tooltiptext"> This is the rank-1 decomposition of any symmetric matrix in linear algebra.</span></span>,
-and then use <a class="reference internal" href="00_index.html#equation-eq-cov-rank1-data-entry-representation">Eq.1.3</a>, we have</p>
+and then use <a class="reference internal" href="00_index.html#equation-eq-cov-rank1-data-entry-representation">Eq.1.7</a>, we have</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned} \mathbf{\text{XX}}^{\rm{T}} &amp;= \sum_{k = 1}^{N}{\mathbf{𝓍}_{k}{\mathbf{𝓍}_{k}}^{\rm{T}}} \\
 &amp;= \sum_{k = 1}^{N}{\left( \mathbf{𝓍}_{k} - \overline{\mathbf{𝓍}} \right)({\mathbf{𝓍}_{k} - \overline{\mathbf{𝓍}})}^{\rm{T}}} + \sum_{k = 1}^{N}\left( \overline{\mathbf{𝓍}}\mathbf{𝓍}_{k}^{\rm{T}} + \mathbf{𝓍}_{k}{\overline{\mathbf{𝓍}}}^{\rm{T}} - \overline{\mathbf{𝓍}}{\overline{\mathbf{𝓍}}}^{\rm{T}} \right) \\
 &amp;= \left( N - 1 \right)\Sigma\left( \mathbf{X} \right)\mathbf{+}\overline{\mathbf{𝓍}}\left( \sum_{k = 1}^{N}\mathbf{𝓍}_{k}^{\rm{T}} \right) + \left( \sum_{k = 1}^{N}\mathbf{𝓍}_{k} \right){\overline{\mathbf{𝓍}}}^{\rm{T}} - N\overline{\mathbf{𝓍}}{\overline{\mathbf{𝓍}}}^{\rm{T}} \\
 &amp;= \left( N - 1 \right)\Sigma\left( \mathbf{X} \right)\mathbf{+}N\overline{\mathbf{𝓍}}{\overline{\mathbf{𝓍}}}^{\rm{T}} + N\overline{\mathbf{𝓍}}{\overline{\mathbf{𝓍}}}^{\rm{T}} - N\overline{\mathbf{𝓍}}{\overline{\mathbf{𝓍}}}^{\rm{T}} \\
 &amp;= \left( N - 1 \right)\Sigma\left( \mathbf{X} \right)\mathbf{+}N\overline{\mathbf{𝓍}} {\overline{\mathbf{𝓍}}}^{\rm{T}} \end{aligned}\end{split}\]</div>
-</div></li><li>
-
-<div class="section" id="theorem-1-3-block-decomposition-of-covariance-matrix">
-<span id="theorem-cov-as-rank1-sum"></span><h2 style="display: inline; font-size:16px"><span class="ititle">Theorem 1-3.</span> <span class="bemp">Block decomposition of covariance matrix.</span><a class="headerlink" href="#theorem-1-3-block-decomposition-of-covariance-matrix" title="Permalink to this headline">¶</a></h2>Again consider <span class="math notranslate nohighlight">\(\mathbf{X} = \left( \mathbf{𝓍}_{1},\ldots,\mathbf{𝓍}_{N} \right)\)</span>
+</li>
+<p><li style="margin-top:10px"></p>
+</div>
+<div class="section" id="theorem-1-7-block-decomposition-of-covariance-matrix">
+<span id="theorem-cov-as-rank1-sum"></span><h2 style="display: inline; font-size:16px"><span class="ititle">Theorem 1-7.</span> <span class="bemp">Block decomposition of covariance matrix.</span><a class="headerlink" href="#theorem-1-7-block-decomposition-of-covariance-matrix" title="Permalink to this headline">¶</a></h2>Again consider <span class="math notranslate nohighlight">\(\mathbf{X} = \left( \mathbf{𝓍}_{1},\ldots,\mathbf{𝓍}_{N} \right)\)</span>
 where <span class="math notranslate nohighlight">\(\mathbf{𝓍}_{1},\ldots,\mathbf{𝓍}_{N}\)</span> are data entries, and
 <span class="math notranslate nohighlight">\(\overline{\mathbf{𝓍}} = \frac{1}{N}\sum_{i = 1}^{N}\mathbf{𝓍}_{i}\)</span>.
 Suppose <span class="math notranslate nohighlight">\(\mathbf{𝓍}_{1},\ldots,\mathbf{𝓍}_{N}\)</span> are categorized into
@@ -472,7 +478,7 @@ Suppose <span class="math notranslate nohighlight">\(\mathbf{𝓍}_{1},\ldots,\m
 = \sum_{k = 1}^{K}\left( \left( \sum_{\mathbf{𝓍} \in G_{k}}^{}\left( \mathbf{𝓍} - {\overline{\mathbf{𝓍}}}^{k} \right) \right)\left( {\overline{\mathbf{𝓍}}}^{k}\mathbf{-}\overline{\mathbf{𝓍}} \right)^{\rm{T}} \right)
 = \sum_{k = 1}^{K}{\left( N_{k}{\overline{\mathbf{𝓍}}}^{k}\mathbf{-}N_{k}{\overline{\mathbf{𝓍}}}^{k} \right)\left( {\overline{\mathbf{𝓍}}}^{k}\mathbf{-}\overline{\mathbf{𝓍}} \right)^{\rm{T}}}
 = \mathbf{O}\]</div>
-<p>Now the identity of <a class="reference internal" href="00_index.html#equation-eq-cov-block-decomposition">Eq.1.5</a> is obvious.</p>
+<p>Now the identity of <a class="reference internal" href="00_index.html#equation-eq-cov-block-decomposition">Eq.1.9</a> is obvious.</p>
 </li></ul>
 </div>
 </div>
@@ -518,16 +524,16 @@ Suppose <span class="math notranslate nohighlight">\(\mathbf{𝓍}_{1},\ldots,\m
             SOURCELINK_SUFFIX: '.txt'
         };
     </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
   
   
-    <script type="text/javascript" src="_static/js/theme.js"></script>
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
   
 
   <script type="text/javascript">

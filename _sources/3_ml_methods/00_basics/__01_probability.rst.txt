@@ -18,7 +18,7 @@
 
 .. |list-div| raw:: html
 
-   <ul style="left-margin:20px">
+   <ul style="margin-left:20px">
 
 .. |end-list-div| raw:: html
 
@@ -26,7 +26,7 @@
 
 .. |enum-div| raw:: html
 
-   <ol style="left-margin:20px">
+   <ol style="margin-left:20px">
 
 .. |end-enum-div| raw:: html
 
@@ -34,11 +34,11 @@
 
 .. |item-div| raw:: html
 
-   <li>
+   <li style="margin-top:10px">
 
 .. |item| raw:: html
 
-   <li>
+   <li style="margin-top:10px">
 
 .. |end-item-div| raw:: html
 
@@ -128,6 +128,10 @@
 
    <span style="text-align:right;display:block">
 
+.. |span-justify| raw:: html
+
+   <span style="text-align:justify">
+
 .. |end-span| raw:: html
 
    </span></span>
@@ -156,18 +160,24 @@
 	});
   </script>
 
-Probability Theory Overview
+Overview of Probability Measure Theory
 -----------------
 
-|para| Modern probability theory is built upon measure theory for rigorous
-insight of the nature of probabilities, where even an introductory
-course needs deep mathematical background and hundreds of pages, way
-beyond the scope of this text. Here we overview basic concepts and
-results that could help better understand machine learning models that
-heavily involve probabilities, like Gaussian process or generative models.
+|para| Modern  |exdef| :index:`probability theory` |end-span| is built upon  |exdef| :index:`measure theory` |end-span| for rigorous
+insight into the nature of probabilities, where even an introductory
+course needs hundreds of pages' discourse and deep background from at least  |exdef| :index:`real analysis` |end-span|
+(topology, limits, convergence, bounded variation, measurability, integration, differentiation, :math:`\mathcal{L}^p` space, ...). It is way
+beyond the scope of this text and most of the theories and proofs do not have close connection with real-world problems.
+Here we concisely overview basic constructions and
+results from modern probability measure theory which could potentially help with a
+better understanding of machine learning models that heavily involve probabilities, like Gaussian process or generative models.
+We treat it as rigorously as we can although it is an overview, and we provide the best intuition we can conceive.
+
+Measure, Probability Space, Random Variable, Radon-Nikodym Derivative and Stochastic Process
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 |para| In probability theory, a set :math:`\Omega` containing all possible outcomes
-of an  |exdef| :index:`experiment` |end-span| is called a  |exdef| :index:`sample space` |end-span|. For example, in the
+of an  |def| :index:`experiment` |end-span| is called a  |def| :index:`sample space` |end-span|. :emp:`For example`, in the
 experiment of coin flip, we can define :math:`\Omega = \left\{ 0,1 \right\}`
 where :math:`0` represents head and :math:`1` represents tail. :math:`\Omega` can be
 finite, countably infinite or uncountably infinite. :emp:`Note`
@@ -175,127 +185,396 @@ this "experiment" is not a concrete "experiment" we do in machine
 learning to measure performance of a model; rather it is an abstract
 concept, and can be mathematically viewed as being defined by the sample
 space -- if we know what the sample space is, then the "experiment" is
-completely determined. For example, if we let
+completely determined. :emp:`For example`, if we let
 :math:`\Omega = \left\{ 0,1 \right\}`, then the experiment behind this
 :math:`\Omega` is mathematically equivalent to the coin-flip experiment.
 
 |para| In addition, we define a set :math:`\mathcal{F}` that contains subsets of
-:math:`\Omega` and is named  |exdef| :index:`𝜎-algebra` |end-span|. It must satisfy three axioms: |fact| 1)
-:math:`\mathcal{F}` is non-empty; 2) for any :math:`A\in \mathcal{ F}` then
-:math:`\Omega\backslash A\in \mathcal{ F}`; 3) for countable many
+:math:`\Omega` and is named  |def| :index:`𝜎-algebra` |end-span|. It must satisfy three axioms: **1)**
+:math:`\mathcal{F}` is non-empty; **2)** for any :math:`A\in\mathcal{F}` then
+:math:`\Omega\backslash A\in\mathcal{F}`; **3)** for countable many
 :math:`A_{\mathrm{1}},A_{2},\text{...},A_{n}\mathcal{,\ldots \in F}`, then
-:math:`\bigcup A_{k}\in \mathcal{ F}`  |end-span|. The axioms are actually very intuitive
-if we view 𝜎-algebra as being "modeling"  |exdef| :index:`partitions` |end-span| of :math:`\Omega` and
-"merge" of these partitions. For example, if we have a finite partition
-:math:`\Omega_{1},\ldots,\Omega_{n}` of :math:`\Omega` s.t.
-:math:`\Omega_{i}\bigcap\Omega_{j} = \varnothing,\forall i \neq j` and
-:math:`\bigcup_{i = 1}^{n}\Omega_{i} = \Omega`, then the set containing all
-possible unions of any subset of :math:`\Omega_{1},\ldots,\Omega_{n}`, plus
-the empty set, is a 𝜎-algebra. For another example, the  |exdef| :index:`power set` |end-span| of
-:math:`\Omega` is a 𝜎-algebra. Each set in :math:`\mathcal{F}` is referred to as an  |exdef| :index:`event` |end-span|. An event is also called a  |exdef| :index:`measurable set` |end-span| in mathematical
-text. The pair :math:`\left( \Omega,\mathcal{F} \right)` a  |exdef| :index:`measurable space` |end-span|.
+:math:`\bigcup A_{k}\in\mathcal{F}`.
+The last axiom actually implies |result| the union of any finite number of sets
+:math:`A_{1},\ldots,A_{N}` is in :math:`\mathcal{F}`  |end-span| because we can expand it to a
+countable sequence :math:`A_{1},\ldots,A_{N},A_{N + 1}\ldots` where
+:math:`A_{N + 1} = A_{N + 2} = \ldots = \Omega\backslash\left\{ \bigcup_{k = 1}^{N}A_{k} \right\}`
+and then
+:math:`\bigcup_{k = 1}^{N}A_{k} = \Omega\backslash\left\{ \bigcup_{k = N + 1}^{\infty}A_{k} \right\}\in\mathcal{F}`.
+It is also easy to check |result| if :math:`\Omega` is
+finite or countable, then 𝜎-algebra is exactly the *:exdef:`power set`
+of :math:`\Omega`  |end-span|. 𝜎-algebra is the generalization of the concept of
+power set of a finite set to an  |exdef| :index:`uncountable set` |end-span|. Not every set of in
+the power set of an uncountable set is mathematically measurable; as a
+result, length, area or volume, or generally a measure_ (see
+below) cannot be properly defined for such set (see  |exdef| :index:`Vitali set` |end-span| if
+interested). 𝜎-algebra excludes these unmeasurable sets from the
+power set. Each set in :math:`\mathcal{F}` is called a  |def| :index:`measurable set` |end-span| in
+general mathematical context, and is referred to as an  |def| :index:`event` |end-span| in a
+probabilistic context. The tuple :math:`\left( \Omega,\mathcal{F} \right)` is
+called a  |def| :index:`measurable space` |end-span|.
 
-|para| A  |exdef| :index:`measure` |end-span| is mathematical concept that rigorously models essential
+|para| Given a sample space :math:`\Omega` and a set :math:`\mathcal{A}` of subsets
+of :math:`\Omega`, then we say :math:`\mathcal{F}` is a  |def| :index:`σ-algebra generated by event sets` |end-span| :math:`\mathcal{A}` if :math:`\mathcal{F}` is
+constructed as according to the axioms: **1)** let
+:math:`\Omega\mathcal{,\varnothing \in F}`; **2)** :math:`\forall A \in \mathcal{A}`,
+let :math:`\Omega\backslash A \in \mathcal{F}`; **3)** for any countable many
+:math:`A_{1},A_{2}\mathcal{,\ldots \in A}`, let
+:math:`\bigcup_{k = 1}^{\infty}A_{k}\in\mathcal{F}`. We denote
+:math:`\mathcal{F =}σ\left( \mathcal{A} \right)`. We also say
+:math:`σ\left( \mathcal{A} \right)` is the  |def| :index:`σ-closure` |end-span| of a set
+-- the minimum σ-algebra that contain all sets in :math:`\mathcal{A}`.
+:emp:`For a concrete example`, suppose the sample space is
+:math:`\Omega = \left\{ 1,2,3,4,5,6 \right\}` (e.g. the experiment of throwing
+a dice), and then
+
+.. math::
+ \begin{aligned}
+ & σ \left( \left\{ \left\{ 1,3 \right\},\left\{ 5 \right\},\left\{ 2 \right\},\left\{ 4,6 \right\} \right\} \right) \\
+ &= \left\{ \Omega,\left\{ 1,3 \right\},\left\{ 5 \right\},\left\{ 2 \right\},\left\{ 4,6 \right\},
+ \overset{\Omega\backslash\left\{ 1,3 \right\}}{\overbrace{\left\{ 2,4,5,6 \right\}}},
+ \overset{\Omega\backslash\left\{ 5 \right\}}{\overbrace{\left\{ 1,2,3,4,6 \right\}}},\ldots,
+ \overset{\left\{ 1,3 \right\}\bigcup\left\{ 5 \right\}}{\overbrace{\left\{ 1,3,5 \right\}}},
+ \overset{\left\{ 1,3 \right\}\bigcup\left\{ 2 \right\}}{\overbrace{\left\{ 1,2,3 \right\}}},\ldots,\varnothing \right\} \end{aligned}
+
+An important generated σ-algebra is the  |def| :index:`Borel σ-algebra` |end-span|. For :math:`\mathbb{R}^{n}`, we denote its Borel σ-algebra
+as :math:`\mathcal{B}\left( \mathbb{R}^{n} \right)`, defined
+as the σ-algebra generated by all  |exdef| :index:`open sets` |end-span| of
+:math:`\mathbb{R}^{n}`. It is the same for a general set :math:`S`, whose Borel σ-algebra as :math:`\mathcal{B}\left( S \right)` is the
+σ-algebra generated by all  |exdef| :index:`open sets` |end-span| defined for :math:`S`. The
+concept of open sets for :math:`\mathbb{R}^{n}` or :math:`S` is taught in real
+analysis and general topology, and is beyond the scope of this text.
+
+
+.. _measure:
+
+
+|para| A measure is mathematical concept that rigorously models essential
 real-life concepts like length, area, volume, etc. The most widely used
 measure is called  |exdef| :index:`Lebesgue measure` |end-span|, which is consistent with our
 common sense. Under this measure, the length of a line, the area of a
 square, or the volume of a ball, etc. is calculated with our usual
-formulas. |fact| All ordinary integrations we learned in calculus are w.r.t. Lebesgue measure  |end-span|. A measure :math:`μ` is formally defined over a 𝜎-algebra :math:`\mathcal{F}` as
-a :math:`\mathcal{F} \rightarrow \lbrack 0, + \infty)` function s.t. |fact| 1)
-:math:`\mathbb{P}\left( \varnothing \right) = 0`; 2)
-:math:`A,B\in \mathcal{ F,}A\bigcap B\mathbb{= \varnothing \Rightarrow P}\left( A \right)\mathbb{+ P}\left( B \right)\mathbb{= P}\left( A\bigcup B \right)`  |end-span|.
+formulas. A  |def| :index:`measure` |end-span| :math:`μ` is formally defined over a 𝜎-algebra :math:`\mathcal{F}` as
+a :math:`\mathcal{F} \rightarrow \lbrack 0, + \infty)` function s.t. |fact| **1)**
+:math:`\mathbb{P}\left( \varnothing \right) = 0`; **2)**
+:math:`A,B\in\mathcal{F,}A\bigcap B\mathbb{= \varnothing \Rightarrow P}\left( A \right)\mathbb{+ P}\left( B \right)=\mathbb{P}\left( A\bigcup B \right)`  |end-span|.
 A measure has many intuitive properties we would expect from "area" or
 "volume", for example, let :math:`A,B \in \mathcal{F}`, then
 :math:`μ\left( A\bigcup B \right) \leq μ\left( A \right) + μ\left( B \right)`
-and :math:`A \subseteq B \Rightarrow μ\left( A \right) \leq μ\left( B \right)`
+and :math:`A \subseteq B \Rightarrow μ\left( A \right) \leq μ\left( B \right)`.
+If for any countable many measurable sets
+:math:`A_{i}\in \mathcal{ F,}i = 1,2,\ldots` we have
+:math:`μ\left( \bigcup_{i}^{}A_{i} \right) < + \infty`, we say :math:`μ` is a  |def| :index:`𝜎-finite measure` |end-span|.
 Probability is formally defined a measure over each event in
-:math:`\mathcal{F}`, called  |exdef| :index:`probability measure` |end-span|, usually denoted by
+:math:`\mathcal{F}`, called  |def| :index:`probability measure` |end-span|, usually denoted by
 :math:`\mathbb{P}`. |fact| A probability measure has all axioms of a measure, and adds a third axiom
-that :math:`\mathbb{P}\left( \Omega \right) = 1`  |end-span|, called the  |exdef| :index:`probability normalization axiom` |end-span| . For example, if :math:`\Omega = \left\{ 0,1 \right\}`,
+that :math:`\mathbb{P}\left( \Omega \right) = 1`  |end-span|, called the  |def| :index:`probability normalization axiom` |end-span| . For example, if :math:`\Omega = \left\{ 0,1 \right\}`,
 then :math:`\left\{ \left\{ 0 \right\},\left\{ 1 \right\},\left\{ 0,1 \right\},\varnothing \right\}`
 is a 𝜎-algebra of :math:`\Omega` and we can define
 :math:`\mathbb{P}\left( \left\{ 0 \right\} \right) = 0.3,\mathbb{P}\left( \left\{ 1 \right\} \right) = 0.7,\mathbb{P}\left( \left\{ 0,1 \right\} \right) = 1,\mathbb{P}\left( \varnothing \right) = 0`.
-We call :math:`\left( \Omega,\mathcal{F}\mathbb{,P} \right)` a  |exdef| :index:`probability space` |end-span|.
+We call :math:`\left( \Omega,\mathcal{F,}μ \right)` a  |def| :index:`measure space` |end-span| for
+a general measure :math:`μ`, can call
+:math:`\left( \Omega,\mathcal{F}\mathbb{,P} \right)` a  |def| :index:`probability space` |end-span|.
 
 
-|para| A  |exdef| :index:`random variable` |end-span| often abbreviated as "RV" in our text, is a
-:math:`\Omega \rightarrow S` function where :math:`(S\mathcal{,E)}` is a measurable
-space may or may not be the same as :math:`\left( \Omega,\mathcal{F} \right)`
-:math:`X` need to be a  |exdef| :index:`measurable function` |end-span|, roughly meaning that sets like
-:math:`\left\{ \omega:X\left( \omega \right) = 1 \right\}`,
-:math:`\left\{ \omega:X\left( \omega \right) \geq 2 \right\}`, etc. must be
-events (i.e. they exist in :math:`\mathcal{F}`). :math:`S` is named the  |exdef| :index:`state space` |end-span|. :emp:`For example`, :math:`\Omega = \left\{ 1,\ldots,5 \right\}`,
-:math:`S = \left\{ 0,1 \right\}`, :math:`X\left( \omega \right) = \left\{ \begin{matrix} 0 & \omega \leq 3 \\ 1 & \omega > 3 \\ \end{matrix} \right.\ `. Now if :math:`\mathbb{P}` is "uniform" over :math:`\Omega`,
+|para| Given two measurable spaces :math:`\left( \Omega\mathcal{,F} \right)` and
+:math:`\left( S,\mathcal{E} \right)`, a function :math:`f:\Omega \rightarrow S` is
+called a  |def| :index:`measurable function` |end-span| if
+:math:`f^{- 1}\left( B \right)\in\mathcal{F,}\forall B \in \mathcal{E}`. We also say :math:`f` is a
+:math:`\left( \Omega\mathcal{,F} \right) \rightarrow (S\mathcal{,E)}` function.
+When we choose
+:math:`\left( S,\mathcal{E} \right) = \left( \mathbb{R,}\mathcal{B}\left( \mathbb{R} \right) \right)`,
+we also simply say a
+:math:`\left( \Omega\mathcal{,F} \right) \rightarrow \left( \mathbb{R,}\mathcal{B}\left( \mathbb{R} \right) \right)`
+function :math:`f` as a  |def| :index:`ℱ-measurable function` |end-span|. :emp:`To make an intuition` of what a measurable function should look like,
+think about an at most countable partition
+:math:`\mathcal{P =}\left\{ A_{1},A_{2},\ldots \right\}` of :math:`\Omega`. :emp:`Note` for any set :math:`A` in the generated σ-algebra
+:math:`σ\left( \mathcal{P} \right)` and any :math:`A_{i}`, it is easy to verify
+either :math:`A\bigcap A_{i} = \varnothing` or :math:`A_{i} \subseteq A`, and there
+is no other possibility. Then |result| a :math:`σ\left( \mathcal{P} \right)`-measurable real-valued function :math:`f`
+must be a piecewise constant function  |end-span| s.t.
+:math:`f\left( x \right) \equiv c_{i},\forall x \in A_{i},i = 1,2,\ldots`
+Suppose not, then there exists at least
+:math:`x_{i}^{\left( 1 \right)},x_{i}^{\left( 2 \right)} \in A_{i}` for some
+:math:`i` s.t.
+:math:`f\left( x_{i}^{\left( 1 \right)} \right) \neq f\left( x_{i}^{\left( 2 \right)} \right)`,
+then :math:`f^{- 1}\left( x_{i}^{\left( 1 \right)} \right)` is a set in
+:math:`σ\left( \mathcal{P} \right)` containing only part of :math:`A_{i}`,
+contradiction. Therefore, the concept of measurable function can be
+viewed as generalizing the piecewise constant function. |comment| Many counter-intuitive statements in probability theory
+involving σ-algebra can make more sense if we check the special case of a σ-algebra generated by a countable partition |end-span|.
+:emp:`The technical purpose in plain words` for measurable
+function is to ensure any preimage a measurable set in :math:`\mathcal{E}` can
+be found in :math:`\mathcal{F}` in order to be "measured" by a measure defined
+on :math:`\left( \Omega\mathcal{,F} \right)`, we can see this more clearly later.
+
+
+
+|list-div|
+
+|item| 
+
+
+.. _fact_prob_measurable_function_arithmetic_rules:
+
+:ititle2:`Fact 1-1.` Basic arithmetic facts for measurable functions: |fact| **1)** if :math:`f` is :math:`\mathcal{F}`-measurable
+and :math:`c\in\mathbb{R}`, then :math:`f + c,\ cf` are :math:`\mathcal{F}`-measurable;
+**2)** if :math:`f` and :math:`g` are :math:`\mathcal{F}`-measurable, then :math:`f + g`,
+:math:`\text{fg}` are both :math:`\mathcal{F}`-measurable; **3)** if :math:`g \neq 0`,
+then :math:`\frac{f}{g}` is :math:`\mathcal{F}`-measurable; **4)** if :math:`f` is :math:`\mathcal{F}`-measurable, :math:`g` is
+:math:`\mathcal{B}\left( \mathbb{R} \right)`-measurable, then the composition
+:math:`f \circ g` is :math:`\mathcal{F}`-measurable |end-span|.
+
+
+|end-item|
+
+|item| 
+
+
+.. _lemma_prob_measurable_function_basic_measurable_sets:
+
+:ititle:`Lemma 1-1.` If :math:`f` is :math:`\mathcal{F}`-measurable, then |result| for any :math:`a\mathbb{\in R}`,
+:math:`\left\{ x \in \Omega:f\left( x \right) \geq a \right\}`, denoted as
+:math:`\left\{ f \geq a \right\}`, can be found in :math:`\mathcal{F}`  |end-span|, simply because :math:`\left\{ f \geq a \right\}` is a closed set,
+and thus :math:`\left\{ f \geq a\right\}\in\mathcal{B}\left(\mathbb{R}\right)` since the open set
+:math:`\left\{ f < a\right\}\in\mathcal{B}\left(\mathbb{R}\right)` by definition of Borel :math:`σ`-algebra and that
+:math:`\left\{ f \geq a \right\} = \Omega\backslash\left\{ f < a \right\}` is
+the complment of the open set. :emp:`As a result`,
+|result| :math:`\left\{ f \in I \right\}\in\mathcal{F}` if :math:`I` is any open, closed,
+semi-open interval :math:`I` or any closed and open half-line |end-span|.
+
+|end-item| |end-list-div|
+
+
+
+|para| If a real-valued function :math:`f` is a
+:math:`\left( \Omega\mathcal{,F} \right) \rightarrow \left( \mathbb{R,}\mathcal{B}\left( \mathbb{R} \right) \right)`
+measurable function, then the  |exdef| :index:`integration` |end-span| of :math:`f` w.r.t. some measure :math:`μ` over some
+:math:`A \in \mathcal{F}` is denoted by :math:`\int_{A}^{}{f\operatorname{d}μ}`. The rigorous
+mathematical construction of the integration is beyond our scope, but
+basically can still be understood as the integration we see in calculus.
+The integration w.r.t. the Lebesgue measure is called  |exdef| :index:`Lebesgue integration` |end-span|,
+and |comment| the  |exdef| :index:`Riemann integration` |end-span| we learned in calculus is a special case of Lebesgue integration |end-span|
+because |fact| every Riemann integrable function is Lebesgue integrable |end-span| (but the reverse is not true).
+If :math:`\int_{A}^{}{f\operatorname{d}μ}\mathbb{\in R}`, we say :math:`f` is **integrable** over
+:math:`A\in\mathcal{F}` under :math:`μ`, denoted by
+:math:`f\in\mathcal{L}\left( A,μ \right)` (or equivalently
+:math:`\left| f \right|\in\mathcal{L}\left( A,μ \right)` due to 1) of :ref:`Fact 1-2 <fact_integration_arithemetics>`,
+where the notation :math:`\mathcal{L}\left( A,μ \right)` can be
+understood as the set of all integrable functions over :math:`A`. :math:`f` is said
+to be  |def| :index:`Lp-integrable` |end-span| over a set :math:`A\in\mathcal{F}` if
+:math:`\int_{A}^{}{\left| f \right|^{p}\operatorname{d}μ}\mathbb{\in R}`, denoted by
+:math:`f \in \mathcal{L}^{p}\left( A,μ \right)`, where
+:math:`\mathcal{L}^{p}\left( A,μ \right)` is the set of all
+:math:`\mathcal{L}^{p}`-integrable functions and has a famous name in
+mathematics called  |def| :index:`Lp space` |end-span|. When :math:`A = \Omega` and
+the measure :math:`μ` is Lebesgue measure, we can denote
+:math:`f\in\mathcal{L}:=f\in\mathcal{L}\left( \Omega,μ \right)` and
+:math:`f \in \mathcal{L}^{p} := f \in \mathcal{L}^{p}\left( \Omega,μ \right)`
+for simplicity. In addition, we say :math:`\int_{A}^{}{f\operatorname{d}μ}`  |def| :index:`integration exists` |end-span| if
+:math:`\int_{A}^{}{f\operatorname{d}μ} \in \left\lbrack - \infty, + \infty \right\rbrack`,
+in contrast to the case when the integration is not defined;
+:math:`\int_{A}^{}{f\operatorname{d}μ}` is  |def| :index:`integration not defined` |end-span| if
+:math:`\int_{A}^{}{f^{+}\operatorname{d}μ} = + \infty,\int_{A}^{}{f^{-}\operatorname{d}μ} = + \infty`
+where :math:`f^{+} = \left\{ \begin{matrix} f\left( x \right) & f\left( x \right) \geq 0 \\ 0 & f\left( x \right) < 0 \\ \end{matrix} \right.\ ` and :math:`f^{-} = \left\{ \begin{matrix}  - f\left( x \right) & f\left( x \right) < 0 \\ 0 & f\left( x \right) \geq 0 \\ \end{matrix} \right.\ `.
+
+
+
+|list-div|
+
+|item| 
+
+
+.. _fact_integration_arithemetics:
+
+:ititle2:`Fact 1-2.` :bemp:`Arithmetic properties of integration.`
+**1)**:math:`\colorbox{fact}{$f \in L\left( E,μ \right) \Leftrightarrow |f| \in L\left( E,μ \right)$}`;
+**2) monotonicity**: |fact| if :math:`f_{1} \leq f_{2}`, then :math:`\int_{A}^{}{f_{1}\operatorname{d}μ} \leq \int_{A}^{}{f_{2}\operatorname{d}μ}` if
+both integrals exist |end-span|; **3) linearity**: :math:`\colorbox{fact}{$\int_{A}^{}{(af_{1} + bf_{2})\operatorname{d}μ} = a\int_{A}^{}{f_{1}\operatorname{d}μ} + b\int_{A}^{}{f_{2}\operatorname{d}μ}$ if $f_{1},f_{2}\in\mathcal{L}\left( A,μ \right)$}`; **4) finite extension**: |fact| if :math:`A_{1}` and :math:`A_{2}` are disjoint sets, then
+:math:`\int_{A_{1}\bigcup A_{2}}^{}f\operatorname{d}μ = \int_{A_{1}}^{}f\operatorname{d}μ + \int_{A_{2}}^{}f\operatorname{d}μ`  |end-span|;
+**4)** |fact| :math:`\left| \int_{A}^{}f\operatorname{d}μ \right| \leq \int_{A}^{}{|f|\operatorname{d}μ}` if :math:`\int_{A}^{}f\operatorname{d}μ` exists |end-span|.
+The expectation of a random variable in probability theory is an integration, so it inherits all these properties.
+
+
+|end-item|
+
+|item| 
+
+
+.. _fact_integration_change_of_variable_image_measure:
+
+:ititle2:`Fact 1-3.` :bemp:`Change of variable for image measure.` If :math:`g` is a
+:math:`\left( \Omega\mathcal{,F} \right) \rightarrow \left( S,\mathcal{E} \right)`
+measurable function, then it is easy to verify :math:`μ \circ g^{- 1}` is a
+measure defined on :math:`\left( S,\mathcal{E} \right)`, which is named the  |def| :index:`image measure` |end-span| and can be denoted by :math:`μ_{g}`. |fact| If
+:math:`h:S \rightarrow \mathbb{R}` is
+:math:`\mathcal{L}^{1}\left( B,μ \circ g^{- 1} \right)` for some
+:math:`B\in \mathcal{E}`, then
+:math:`\int_{B}^{}{h\operatorname{d}\left( μ \circ g^{- 1} \right)} = \int_{g^{- 1}\left( B \right)}^{}{h\operatorname{d}μ}`  |end-span|.
+
+|end-item| |end-list-div|
+
+
+
+
+|para| Given two measurable spaces :math:`\left( \Omega\mathcal{,F} \right)` and
+:math:`\left( S,\mathcal{E} \right)`, a  |def| :index:`random variable` |end-span|, often abbreviated
+as "RV" in our text, is a
+:math:`\left( \Omega\mathcal{,F} \right) \rightarrow (S\mathcal{,E)}`
+measurable function. |comment| The choice of :math:`\left( S,\mathcal{E} \right)` for our real-world problems
+is usually :math:`S = \mathbb{R}^{n}` and :math:`\mathcal{E = B}\left( \mathbb{R}^{n} \right)` being the  |def| :index:`Borel σ-algebra` |end-span| of :math:`\mathbb{R}^{n}`  |end-span|.
+:math:`X` need to be a measurable function, i.e. :math:`X^{- 1}\left( B \right)\in\mathcal{F,}\forall B \in \mathcal{E}`;
+:math:`S` is named the  |def| :index:`state space` |end-span|, and a subset :math:`\left\{ x \in S:X^{- 1}\left( S \right) \neq \varnothing \right\}` is
+called the  |def| :index:`support` |end-span| of :math:`X`. :emp:`The technical purpose` for :math:`X` to be a measurable
+function, as mentioned above, is to make sure every measurable subset in
+:math:`\mathcal{E}` of the state space :math:`S` can find its preimage in
+:math:`\mathcal{F}` and hence can be properly "measured" by probability
+measure :math:`\mathbb{P}`, so the classic concepts like distribution and
+density of :math:`X` can follow. :emp:`As a convention`, we use :math:`\left\{ X = x \right\}` to denote the event of
+:math:`X^{- 1}\left( x \right)`, and :math:`\left\{ X \in B \right\}` to denote the
+event of :math:`X^{- 1}\left( B \right)`, and likewise :math:`\mathbb{P}\left( X = x \right)=\mathbb{P}\left( X^{- 1}\left( x \right) \right)`,
+and :math:`\mathbb{P}\left( X \in B \right)=\mathbb{P}\left( X^{- 1}\left( B \right) \right)`. :emp:`For example`, :math:`\Omega = \left\{ 1,\ldots,5 \right\}`,
+:math:`S = \left\{ 0,1 \right\}`, :math:`X\left( \omega \right) = \left\{ \begin{matrix} 0 & \omega \leq 3 \\ 1 & \omega > 3 \\ \end{matrix} \right.\ `.
+Now if :math:`\mathbb{P}` is "uniform" over :math:`\Omega`,
 i.e. :math:`\mathbb{P}\left( \left\{ \omega \right\} \right) = \frac{1}{5},\forall\omega \in \Omega`,
 then we have :math:`\mathbb{P}\left( X = 0 \right) = \frac{3}{5}` and
-:math:`\mathbb{P}\left( X = 1 \right) = \frac{2}{5}`. If :math:`S` is finite or
-countable, then :math:`X` is a  |exdef| :index:`discrete random variable` |end-span| and the
+:math:`\mathbb{P}\left( X = 1 \right) = \frac{2}{5}`. Given a RV :math:`X:\left( \Omega\mathcal{,F} \right) \rightarrow \left( S,\mathcal{E} \right)`,
+we say :math:`σ\left( X \right) := \left\{ X^{- 1}\left( B \right):B \in \mathcal{E} \right\}` is the  |def| :index:`σ-algebra generated by a random variable` |end-span|.
+It is trivial to check :math:`\colorbox{result}{$X$ is measurable w.r.t. $\left( \Omega,σ\left( X \right) \right)$}`.
+During one experiment, :math:`X\left( \omega \right)` accepts an input
+:math:`\omega`, and if :math:`x = X\left( \omega \right)`, then :math:`x` is called a  |def| :index:`realization` |end-span| of :math:`X`; if you repeat the experiment, you may have
+multiple realizations
+
+
+
+
+|list-div|
+
+|item| 
+
+
+.. _lemma_prob_random_variable_arithmetic_rules:
+
+:ititle:`Lemma 1-2.` Consider
+:math:`\left( \Omega\mathcal{,F} \right) \rightarrow \left( \mathbb{R}\mathcal{,B}\left( \mathbb{R} \right) \right)`
+RVs. Due to :ref:`Fact 1-1 <fact_prob_measurable_function_arithmetic_rules>`, if **1)** |result| :math:`X` is a RV and :math:`c \in \mathbb{R}`, then
+:math:`\text{cX}` is a RV |end-span|; **2)** |result| if both :math:`X,Y` are RVs, then :math:`X + Y,XY` are RVs |end-span|;
+**3)** |result| if :math:`X,Y` are RVs and :math:`Y \neq 0`, then :math:`\frac{X}{Y}` is a RV |end-span|; **4)** |result| if
+:math:`X` is a RV, and :math:`f` is a
+:math:`\mathcal{B}\left( \mathbb{R} \right)`-measurable function, then
+:math:`f\left( X \right)` is a RV |end-span|.
+
+
+|end-item| |end-list-div|
+
+
+
+|para| We should :emp:`note` for a general measure space
+:math:`\left( \Omega\mathcal{,F,}μ \right)` or a probability space
+:math:`\left( \Omega\mathcal{,F,}\mathbb{P} \right)`, |result| a non-empty set may have
+non-zero measure, a non-empty event may have zero probability measure,
+and of course :math:`\mathbb{P}\left( A \right) = 1` does not mean
+:math:`A = \Omega`  |end-span|. :emp:`For example`, if we throw a point :math:`X`
+uniformly into the interval :math:`\left\lbrack 0,1 \right\rbrack` on the real
+line, then the event that :math:`X = x` for any
+:math:`x \in \left\lbrack 0,1 \right\rbrack` has zero probability; actually,
+any continuous RV has zero probability for any event like
+:math:`\left\{ X = x \right\}`. In probabilistic discussion, we may frequently
+encounter a statement involving an event or a random variable is true
+"almost surely", abbreviated as "a.s.". If an event :math:`A` happens  |def| :index:`almost surely` |end-span|, it means :math:`\mathbb{P}\left( A \right) = 1`, but note it is
+possible :math:`A \neq \Omega`; if a statement is true  |def| :index:`almost surely` |end-span|, that
+means the probability of the statement being true is 1, while there
+could be violations. :emp:`For example`, if we say a RV :math:`X`
+satisfying some condition is unique a.s., we mean there could be another
+:math:`Y \neq X`, but :math:`\mathbb{P}\left( \left\{ \omega:X\left( \omega \right) \neq Y\left( \omega \right) \right\} \right) = 0`.
+
+|para| Consider RV
+:math:`X:\left( \Omega\mathcal{,F} \right) \rightarrow \left( S,\mathcal{E} \right)`.
+If :math:`S` is finite or
+countable, then :math:`X` is a  |def| :index:`discrete random variable` |end-span| and the
 :math:`S \rightarrow \left\lbrack 0,1 \right\rbrack` function
-:math:`p\left( x \right):=\mathbb{P}\left( X = x \right),x \in S` is the  |exdef| :index:`discrete distribution` |end-span| of :math:`X`, and each :math:`p\left( x \right)` can be
-called the  |exdef| :index:`probability mass` |end-span| at :math:`x`. If :math:`S` is uncountable, things
-become more complicated, and a theorem called  |exdef| :index:`Radom-Nikodym theorem` |end-span|
-guarantees |fact| given any measure :math:`μ` defined on the :math:`(S,\mathcal{E})`, there exists a unique corresponding density function
+:math:`p\left( x \right):=\mathbb{P}\left( X = x \right),x \in S` is the  |def| :index:`discrete distribution` |end-span| of :math:`X`, and each :math:`p\left( x \right)` can be
+called the  |def| :index:`probability mass` |end-span| at :math:`x`. If :math:`S` is uncountable, things
+become non-trivial,
+
+
+
+|enum-div|
+
+
+.. raw:: html
+
+   <li value="1" style="margin-top:10px">
+Suppose :math:`μ` and :math:`𝜆` are two measures for a measurable space :math:`\left( \Omega\mathcal{,F} \right)`, it is said :math:`μ`
+is  |def| :index:`absolutely consitnuous` |end-span| w.r.t. :math:`𝜆`, denoted by :math:`μ \ll 𝜆`,
+if :math:`𝜆\left( A \right) = 0 \Rightarrow μ\left( A \right) = 0,\forall A \in \mathcal{F}`.
+A measure :math:`μ` is said to be an  |def| :index:`absolutely continuous measure` |end-span|
+if it is absolutely continuous w.r.t. the Lebesgue measure (again, note Lebesgue measure reflect our common sense of length, area,
+volume, etc.).
+
+
+|end-item|
+
+
+.. raw:: html
+
+   <li value="2" style="margin-top:10px">
+
+.. _fact_prob_randon_nikodym_theorem:
+
+:ititle2:`Fact 1-4.` The  |exdef| :index:`Radon-Nikodym theorem` |end-span| guarantees |fact| if :math:`μ` and :math:`𝜆` are two measures on :math:`(\Omega,\mathcal{F})` s.t. :math:`μ \ll 𝜆`, then there exists an
+:math:`𝜆`-a.s. unique :math:`f:\left( \Omega,\mathcal{F} \right) \rightarrow \left\lbrack 0, + \infty \right)` measurable function s.t. |end-span|
+
+.. math::
+ \colorbox{fact}{$μ\left( A \right) = \int_{A}^{}{f \operatorname{d}𝜆},\forall A \in \mathcal{F}$}
+ :label: eq_randon_nikodym
+
+and also say :math:`f` is the  |exdef| :index:`Radon-Nikodym derivative` |end-span| of measure :math:`μ`
+w.r.t. measure :math:`𝜆`, denoted by :math:`f = \frac{\operatorname{d}μ}{\operatorname{d}𝜆}`.
+Here, the ":math:`𝜆`-a.s. unique" means if there is another :math:`g`
+satisfying :eq:`eq_randon_nikodym`, then :math:`𝜆\left( \left\{ x \in \Omega:f\left( x \right) \neq g\left( x \right) \right\} \right) = 0`;
+remember :math:`μ \ll 𝜆`, then ":math:`𝜆`-a.s." implies :math:`μ`-a.s. A change of variable rule is frequently used in probabilistic and
+statistical text, which says |fact| if :math:`f = \frac{\operatorname{d}μ}{\operatorname{d}𝜆}`, and
+function :math:`g:\Omega\mathbb{\rightarrow R}` is
+:math:`\mathcal{L}^{1}\left( A,μ \right)` for some :math:`A \in \mathcal{F}`, then
+:math:`\int_{A}^{}{g\operatorname{d}μ} = \int_{A}^{}{gf\operatorname{d}𝜆}`  |end-span|.
+
+|end-item| |end-enum-div|
+
+
+
+Now consider measurable space :math:`\left( S,\mathcal{E} \right)`, by
+Radon-Nikodym, we immediately have |fact| given any measure :math:`μ` defined on the :math:`(S,\mathcal{E})`, there exists a unique corresponding density function
 :math:`f\left( x \right):S \rightarrow \left\lbrack 0, + \infty \right\rbrack`
-consistent with the underlying probability measure :math:`\mathbb{P}` in a way that :math:`\int_{B}^{}f\text{d}μ=\mathbb{P}\left\{ X^{- 1}\left( B \right) \right\}`  |end-span|.
-|fact| If we choose μ as Lebesgue measure, then we have ordinary density functions we commonly use  |end-span|.
-We also refer to :math:`f` as the  |exdef| :index:`distribution` |end-span| of :math:`X`, :math:`X`  |exdef| :index:`obeys` |end-span| the
-distribution :math:`f`, and :math:`f\left( x \right)` is the  |exdef| :index:`density` |end-span| of the
-distribution at :math:`x`. Random-Nikodym applies to both discrete and
+consistent with the underlying probability measure :math:`\mathbb{P}` in a way that
+:math:`\int_{B} f\operatorname{d}μ = \mathbb{P}\left\{ X^{- 1}\left( B \right) \right\},\forall B \in \mathcal{E}`  |end-span|.
+We can easily verify that :math:`\colorbox{result}{$\mathbb{P \circ}X^{- 1}$ is a probability measure on the state space $\left( S,\mathcal{E} \right)$}`, and we call this measure the  |def| :index:`probability law` |end-span| or  |def| :index:`distribution` |end-span| of RV :math:`X`,
+and :math:`f` is the  |def| :index:`density function` |end-span| or  |def| :index:`Randon-Nikodym derivative` |end-span| of the
+distribution, :math:`f\left( x \right)` is the  |def| :index:`density` |end-span| of the distribution at :math:`x`.
+|comment| If we choose μ as Lebesgue measure
+and :math:`\left( S,\mathcal{E} \right) = \left( \mathbb{R}^{n}\mathcal{,B}\left( \mathbb{R}^{n} \right) \right)`,
+then we have ordinary density functions we commonly use |end-span|.
+In the future :emp:`we denote` ":math:`\int_{B}f\operatorname{d}μ`" as
+":math:`\int_{B}^{}f`" for simplicity if Lebesgue measure is assumed for :math:`μ`.
+Random-Nikodym applies to both discrete and
 continuous RV, so probability mass is a special type of probability
 density, but we should :emp:`note` probability density is not
 probability and its value can be much higher than :math:`1` (like in a
 Gaussian distribution with a high peak). :emp:`Every time` we mention a random variable, we assume these setups of measurable spaces,
 the probability measure and the probability density, although we might not explicitly mention that.
 
-|para| A random variable can be a vector, e.g.
-:math:`\left( X_{1},X_{2},X_{3} \right)`, called a  |exdef| :index:`random vector` |end-span|; then a  |exdef| :index:`marginal random variable` |end-span| removes some dimensions of the random
-vector, e.g. :math:`X_{1}`, or :math:`\left( X_{1},X_{2} \right)` or
-:math:`\left( X_{2},X_{3} \right)`, etc., whose 𝜎-algebra only contains events
-not dependent on the removed dimensions. The removal of some dimensions
-of a random vector is called  |exdef| :index:`marginalization` |end-span|. More formally, suppose the original RV is
-:math:`\left( X,Y \right)` with measurable space
-:math:`\left( \Omega_{X,Y},\mathcal{F}_{X,Y} \right)`
-and density :math:`f\left( \mathbf{x},\mathbf{y} \right)` where
-:math:`Y,Y` are themselves random vectors and we intend to
-marginalize out :math:`Y`, then the marginal RV :math:`Y` has  |exdef| :index:`𝜎-algebra closure` |end-span| of
-:math:`\left\{ \left\{ Y = \mathbf{x} \right\}\mathbf{:}\left( \mathbf{x},\mathbf{y} \right) \in \Omega_{\mathbf{x},\mathbf{y}} \right\}`
-as its 𝜎-algebra, which is the smallest 𝜎-algebra that contains the set.
-The density of :math:`Y` is called the  |exdef| :index:`marginal density` |end-span|, and it can be shown to be exactly
-:math:`f\left( \mathbf{x} \right) = \int_{}^{}{f\left( \mathbf{x},\mathbf{y} \right)d\mathbf{y}}`
-where the integration is w.r.t. the measure chosen for :math:`(S\mathcal{,E)}`, typically Lebesgue measure.
-
-
-|para| A  |exdef| :index:`conditional random variable` |end-span| of :math:`X` conditioned on an event
-:math:`A\in \mathcal{ F}`, denoted by :math:`X|A`. It can be viewed as a RV defined
-on measurable space :math:`\left( A,\{ B\bigcap A:B\in \mathcal{ F\}} \right)`.
-A conditional random variable conditioned on another :math:`Y`, denoted by
-:math:`X|Y`, can be viewed as a :math:`\Omega^{2}\mathbb{\rightarrow R}` function
-where an underlying measurable space for :math:`\Omega^{2}` is defined. A
-conditional RV has its own  |exdef| :index:`conditional distribution` |end-span|. The  |exdef| :index:`conditional density function` |end-span| :math:`f\left( x;y \right)` we see more often
-in practice can either be viewed a density function of conditional RV
-:math:`X|Y = y` conditioned on event :math:`Y = y`, or just the density function of
-:math:`X|Y`. The  |exdef| :index:`expectation` |end-span| of a random variable :math:`X` is defined as
-:math:`\mathbb{E}X = \int_{\Omega}^{}{\text{Xd}\mathbb{P}}`, the integration
-of function :math:`X` over entire sample space under measure :math:`\mathbb{P}`. The  |exdef| :index:`conditional expectation` |end-span| conditioned on an event :math:`A\in \mathcal{ F}`
-is defined as
-:math:`\mathbb{E}\left\lbrack X|A \right\rbrack = \int_{A}^{}{\text{Xd}\mathbb{P}}`,
-the integration of function :math:`X` over :math:`A` under measure :math:`\mathbb{P}`. The  |exdef| :index:`conditional expectation` |end-span| conditioned on another random variable :math:`Y`,
-denoted as :math:`\mathbb{E}\left\lbrack X|Y \right\rbrack` is itself a random
-variable because :math:`Y` is random.
-
-
-|para| A  |exdef| :index:`stochastic process` |end-span| or a  |exdef| :index:`random process` |end-span| is a collection of RVs
+|para| A  |def| :index:`stochastic process` |end-span| or a  |def| :index:`random process` |end-span| is a collection of RVs
 :math:`X\left( t \right),t \in T` where :math:`T` is a finite, countable or
-uncountable  |exdef| :index:`index set` |end-span|." Note the random variables in this general
-definition do not have intrinsic order, even though the word "process"
-suggests "series". The order of RVs can be added by concrete
+uncountable  |def| :index:`index set` |end-span|. :emp:`Note` the random variables in this general
+definition do not have intrinsic order, even though the word meaning of "process"
+can suggest "series". The order of RVs can be added by concrete
 definitions, for example, a  |exdef| :index:`Markov chain` |end-span| is a stochastic process
 where :math:`T = \left\{ 0,1,2,\ldots \right\}\mathbb{= N}` s.t. the
 distribution of :math:`X\left( t + 1 \right)` is only dependent on
 :math:`X\left( t \right)` for :math:`t = 1,2\ldots` In such case when the "process"
 is ordered, :math:`T` can usually be interpreted as time. We can often see
 processes like  |exdef| :index:`Gaussian process` |end-span|,  |exdef| :index:`Poisson process` |end-span|,  |exdef| :index:`Dirichlet process` |end-span|
-etc. in probabilistic machine learning, and the pattern of
+etc. in probabilistic machine learning, and the scheme of
 their definitions are :emp:`simply` stochastic processes
 :math:`X\left( t \right),t \in T` s.t. for any finite subset
 :math:`\left\{ t_{1},\ldots,t_{N} \right\}` of :math:`T` of arbitrary
@@ -303,20 +582,720 @@ their definitions are :emp:`simply` stochastic processes
 concrete process definition),
 :math:`\left( X\left( t_{1} \right),\ldots,X\left( t_{N} \right) \right)` in
 some way obeys corresponding distributions (Gaussian distribution,
-Poisson distribution, Dirichlet distribution etc.). :emp:``For
-example`, we may define :math:`X\left( t \right)` obeys a
+Poisson distribution, Dirichlet distribution etc.). :emp:`For example`, we may define :math:`X\left( t \right)` obeys a
 Gaussian process :math:`\operatorname{GP}\left( μ,\Sigma \right)` if
-:math:`\forall N \geq 1,t_{1},\ldots,t_{N} \in T`,
-:math:`μ\left( X\left( t_{1} \right),\ldots,X\left( t_{N} \right) \right)`
+:math:`\forall N \geq 1,t_{1},\ldots,t_{N} \in T` we have
+
+.. math::
+ \left( X\left( t_{1} \right),\ldots,X\left( t_{N} \right) \right)
+ \sim\operatorname{Gaussian}\left( μ\left( X\left( t_{1} \right),\ldots,X\left( t_{N} \right) \right),
+ \Sigma\left( X\left( t_{1} \right),\ldots,X\left( t_{N} \right) \right) \right)
+
+where :math:`μ\left( X\left( t_{1} \right),\ldots,X\left( t_{N} \right) \right)`
 is the  |exdef| :index:`mean function` |end-span| that yields a vector of length :math:`N`, and
 :math:`\Sigma` is the  |exdef| :index:`covariance function` |end-span| that yields a :math:`N \times N`
 matrix. :emp:`For another example`, the Dirichlet process
 assumes the RVs :math:`X\left( t \right)` are probability-measure-valued (i.e.
-the state space :math:`S` of :math:`X` are probability measures), and lets the index
-set :math:`T` be a 𝜎-algebra, and define
-:math:`X\left( t \right)\sim\operatorname{DP}\left( α,H \right)` for some  |exdef| :index:`base probability measure` |end-span| :math:`H` and  |exdef| :index:`concentration parameter` |end-span|
-:math:`α`, if for any finite partition :math:`t_{1},\ldots,t_{N}` in :math:`T` (a
-𝜎-algebra must contain finite partitions due to its axioms),
-:math:`\left( X\left( t_{1} \right),\ldots,X\left( t_{N} \right) \right)`
-obeys Dirichlet distribution
-:math:`\operatorname{Dirichlet}\left(α H \left( t_{1} \right),\ldots,α H\left( t_{N} \right) \right)`.
+the state space :math:`S` of :math:`X` are probability measures), and let the index
+set :math:`T` be a 𝜎-algebra of the sample space :math:`\Omega`. We say :math:`X\left( t \right)\sim\operatorname{DP}\left( α,H \right)`
+for the  |exdef| :index:`base probability measure` |end-span| :math:`H` and the  |exdef| :index:`concentration parameter` |end-span| :math:`α`, if we always have
+
+.. math::
+ \left( X\left( t_{1} \right),\ldots,X\left( t_{N} \right) \right)\sim
+ \operatorname{Dirichlet}\left( α H \left( t_{1} \right),\ldots,α H\left( t_{N} \right) \right)
+
+for any finite partition of the sample space
+:math:`\left\{ t_{1},\ldots,t_{N} \right\} \subset T` (i.e.
+:math:`\bigcup_{i = 1}^{N}t_{i} = \Omega`, a σ-algebra must contain such a
+finite partition of the sample space due to its axioms).
+
+
+
+.. raw:: html
+
+   <div class="hidden_cell_note" style="display: none">$$cell_σ-Algebra Is The Lowest Mathematical Construction for Information$$
+
+ useless 
+.. raw:: html
+
+   $$end_cell_σ-Algebra Is The Lowest Mathematical Construction for Information$$</div>
+
+.. note::
+ |para| σ-algebra can be understood as the lowest-level mathematical
+ construction for information, on top of which concepts to quantify
+ information, such like entropy_, can be
+ defined. Given two σ-algebras :math:`\mathcal{F}_{1},\mathcal{F}_{2}`
+ defined on a sample space :math:`\Omega` and if
+ :math:`\mathcal{F}_{1} \subset \mathcal{F}_{2}`, then we can say
+ :math:`\mathcal{F}_{2}` contains more "information", because a RV defined
+ w.r.t. :math:`\mathcal{F}_{2}` (recall a RV must be measurable and thus it is
+ required :math:`X^{- 1}\left( x \right)\in\mathcal{F,}\forall x \in X\left( \Omega \right)`)
+ can have a larger support, or the "realization" of :math:`X` has a higher variety.
+
+ |para| :emp:`For example`, recall the sample space of a coin flip is
+ :math:`\Omega = \left\{ \text{head},\text{tail} \right\}` and the finest
+ σ-algebra for this is
+ :math:`\mathcal{F}_{2}\mathcal{= P}\left( \Omega \right) = \left\{ \left\{ \text{head},\text{tail} \right\},\left\{ \text{head} \right\},\left\{ \text{tail} \right\},\varnothing \right\}`
+ which contains all possible events that can happen for a coin-flip
+ experiment, and by common sense we assign a probability measure
+
+ .. math::
+  \mathbb{P}\left( \left\{ \text{head},\text{tail} \right\} \right) = 1,\mathbb{P}\left( \left\{ \text{head} \right\} \right)=\mathbb{P}\left( \left\{ \text{tail} \right\} \right) = \frac{1}{2}\mathbb{,P}\left( \varnothing \right) = 0
+
+ Any real-valued random variable :math:`X` defined on this probability space
+ can have :math:`X^{- 1}` be any one of
+ :math:`\left\{ \text{head},\text{tail} \right\},\left\{ \text{head} \right\},\left\{ \text{tail} \right\},\varnothing`,
+ with the most intuitive random variable being
+ :math:`X\left( \omega \right) = \left\{ \begin{matrix}   0 & \omega = \text{head} \\   1 & \omega = \text{tail} \\   \end{matrix} \right.\ ` with
+ :math:`X^{- 1}\left( 0 \right) = \left\{ \text{head} \right\}`,
+ :math:`X^{- 1}\left( 1 \right) = \left\{ \text{tail} \right\}` and
+ :math:`X^{- 1}\left( \omega \right) = \varnothing,\forall\omega \notin \left\{ 0,1 \right\}`.
+ Such RV contains more information because its realization value tells you
+ what happed in the coin-flip experiment. Of course, we can define
+ another trivial RV w.r.t. :math:`\mathcal{F}_{2}` s.t.
+ :math:`X\left( \omega \right) \equiv 0` and then
+ :math:`X^{- 1}\left( 0 \right) = \left\{ \text{head},tail \right\}` and
+ :math:`X^{- 1}\left( \omega \right) = \varnothing,\forall\omega \neq 0`.
+ :emp:`However`, there is a valid σ-algebra that is
+ coarser than :math:`\mathcal{F}_{2}`, i.e.
+ :math:`\mathcal{F}_{1} = \left\{ \left\{ \text{head},\text{tail} \right\},\varnothing \right\} \subseteq \mathcal{F}_{2}`,
+ which is the trivial σ-algebra. On this σ-algebra, any RV
+ can only be a constant function, like :math:`X\left( \omega \right) \equiv 0`.
+ Such RV is meaningless, and its realization value tells you nothing about
+ what happened in the coin-flip experiment. The inability of the RV is
+ due to loss of information by the coarser σ-algebra.
+
+ |para| :emp:`For a likewise example`, one can think of throwing a
+ dice. The sample space is :math:`\Omega = \left\{ 1,2,3,4,5,6 \right\}`. Consider the following σ-algebras,
+
+ .. math::
+  \begin{aligned}
+  \mathcal{F}_{3} &= \mathcal{P}\left( \Omega \right) \\
+  \mathcal{F}_{2} &= σ\left( \left\{ \left\{ 1,3 \right\},\left\{ 5 \right\},\left\{ 2 \right\},\left\{ 4,6 \right\} \right\} \right) \\
+  \mathcal{F}_{1}^{\left( 1 \right)} &= σ\left( \left\{ \left\{ 1,3,5 \right\},\left\{ 2,4,6 \right\} \right\} \right) \\
+  \mathcal{F}_{1}^{\left( 2 \right)} &= σ\left( \left\{ \left\{ 1,2,3 \right\},\left\{ 4,5,6 \right\} \right\} \right) \\
+  \end{aligned}
+
+ where we can verify
+ :math:`\mathcal{F}_{1}^{\left( 1 \right)} \subset \mathcal{F}_{2} \subset \mathcal{F}_{3}`
+ and
+ :math:`\mathcal{F}_{1}^{\left( 2 \right)} \subset \mathcal{F}_{2} \subset \mathcal{F}_{3}`.
+ On :math:`\mathcal{F}_{3}`, an RV can be defined as
+ :math:`X\left( \omega \right) = \omega,\omega \in \Omega`, which has 6
+ possible realization values, and tells you exactly what happened in the
+ dicing. On :math:`\mathcal{F}_{2}`, the best RV we can define is like
+ :math:`X\left( \omega \right) = \left\{ \begin{matrix}   0 & \omega \in \left\{ 1,3 \right\} \\   1 & \omega = 5 \\   2 & \omega = 2 \\   3 & \omega \in \left\{ 4,6 \right\} \\   \end{matrix} \right.\ `, whose realization tells you if the dicing result
+ is even or odd as well as small or big. On
+ :math:`\mathcal{F}_{1}^{\left( 1 \right)}`, the best RV one can define is
+ :math:`X\left( \omega \right) = \left\{ \begin{matrix}   0 & \omega \in \left\{ 1,3,5 \right\} \\   1 & \omega \in \left\{ 2,4,6 \right\} \\   \end{matrix} \right.\ `, whose realization only tells you if the dicing
+ result is even or odd; similarly, on
+ :math:`\mathcal{F}_{1}^{\left( 2 \right)}`, the best RV one can tell whether
+ the result is small or big; but :math:`\mathcal{F}_{1}^{\left( 1 \right)}` and
+ :math:`\mathcal{F}_{1}^{\left( 2 \right)}` is not comparable.
+ Again, we see the pattern that coarser σ-algebra loses information in terms of the RV with best realization variety we can define.
+
+
+
+Marginalization, Conditional Expectation, Conditional Probablity and Bayes' Rules
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+|para| A random variable can be a vector, e.g.
+:math:`\left( X_{1},X_{2},X_{3} \right)`, called a  |def| :index:`random vector` |end-span|. Since by
+definition a random variable can be either a scalar or a vector, :emp:`very often`
+the concept of random variable and random vector are
+used exchangeably and both are abbreviated as RV. :emp:`Intuitively`, a marginal random variable removes some
+dimensions of the random vector, e.g. :math:`X_{1}`, or
+:math:`\left( X_{1},X_{2} \right)` or :math:`\left( X_{2},X_{3} \right)`, etc. The
+removal of some dimensions of a random vector is called  |def| :index:`marginalization` |end-span|. :emp:`Formally`, suppose the original RV is
+:math:`\left( X,Y \right):\left( \Omega,\mathcal{F} \right) \rightarrow \left( S_{1} \times S_{2},\mathcal{E} \right)`,
+then define :math:`\mathcal{E}_{1},\mathcal{E}` be σ-algebras s.t. if
+:math:`B \in \mathcal{E}`, then
+:math:`B_{1} = \left\{ x:\left( x,y \right) \in B \right\} \in \mathcal{E}_{1}`,
+and
+:math:`B_{2} = \left\{ y:\left( x,y \right) \in B \right\} \in \mathcal{E}_{2}`;
+in plain words, :math:`\mathcal{E}_{1},\mathcal{E}_{2}` are derived by only
+keeping the first/second dimension of elements in all sets in
+:math:`\mathcal{E}`. Then
+:math:`X:\left( \Omega,\mathcal{F} \right) \rightarrow \left( S_{1},\mathcal{E}_{1} \right)`
+is a  |def| :index:`marginal random variable` |end-span| of :math:`\left( X,Y \right)`
+if:math:`\text{\ X}\left( \omega \right) = x` iff
+:math:`\left( X,Y \right)\left( \omega \right) = \left( x,y \right)`, and
+:math:`Y:\left( \Omega,\mathcal{F} \right) \rightarrow \left( S_{2},\mathcal{E}_{2} \right)`
+is the other  |def| :index:`marginal random variable` |end-span| if
+:math:`Y\left( \omega \right) = y` iff
+:math:`\left( X,Y \right)\left( \omega \right) = \left( x,y \right)`, and
+recursively the marginal RVs of :math:`X,Y` are also marginal RVs of
+:math:`\left( X,Y \right)`. Let :math:`μ_{1},μ_{2}` be chosen measures for
+:math:`S_{1},S_{2}`, then another measure :math:`μ` is said to be the  |def| :index:`product measure` |end-span| of :math:`μ_{1},μ_{2}` if
+:math:`μ\left( B_{1} \times B_{2} \right) = μ_{1}\left( B_{1} \right)μ_{2}\left( B_{2} \right),\forall B_{1} \in \mathcal{E}_{1},B_{2} \in \mathcal{E}_{2}`. :emp:`For example`,
+|fact| Lebesgue measure on :math:`\mathbb{R}^{2}` is a
+product measure of Lebesgue measures on :math:`\mathbb{R}`  |end-span|.
+|theorem| Denote :math:`μ_{1} \times μ_{2} := μ`. Let :math:`μ_{1},μ_{2}` be chosen measures
+for :math:`S_{1},S_{2}` respectively choose product measure
+:math:`μ_{2} \times μ_{2}` for :math:`S_{1} \times S_{2}`, then the density
+functions :math:`f\left( x,y\right),f_{X}\left( x \right),f_{Y}\left( y \right)`
+of :math:`\left(X,Y\right),X,Y` satisfy :math:`f_{X}\left( x \right) = \int_{S_{1} \times S_{2}}^{}{f\left( x,y \right)}dy`
+and :math:`f_{Y}\left( y \right) = \int_{S_{1} \times S_{2}}^{}{f\left( x,y \right)}\operatorname{d}x`  |end-span|,
+and :math:`f_{X}\left( x \right)` and :math:`f_{Y}\left( y \right)` are both called  |def| :index:`marginal density functions` |end-span|. This can be proved as the following,
+for any :math:`B \in \mathcal{E}_{1}`, we have
+
+.. math::
+ \begin{aligned}\mathbb{P}\left( X \in B \right) &=\mathbb{P}\left( X \in B,Y \in S_{2} \right)=\mathbb{P}\left( \left( X,Y \right) \in B \times S_{2} \right) = \int_{B \times S_{2}}^{}{f\left( x,y \right)}d\left( μ_{1} \times μ_{2} \right) \\
+ &{\color{conn1}{=}} \int_{B}^{}{\left( \int_{S_{2}}^{}{f\left( x,y \right)\operatorname{d}μ_{2})} \right)\operatorname{d}μ_{1}} = \int_{B}^{}{f_{X}(x)\operatorname{d}μ_{1})}
+ \end{aligned}
+
+where the :conn1:`key step` uses  |exdef| :index:`Tonelli's theorem` |end-span|, which states |fact| the
+integration of a non-negative function w.r.t. a product measure can be
+broken into iterated integrations in any order |end-span|. The proof is the same for the other identity.
+
+
+|para| Given a real-valued RV
+:math:`X:\left( \Omega\mathcal{,F} \right) \rightarrow \left( \mathbb{R}\mathcal{,B}\left( \mathbb{R} \right) \right)`,
+The  |def| :index:`expectation` |end-span| of a random variable :math:`X` is defined as
+:math:`\mathbb{E}X = \int_{\Omega}^{}{X\operatorname{d}\mathbb{P}}`, the integration of
+function :math:`X` over entire sample space under measure :math:`\mathbb{P}`. The  |def| :index:`conditional expectation by an event` |end-span| is defined as
+:math:`\mathbb{E}\left\lbrack X|A \right\rbrack = \frac{\int_{A}^{}{X\operatorname{d}\mathbb{P}}}{\mathbb{P}\left( A \right)}`.
+The arithmetic rules for expectation,
+like linearity, :emp:`inherits` from those arithmetic
+properties in :ref:`Fact 1-2 <fact_integration_arithemetics>`. Surprisingly, |comment| the construction of expectation
+conditioned on a RV and the conditional density turn out the trickiest
+essential concepts in probability theory |end-span|. A :emp:`naive construction` one can think of is a
+:math:`\left( \Omega^{2},σ\left( \mathcal{F}^{2} \right) \right) \rightarrow \left( \mathbb{R}\mathcal{,B}\left( \mathbb{R} \right) \right)`
+RV defined on a product measure space; but this is :emp:`not adopted` by the theory, because **1)** it is hard to tell
+what probability measure should be defined on the product space in order
+for the theory to be consistent; **2)** the theory prefers to construct
+every essential concept within the same probability space
+:math:`\left( \Omega\mathcal{,F,}\mathbb{P} \right)` which can help avoid
+complicacies when the theory is further developed.
+:emp:`Therefore`, the conditional expectation is no doubt a RV,
+but we would like to define it in the original space, i.e. a
+:math:`\left( \Omega\mathcal{,F} \right) \rightarrow \left( \mathbb{R}\mathcal{,B}\left( \mathbb{R} \right) \right)`
+RV. Although such definition seems odd at the first glance, it turns out
+consistent with the classic theory and other measure-theoretic
+definitions.
+
+|para| We start with considering the easier case of a partition
+:math:`\mathcal{P \subseteq F}`. We feel it might be reasonable to design the
+expectation of a RV :math:`X` conditioned on :math:`\mathcal{P}` as another RV :math:`Y`
+as a piecewise function s.t.
+:math:`Y\left( \omega \right)=\mathbb{E}\left\lbrack X|A \right\rbrack` if
+:math:`\omega \in A` for any :math:`A \in \mathcal{P}`. :emp:`Formally`,
+suppose :math:`\mathbb{E}X` is finite, then the  |def| :index:`conditional expectation given partition` |end-span| :math:`\mathcal{P =}\left\{ A_{1},A_{2},\ldots \right\}` is
+defined as a RV :math:`Y:\Omega\mathbb{\rightarrow R}` s.t. **1)** measurable
+by :math:`σ\left( \mathcal{P} \right)`; **2)** :math:`Y \in \mathcal{L}^{1}`;
+**3)** :math:`\mathbb{E}\left\lbrack Y|A \right\rbrack=\mathbb{E}\left\lbrack X|A \right\rbrack,\forall A \in \mathcal{P}`.
+Since any :math:`A \in σ\left( \mathcal{P} \right)` is a finite or
+countable union of disjoint sets in :math:`\mathcal{P}`, then it is easy to
+see:math:`\colorbox{result}{$\mathbb{E}\left\lbrack Y|A \right\rbrack=\mathbb{E}\left\lbrack X|A \right\rbrack,\forall A \in σ\left( \mathcal{P} \right)$}`.
+|result| Such RV :math:`Y` exists since we can define |end-span|
+
+.. math::
+ \colorbox{rlt}{$Y\left( \omega \right)=\mathbb{E}\left\lbrack X|A_{i} \right\rbrack,\forall\omega \in A_{i},i = 1,2,\ldots$}
+ :label: eq_conditional_expt_given_partition
+
+which is a piecewise constant function, and it satisfies all above
+conditions; we denoted such :math:`Y` by
+:math:`\mathbb{E}\left\lbrack X|\mathcal{P} \right\rbrack`. It can be shown
+such :math:`Y` is unique almost surely as in *Theorem 1?€?1*, then any other conditional expectation by partition :math:`\mathcal P`
+different from :math:`\mathbb{E}\left\lbrack X|\mathcal{P} \right\rbrack` only
+differs on a set of zero measure. This intermediate definition could
+make us feel more comfortable with the following general definition.
+
+
+.. raw:: html
+
+   <div class="hidden_cell_cell" style="display: none">$$cell_001$$
+
+.. image:: ./conditional_expectation.png
+  :scale: 80%
+
+
+.. raw:: html
+
+   $$end_cell_001$$</div>
+
+
+.. raw:: html
+
+   <div class="hidden_cell_cell" style="display: none">$$cell_002$$
+
+
+.. _figure_conditional_expt:
+
+|span-justify| |ibold| Figure 1-1 |end-span| Illustration of conditional expectation. |end-span| Consider :math:`\left( \Omega\mathcal{,F} \right) = \left( \mathbb{R}\mathcal{,B}\left( \mathbb{R} \right) \right)`,
+then the probability measure on :math:`Ω` can be represented by a density function :math:`𝑓`. Suppose :math:`X\left( \omega \right) = \omega^{2},Z\left( \omega \right) = \left\{ \begin{matrix}   3 & \omega \in \left( - \infty, - 1 \right\rbrack \\   1 & \omega \in \left( - 1,2 \right\rbrack \\   2 & \omega \in \left( 2,3 \right\rbrack \\   4 & \omega \in \left( 3, + \infty \right) \\   \end{matrix} \right.\ `,
+then :math:`σ\left( Z \right)` is generated by partition
+:math:`\mathcal{P}=\left\{ \left( - \infty, - 1 \right\rbrack,\left( - 1,2 \right\rbrack,\left( 2,3 \right\rbrack,\left( 3, + \infty \right) \right\}`,
+and :math:`\mathbb{E}\left\lbrack X|Z \right\rbrack` in this example is
+transforming :math:`X` to a piecewise function :math:`\mathbb{E}[X|Z](\omega)=\int_{A}X\operatorname{\mathbb{P}}=\int_{A}Xf` if :math:`\omega \in A \in \mathcal{P}`
+, i.e. within each :math:`𝐴∈𝒫` RV :math:`𝑋` becomes a constant that is the average value of :math:`𝑋` over :math:`𝐴`. The effect of :math:`𝑍` in this example
+is to determine those regions where :math:`𝑋` is to be piecewisely averaged. The concrete form of :math:`𝑍` does not matter as long as :math:`𝜎(𝑍)=𝜎(\mathcal{P})`.
+
+
+
+.. raw:: html
+
+   $$end_cell_002$$</div>
+
+
+.. raw:: html
+
+   <table class="colwidths - given docutils" style="background:none; border:none;" width="90%" align="center" ><colgroup><col width = "100%" /></colgroup><tbody><tr class="row-odd" style="text-align:center; vertical-align:middle; "><td  style="background:none; border:none;">$$cell_001$$</td></tr><tr><td  style="background:none; border:none;">$$cell_002$$</td></tr></tbody></table>
+
+|para| :emp:`Then, more generally`, given a coarser :math:`σ`-algebra
+:math:`\mathcal{G \subseteq F}`, and suppose :math:`\mathbb{E}X` is finite, the  |def| :index:`conditional expectation by` |end-span| :math:`σ`**-algebra** :math:`\mathcal{G}` is
+defined as a RV :math:`Y:\Omega\mathbb{\rightarrow R}` s.t. |fact| **1)** measurable
+by :math:`\mathcal{G}`; **2)** :math:`\mathbb{E}Y` is finite; **3)**
+:math:`\mathbb{E}\left\lbrack Y|A \right\rbrack = \mathbb{E}\left\lbrack X|A \right\rbrack,\forall A \in \mathcal{G}`  |end-span|.
+We take it for granted |fact| that such :math:`Y` can be shown to exist |end-span| and its a.s. uniqueness is shown below in
+:ref:`Theorem 1-1 <theorem_conditional_expt_uniqueness>`, and we denote such :math:`Y` as
+:math:`\mathbb{E}\left\lbrack X|\mathcal{G} \right\rbrack`. Now we can also
+define  |def| :index:`conditional expectation by a random variable` |end-span|
+:math:`Z:\left( \Omega\mathcal{,F} \right) \rightarrow \left( \mathbb{R}\mathcal{,B}\left( \mathbb{R} \right) \right)`
+s.t. :math:`σ\left( Z \right)\mathcal{\subset F}` as
+:math:`\mathbb{E}\left\lbrack X|Z \right\rbrack:=\mathbb{E}\left\lbrack X|σ\left( Z \right) \right\rbrack`.
+The conditional expectation given a partition :math:`\mathcal{P}` is
+consistent with this definition in that
+:math:`\mathbb{E}\left\lbrack X|\mathcal{P} \right\rbrack=\mathbb{E}\left\lbrack X|σ\left( \mathcal{P} \right) \right\rbrack`.
+
+
+
+|list-div|
+
+|item| 
+
+
+.. _theorem_conditional_expt_uniqueness:
+
+:ititle:`Theorem 1-1.` :bemp:`Uniqueness of conditional expectation.` |theorem| The conditional expectation
+:math:`\mathbb{E}\left\lbrack X|\mathcal{G} \right\rbrack` as defined above is
+a.s. unique |end-span|. We present this because it is not a hard proof. Suppose :math:`Y = \mathbb{E}\left\lbrack X|\mathcal{G} \right\rbrack` for
+some :math:`\mathcal{G \subseteq F}`. Suppose there is another RV :math:`Y^{'}` also satisfying all axioms for
+conditional expectation :math:`Y`. Let :math:`A_{\epsilon} = \left\{ Y - Y^{'} \geq \epsilon \right\}`, then
+:math:`Y - Y^{'}` is a RV by :ref:`Lemma 1-2 <lemma_prob_random_variable_arithmetic_rules>` and thus
+:math:`A_{\epsilon}\in \mathcal{ F}` for any :math:`\epsilon > 0` by :ref:`Lemma 1-1 <lemma_prob_measurable_function_basic_measurable_sets>`. By
+the definition of conditional expectation, we have
+
+.. math::
+ \mathbb{E}\left\lbrack Y|A_{\epsilon} \right\rbrack\mathbb{- E}\left\lbrack Y^{'}|A_{\epsilon} \right\rbrack=\mathbb{E}\left\lbrack X|A_{\epsilon} \right\rbrack\mathbb{- E}\left\lbrack X|A_{\epsilon} \right\rbrack = 0
+
+Meanwhile,
+
+.. math::
+ \mathbb{E}\left\lbrack Y|A_{\epsilon} \right\rbrack\mathbb{- E}\left\lbrack Y^{'}|A_{\epsilon} \right\rbrack = \int_{A_{\epsilon}}^{}{Y\operatorname{d}\mathbb{P}} - \int_{A_{\epsilon}}^{}{Y^{'}\operatorname{d}\mathbb{P}} = \int_{A_{\epsilon}}^{}{\left( Y - Y^{'} \right)\operatorname{d}\mathbb{P}} \geq \int_{A_{\epsilon}}^{}{\epsilon \operatorname{d}\mathbb{P}} = \epsilon\mathbb{P}\left( A_{\epsilon} \right)
+ 
+
+.. math::
+ 0 \leq \mathbb{P}\left( Y - Y^{'} > 0 \right)=\mathbb{P}\left( \bigcup_{n = 1}^{\infty}A_{\frac{1}{n}} \right) \leq \sum_{n = 1}^{\infty}{\mathbb{P}\left( A_{\frac{1}{n}} \right)} = \sum_{n = 1}^{\infty}0 = 0\mathbb{\Rightarrow P}\left( Y - Y^{'} \leq 0 \right) = 1
+
+That is, :math:`Y \leq Y^{'}` a.s., and switch the role of :math:`Y,Y^{'}` in above
+proof we have :math:`Y \geq Y^{'}` a.s., then :math:`Y = Y^{'}` a.s., which
+completes the proof.
+
+
+|end-item|
+
+|item| 
+
+
+.. _property_expecation_identity_is_probability:
+
+:ititle:`Property 1-1.` Given a subset :math:`B` of some underlyingly assumed whole set, we define
+an  |def| :index:`identity function` |end-span| as
+:math:`\mathbb{I}_{B}\left( x \right) = \left\{ \begin{matrix} 1 & x \in B \\ 0 & x \notin B \\ \end{matrix} \right.\ `, and we call
+:math:`\mathbb{I}_{B}\left( X \right)` as the identity random variable. We
+have
+:math:`\colorbox{rlt}{$\mathbb{E}\left\lbrack \mathbb{I}_{B}\left( X \right) \right\rbrack=\mathbb{P}\left( X \in B \right)$}`.
+This easily follows from
+
+.. math::
+ \mathbb{E}\left\lbrack \mathbb{I}_{B}\left( X \right) \right\rbrack = \int_{\Omega}^{}{\mathbb{I}_{X^{- 1}\left( B \right)}\left( \omega \right)\operatorname{d}\mathbb{P}} = \int_{X^{- 1}\left( B \right)}^{}{\operatorname{d}\mathbb{P}}=\mathbb{P}\left( \omega \in X^{- 1}\left( B \right) \right)=\mathbb{P}\left( X \in B \right)
+
+
+|end-item|
+
+|item| 
+
+
+.. _property_conditional_expt_absorbing_condition:
+
+:ititle:`Property 1-2.` |result| If a RV :math:`X \in \mathcal{L}^{1}` is :math:`\mathcal{G}`-measurable, then
+a.s. :math:`\mathbb{E}\left\lbrack X|\mathcal{G} \right\rbrack = X`  |end-span|. By
+definition a RV :math:`Y` is
+:math:`\mathbb{E}\left\lbrack X|\mathcal{G} \right\rbrack` iff
+:math:`Y \in \mathcal{L}^{1}`, :math:`\mathcal{G}`-measurable and
+:math:`\mathbb{E}\left\lbrack Y|A \right\rbrack=\mathbb{E}\left\lbrack X|A \right\rbrack,\forall A \in \mathcal{G}`.
+Now :math:`X \in \mathcal{L}^{1}` and :math:`\mathcal{G}`-measurable, and
+trivially
+:math:`\mathbb{E}\left\lbrack X|A \right\rbrack=\mathbb{E}\left\lbrack X|A \right\rbrack,\forall A \in \mathcal{G}`,
+therefore :math:`\mathbb{E}\left\lbrack X|\mathcal{G} \right\rbrack = X`
+a.s. Note here "a.s." is due to the a.s. uniqueness of conditional
+expectation.
+
+:emp:`Again`, if thinking about a general :math:`σ`-algebra
+is counter-intuitive, we can always instead think of a partition and
+its generated :math:`σ`-algebra. Given a partition
+:math:`\mathcal{P =}\left\{ A_{i} \right\}`, a RV :math:`X` being
+:math:`σ\left( \mathcal{P} \right)`-measurable means :math:`X` is
+piece-wise constant over each disjoint set :math:`A_{i}` in :math:`\mathcal{P}`,
+say :math:`X\left( \omega \right) = x_{i},\forall\omega \in A_{i}`. Then
+a.s.
+:math:`\mathbb{E}\left\lbrack X|σ\left( \mathcal{P} \right) \right\rbrack\left( \omega \right) = \frac{\int_{A_{i}}^{}{x_{i}\operatorname{d}\mathbb{P}}}{\mathbb{P}\left( A_{i} \right)} = x_{i},,\forall\omega \in A_{i}`,
+i.e.
+:math:`\mathbb{E}\left\lbrack X|σ\left( \mathcal{P} \right) \right\rbrack`
+is a.s. the same function as :math:`X`.
+
+
+|end-item|
+
+|item| 
+
+
+.. _theorem_conditional_expt_tower_property:
+
+:ititle:`Theorem 1-2.` :bemp:`Law of Total Expectation (Tower Property).` |theorem| Given two :math:`σ`-algebras
+:math:`\mathcal{G}_{1} \subseteq \mathcal{G}_{2}\mathcal{\subset F}`, if
+:math:`X \in \mathcal{L}^{1}` then a.s. |end-span|
+
+.. math::
+ \colorbox{thm}{$\mathbb{E}\left\lbrack \mathbb{E}\left\lbrack X|\mathcal{G}_{2} \right\rbrack|\mathcal{G}_{1} \right\rbrack=\mathbb{E}\left\lbrack \mathbb{E}\left\lbrack X|\mathcal{G}_{1} \right\rbrack|\mathcal{G}_{2} \right\rbrack=\mathbb{E}\left\lbrack X|\mathcal{G}_{1} \right\rbrack$}
+
+:math:`\mathbb{E}\left| X \right| < + \infty` guarantees all conditional
+expectations are finite. By definition of conditional expectation,
+given :math:`\mathcal{G}_{1}\mathcal{\subset F}`, a RV
+:math:`Y = \mathbb{E}\left\lbrack X|\mathcal{G}_{1} \right\rbrack` iff it is
+finite, :math:`\mathcal{G}_{1}`-measurable and
+:math:`\int_{A}^{}{Y\operatorname{d}\mathbb{P}} = \int_{A}^{}{X\operatorname{d}\mathbb{P}},\forall A \in \mathcal{G}_{1}`.
+Therefore,
+
+.. math::
+ \int_{A}^{}{\mathbb{E}\left\lbrack X|\mathcal{G}_{1} \right\rbrack \operatorname{d}\mathbb{P}} = \int_{A}^{}{X\operatorname{d}\mathbb{P}},\forall A \in \mathcal{G}_{1}
+
+.. math::
+ \int_{A}^{}{\mathbb{E}\left\lbrack X|\mathcal{G}_{2} \right\rbrack \operatorname{d}\mathbb{P}} = \int_{A}^{}{X\operatorname{d}\mathbb{P}},\forall A \in \mathcal{G}_{2}
+
+Then since :math:`\mathcal{G}_{1} \subseteq \mathcal{G}_{2}`, then
+
+.. math::
+ \int_{A}^{}{\mathbb{E}\left\lbrack X|\mathcal{G}_{2} \right\rbrack \operatorname{d}\mathbb{P}} = \int_{A}^{}{X\operatorname{d}\mathbb{P}},\forall A \in \mathcal{G}_{1} \Rightarrow \int_{A}^{}{\mathbb{E}\left\lbrack X|\mathcal{G}_{1} \right\rbrack \operatorname{d}\mathbb{P}} = \int_{A}^{}{\mathbb{E}\left\lbrack X|\mathcal{G}_{2} \right\rbrack \operatorname{d}\mathbb{P}},\forall A \in \mathcal{G}_{1}
+
+Note :math:`\mathbb{E}\left\lbrack X|\mathcal{G}_{1} \right\rbrack` is
+finite, :math:`\mathcal{G}_{1}`-measurable and together with (1?€?3) we have
+
+.. math::
+ \mathbb{E}\left\lbrack X|\mathcal{G}_{1} \right\rbrack=\mathbb{E}\left\lbrack \mathbb{E}\left\lbrack X|\mathcal{G}_{2} \right\rbrack|\mathcal{G}_{1} \right\rbrack
+
+The other identity is simply due to
+:math:`\mathbb{E}\left\lbrack X|\mathcal{G}_{1} \right\rbrack` is
+:math:`\mathcal{G}_{1}` measurable and hence :math:`\mathcal{G}_{2}` measurable,
+and then by :ref:`Property 1-2 <property_conditional_expt_absorbing_condition>`, we have
+:math:`\mathbb{E}\left\lbrack \mathbb{E}\left\lbrack X|\mathcal{G}_{1} \right\rbrack|\mathcal{G}_{2} \right\rbrack=\mathbb{E}\left\lbrack X|\mathcal{G}_{1} \right\rbrack`.
+
+
+.. _corollary_conditional_expt_tower_RVs:
+
+:ititle2:`Corollary 1-1.`. For any RV :math:`X,Y,Z`,
+|result| if :math:`σ\left( Z \right) \subseteq σ\left( Y \right)`, then
+:math:`\mathbb{E}\left\lbrack \mathbb{E}\left\lbrack X|Y \right\rbrack|Z \right\rbrack=\mathbb{E}\left\lbrack \mathbb{E}\left\lbrack X|Z \right\rbrack|Y \right\rbrack=\mathbb{E}\left\lbrack X|Z \right\rbrack`  |end-span|.
+
+
+.. _corollary_conditional_expt_absorbing_RV:
+
+:ititle2:`Corollary 1-2.`. For any RV :math:`X,Y`, we
+have |result| a.s. :math:`\mathbb{E}\left\lbrack \mathbb{E}\left\lbrack X|Y \right\rbrack \right\rbrack=\mathbb{E}X`  |end-span|,
+simply because
+
+.. math::
+ \mathbb{E}\left\lbrack \mathbb{E}\left\lbrack X|Y \right\rbrack \right\rbrack=\mathbb{E}\left\lbrack \mathbb{E}\left\lbrack X|σ\left( Y \right) \right\rbrack|\left\{ \Omega,\varnothing \right\} \right\rbrack=\mathbb{E}\left\lbrack X|\left\{ \Omega,\varnothing \right\} \right\rbrack=\mathbb{E}X
+
+
+.. _corollary_conditional_expt_intuitive_total_expectation:
+
+:ititle2:`Corollary 1-3.`. Let
+:math:`\mathcal{P =}\left\{ A_{1},A_{2},\ldots \right\}` be a partition of
+:math:`\Omega`, then for any RV :math:`X`, we have
+
+.. math::
+ \colorbox{rlt}{$\mathbb{E}X = \sum_{i}^{}{\mathbb{E}\left\lbrack X|A_{i} \right\rbrack\mathbb{P}\left( A_{i} \right)}$}
+
+Let RV :math:`Y` be any piecewise constant function over :math:`\mathcal{P}`, then
+:math:`σ\left( Y \right) = σ\left( P \right)`. Recall
+:math:`\mathbb{E}\left\lbrack X|σ\left( P \right) \right\rbrack` is also
+a piecewise constant function defined a.s. by (1?€?1), then
+
+.. math::
+ \mathbb{E}\left\lbrack \mathbb{E}\left\lbrack X|σ\left( P \right) \right\rbrack \right\rbrack = \int_{\Omega}^{}{\mathbb{E}\left\lbrack X|σ\left( P \right) \right\rbrack \operatorname{d}\mathbb{P}} = \sum_{i}^{}{\mathbb{E}\left\lbrack X|A_{i} \right\rbrack\mathbb{P}\left( A_{i} \right)}
+
+and therefore
+
+.. math::
+ \mathbb{E}X = \mathbb{E}\left\lbrack \mathbb{E}\left\lbrack X|Y \right\rbrack \right\rbrack = \mathbb{E}\left\lbrack \mathbb{E}\left\lbrack X|σ\left( P \right) \right\rbrack \right\rbrack = \sum_{i}^{}{\mathbb{E}\left\lbrack X|A_{i} \right\rbrack\mathbb{P}\left( A_{i} \right)}
+
+
+|end-item| |end-list-div|
+
+
+
+Given an event :math:`A_{1}\in \mathcal{ F}`, the  |def| :index:`conditional probability measure` |end-span| given :math:`A_{1}` is defined as
+:math:`\mathbb{P}_{A_{1}}\left( A \right) = \frac{\mathbb{P}\left( A\bigcap A_{1} \right)}{\mathbb{P}\left( A_{1} \right)},\forall A\in \mathcal{ F}`.
+We more often denote
+:math:`{\mathbb{P}\left( A|A_{1} \right):=\mathbb{P}}_{A_{1}}\left( A \right)`.
+For any two events :math:`A_{1},A_{2}\in \mathcal{ F}`, the identity
+:math:`\colorbox{rlt}{$\mathbb{P}\left( A_{1}|A_{2} \right) = \frac{\mathbb{P}\left( A_{1}\bigcap A_{2} \right)}{\mathbb{P}\left( A_{2} \right)}$}`
+is known as the  |def| :index:`Bayes' rule for events` |end-span|. Let :math:`A_{1},A_{2},\ldots` be
+any partition of :math:`\Omega` in :math:`\mathcal{F}`, then for any
+:math:`A\in \mathcal{ F}` we have
+
+.. math::
+ \colorbox{rlt}{$\mathbb{P}\left( A \right) = \sum_{i}^{}{\mathbb{P}\left( A|A_{i} \right)\mathbb{P}\left( A_{i} \right)}$}
+ :label: eq_total_probability_for_events
+
+because :math:`A = \bigcup_{i}^{}\left( A\bigcap A_{i} \right)` and
+:math:`\mathbb{P}\left( A \right)=\mathbb{P}\left( \bigcup_{i}^{}\left( A\bigcap A_{i} \right) \right) = \sum_{i}^{}{\mathbb{P}\left( A\bigcap A_{i} \right)} = \sum_{i}^{}{\mathbb{P}\left( A|A_{i} \right)\mathbb{P}\left( A_{i} \right)}`,
+where we use axiom 2) of measure and the Bayes' rule. We call identity
+(1?€?4) as the  |def| :index:`law of total probability for events` |end-span|.
+:emp:`underline` total probability is Bayes' rule when the
+summation has only one addend, therefor it is Bayes' rule generalized to
+multiple events.
+
+|para| We now construct the idea of conditional probability. Similar to
+conditional expectation, given an event :math:`A\in \mathcal{ F}` and a
+:math:`σ`-algebra :math:`\mathcal{G \subseteq F}`, we define the  |def| :index:`conditional probability given σ-algebra` |end-span| :math:`\mathcal{G}`, denoted by
+:math:`\mathbb{P}\left( A|\mathcal{G} \right)`, as a non-negative
+:math:`\left( \Omega\mathcal{,G} \right) \rightarrow \left( \mathbb{R}\mathcal{,B}\left( \mathbb{R} \right) \right)`
+RV s.t.
+
+.. math::
+ \forall G \in \mathcal{G,}\mathbb{P}\left( A \cap G \right) = \int_{G}^{}{\mathbb{P}\left( A \middle| \mathcal{G} \right)\operatorname{d}\mathbb{P}}
+ :label: eq_conditional_prob_axiom
+
+This can be shown to be a.s. unique in :ref:`Theorem 1-3 <theorem_conditional_prob_existence_uniqueness>`.
+We then define  |def| :index:`conditional probability given partition` |end-span| :math:`\mathcal{P}` by
+:math:`\mathbb{P}\left( A|\mathcal{P} \right):=\mathbb{P}\left( A|σ\left( \mathcal{P} \right) \right)`
+and  |def| :index:`conditional probability given RV` |end-span| :math:`Y` by
+:math:`\mathbb{P}\left( A|Y \right):=\mathbb{P}\left( A|σ\left( Y \right) \right)`.
+It is not hard to figure out the :emp:`intuition` behind :eq:`eq_conditional_prob_axiom`
+if we consider :math:`\mathbb{P}\left( A|\mathcal{P} \right)` where partition
+:math:`\mathcal{P =}\left\{ A_{1},A_{2},\ldots \right\}`. In this case
+:math:`\mathbb{P}\left( A|\mathcal{P} \right)` is a piecewise constant
+function, therefore, given any :math:`A\in \mathcal{ F}`, we have
+
+
+.. raw:: html
+
+   <div class="hidden_cell_cell" style="display: none">$$cell_011$$
+
+.. image:: ./conditional_probability.png
+  :scale: 80%
+
+
+.. raw:: html
+
+   $$end_cell_011$$</div>
+
+
+.. raw:: html
+
+   <div class="hidden_cell_cell" style="display: none">$$cell_012$$
+
+
+.. _figure_conditional_prob:
+
+|span-justify| |ibold| Figure 1-2 |end-span| Illustration of conditional probability. |end-span| :math:`\mathbb{P}\left( A|Y \right)`
+where :math:`Y` is a discrete RV and
+:math:`\left| Y\left( \Omega \right) \right| = 4`.
+:math:`\mathbb{P}\left( A|Y \right)` is a piecewise constant function over
+each :math:`A_{i},i = 1,2,3,4`, and with
+:math:`\mathbb{P}\left( \cdot |Y \right)\left( \omega \right)` can be four
+different probability measures depending which :math:`A_{i}` contains
+:math:`\omega`.
+
+
+.. raw:: html
+
+   $$end_cell_012$$</div>
+
+
+.. raw:: html
+
+   <div class="hidden_cell_cell" style="display: none">$$cell_013$$
+
+.. math::
+ \mathbb{P}\left( A \cap A_{i} \right) = \int_{A_{i}}^{}{\mathbb{P}\left( A \middle| \mathcal{G} \right)\operatorname{d}\mathbb{P}} = \mathbb{P}\left( A \middle| \mathcal{G} \right)\mathbb{P}\left( A_{i} \right) \Rightarrow \mathbb{P}\left( A \middle| \mathcal{G} \right)\left( \omega \right) = \frac{\mathbb{P}\left( A \cap A_{i} \right)}{\mathbb{P}\left( A_{i} \right)}=\mathbb{P}\left( A|A_{i} \right),\forall\omega \in A_{i}
+
+
+
+.. raw:: html
+
+   $$end_cell_013$$</div>
+
+
+.. raw:: html
+
+   <table class="colwidths - given docutils" style="background:none; border:none;" width="100%" align="center" ><colgroup><col width = "60%" /><col width = "40%" /></colgroup><tbody><tr class="row-odd" style="text-align:center; vertical-align:middle; "><td  rowspan="2" style="background:none; border:none;text-align:justify; vertical-align:middle; ">$$cell_013$$</td><td  style="background:none; border:none;">$$cell_011$$</td></tr><tr><td  style="background:none; border:none;text-align:justify; vertical-align:middle; ">$$cell_012$$</td></tr></tbody></table>
+
+meaning :math:`\mathbb{P}\left( A \middle| \mathcal{G} \right)` over each
+:math:`A_{i}` is simply a constant
+:math:`\frac{\mathbb{P}\left( A \cap A_{i} \right)}{\mathbb{P}\left( A_{i} \right)}`,
+the conditional probability of event :math:`A` given :math:`A_{i}`; this is similar
+to the conditional expectation of a RV :math:`X` given a partition
+:math:`\mathcal{P}`, which is a piecewise constant function that equals
+:math:`\mathbb{E}\left\lbrack X|A_{i} \right\rbrack` over each set :math:`A_{i}` in
+the partition.
+
+
+
+|list-div|
+
+|item| 
+
+
+.. _theorem_conditional_prob_existence_uniqueness:
+
+:ititle:`Theorem 1-3.` :bemp:`Existence and uniqueness of conditional probability.` |theorem| For any :math:`A\in \mathcal{ F}` and :math:`\mathcal{G \subseteq F}`, the
+conditional probability exists and is a.s. unique |end-span|. Notice
+:math:`\mathbb{P}_{A}\left( \cdot \right):=\mathbb{P}\left( A\bigcap_{}^{}\left( \cdot \right) \right)`
+is a measure for :math:`\left( \Omega\mathcal{,G} \right)` by checking those
+axioms, and we can also verify :math:`\mathbb{P}_{A}\mathbb{\ll P}`. Also,
+:math:`\mathbb{P}` is also a valid measure for
+:math:`\left( \Omega\mathcal{,G} \right)`, then by :ref:`Fact 1-4 <fact_prob_randon_nikodym_theorem>` Radon-Nikodym
+Theorem we have a non-negative :math:`\mathcal{G}`-measurable function
+:math:`\mathbb{P}\left( A \middle| \mathcal{G} \right) = \frac{\operatorname{d}\mathbb{P}_{A}}{\operatorname{d}\mathbb{P}}`
+exists and is a.s. unique.
+
+
+|end-item|
+
+|item| 
+
+
+.. _property_conditional_prob_as_measure:
+
+:ititle:`Property 1-3.` |result| Given any :math:`\omega \in \Omega`, then
+:math:`\mathbb{P}_{\mathcal{G}}^{\left( \omega \right)}\left( \cdot \right):=\mathbb{P}\left( \cdot \middle| \mathcal{G} \right)\left( \omega \right)`
+is a.s. a valid measure on :math:`\left( \Omega\mathcal{,F} \right)`  |end-span|.
+**First**, :math:`\mathbb{P}_{\mathcal{G}}^{\left( \omega \right)} \geq 0`
+by definition. **Secondly**,
+:math:`\mathbb{P}_{\mathcal{G}}^{\left( \omega \right)}\left( \varnothing \right) = 0`
+because by (1?€?5)
+:math:`0 = \mathbb{P}\left( \varnothing \cap G \right) = \int_{G}^{}{\mathbb{P}\left( \varnothing \middle| \mathcal{G} \right)\operatorname{d}\mathbb{P,\forall}G \in \mathcal{G \Rightarrow}\mathbb{P}\left( \varnothing \middle| \mathcal{G} \right) \equiv 0}`
+a.s. **Thirdly**, for any
+:math:`A_{1},A_{2}\in \mathcal{ F,}A_{1}\bigcap A_{2} = \varnothing`, then
+:math:`A_{1}\bigcap G` is disjoint form :math:`A_{2}\bigcap G` and
+
+.. math::
+ \begin{aligned}
+ \int_{G}^{}{\mathbb{P}\left( A_{1}\bigcup A_{2} \middle| \mathcal{G} \right)\operatorname{d}\mathbb{P}}
+ &=\mathbb{P}\left( \left( A_{1}\bigcup A_{2} \right) \cap G \right)
+ =\mathbb{P}\left( \left( A_{1}\bigcap G \right)\bigcup\left( A_{2}\bigcap G \right) \right)
+ =\mathbb{P}\left( A_{1}\bigcap G \right)\mathbb{+ P}\left( A_{2}\bigcap G \right) \\
+ &= \int_{G}^{}{\mathbb{P}\left( A_{1} \middle| \mathcal{G} \right)\operatorname{d}\mathbb{P}} + \int_{G}^{}{\mathbb{P}\left( A_{2} \middle| \mathcal{G} \right)\operatorname{d}\mathbb{P}}
+ = \int_{G}^{}{\left( \mathbb{P}\left( A_{1} \middle| \mathcal{G} \right)\mathbb{+ P}\left( A_{2} \middle| \mathcal{G} \right) \right)\operatorname{d}\mathbb{P}}
+ \end{aligned}
+
+Then by uniqueness we have a.s.
+:math:`\mathbb{P}\left( A_{1}\bigcup A_{2} \middle| \mathcal{G} \right) = \mathbb{P}\left( A_{1} \middle| \mathcal{G} \right)\mathbb{+ P}\left( A_{2} \middle| \mathcal{G} \right)`.
+
+|end-item| |end-list-div|
+
+
+
+|para| Now given a :math:`(\Omega,\mathcal{F}) \to (S,\mathcal{E})` RV :math:`Y`, define the  |def| :index:`regular conditional probability` |end-span| conditioned on :math:`Y` as a
+function :math:`\upsilon\left( x,A \right):S\mathcal{\times F \rightarrow}\left\lbrack 0,1 \right\rbrack` s.t. |fact| **1)** :math:`\upsilon\left( x, \cdot \right)` is a valid probability measure
+on :math:`\left( \Omega\mathcal{,F} \right)` for any :math:`x \in S`; **2)**
+:math:`\upsilon\left( \cdot ,A \right)` is a :math:`\mathcal{F}`-measurable function
+in the first argument s.t.
+:math:`\int_{B}^{}{\upsilon\left( y,A \right)\operatorname{d}Y} = \mathbb{P}\left( A\bigcap Y^{- 1}\left( B \right) \right),\forall A\in \mathcal{ F}`  |end-span|,
+where :emp:`for simplicity` we denote :math:`\mathbb{P}_Y:=\mathbb{P} \circ Y^{-1}` and the integration w.r.t. the distribution :math:`\mathbb{P}_{Y}`
+of RV :math:`Y` as
+:math:`\int_{B}^{}{\upsilon dY} := \int_{B}^{}{\upsilon \operatorname{d}\left( \mathbb{P \circ}Y^{- 1} \right)} = \int_{B}^{}{\upsilon \operatorname{d}\mathbb{P}_{Y}}`.
+The existence of :math:`\upsilon\left( x,A \right)` satisfying axiom 2) can be
+shown in the same way as :ref:`Theorem 1-3 <theorem_conditional_prob_existence_uniqueness>` since
+:math:`\mathbb{P}\left( A\bigcap Y^{- 1}\left( \cdot \right) \right)` and
+:math:`\mathbb{P}_{Y}` are a valid measures on
+:math:`\left( S,\mathcal{E} \right)` and :math:`\mathbb{P}\left( A\bigcap Y^{- 1}\left( \cdot \right) \right) \ll \mathbb{P}_{Y}`.
+As shown in :ref:`Property 1-3 <property_conditional_prob_as_measure>`, for any :math:`x \in S`, :math:`\upsilon\left( x, \cdot \right)` is a.s. a probability
+measure, however, to satisfy axiom 1), which does not contain the "a.s."
+modifier, there has to be additional requirement on
+:math:`\left( S,\mathcal{E} \right)`; it requires :math:`S` be a  |exdef| :index:`separable metric space` |end-span| and :math:`\mathcal{E = B}\left( S \right)`, and the proof is beyond our scope; we
+state the fact our ordinary space
+:math:`\left( \mathbb{R}^{n}\mathcal{,B}\left( \mathbb{R}^{n} \right) \right)`
+satisfy this requirement and so |fact| the regular conditional probability is guaranteed to exist on
+:math:`\left( \mathbb{R}^{n}\mathcal{,B}\left( \mathbb{R}^{n} \right) \right)`  |end-span|.
+The :ref:`Fact 1-3 <fact_integration_change_of_variable_image_measure>` change of variable indicates
+:math:`\int_B \upsilon\operatorname{d}Y=\int_{B} \upsilon \operatorname{d}(\mathbb{P} \circ Y^{-1})=\int_{Y^{-1}(B)}(\upsilon \circ Y)\operatorname{d}\mathbb{P}`
+, and then the axiom 2) becomes
+
+.. math::
+ \int_{Y^{- 1}\left( B \right)}^{}{\upsilon\left( Y\left( \omega \right),A \right)\operatorname{d}\mathbb{P}}=\mathbb{P}\left( A\bigcap Y^{- 1}\left( B \right) \right),\forall A\in \mathcal{ F} \Longleftrightarrow \int_{G}^{}{\upsilon\left( Y\left( \omega \right),A \right)\operatorname{d}\mathbb{P}}=\mathbb{P}\left( A\bigcap G \right),\forall A\in \mathcal{ F}Gσ\left( Y \right)
+
+where :math:`\upsilon\left( Y\left( \omega \right),A \right)` is a
+:math:`σ\left( Y \right)`-measurable function and we can see
+|result| :math:`\upsilon\left( Y\left( \omega \right),A \right) = \mathbb{P}\left( A \middle| σ\left( Y \right) \right)\left( \omega \right)` a.s. |end-span|
+by uniqueness of :ref:`Theorem 1-3 <theorem_conditional_prob_existence_uniqueness>`, and it is guaranteed
+:math:`\mathbb{P}_{σ{(Y)}}^{\left( \omega \right)}(\cdot)=\mathbb{P}(\cdot|\mathcal{G})(\omega)`
+can be chosen to be a probability measure for all :math:`ω∈Ω` if the regular conditional probability exists.
+Also, for any
+:math:`\omega_{1},\omega_{2} \in \Omega,\omega_{1} \neq \omega_{2}` but
+:math:`Y\left( \omega_{1} \right) = Y\left( \omega_{2} \right)`, we have
+:math:`\mathbb{P}_{σ{(Y)}}^{\left( \omega_1 \right)}=\mathbb{P}_{σ{(Y)}}^{\left( \omega_2 \right)}`
+Finally, we are able to define  |def| :index:`conditional distribution of a RV` |end-span|
+:math:`X:\left( \Omega\mathcal{,F} \right) \rightarrow \left( S,\mathcal{E} \right)`
+given :math:`Y = y` as the probability measure
+
+.. math::
+ \mathbb{P}_{X|Y = y}\left( \cdot \right) := \upsilon\left( y,X^{- 1}\left( \cdot \right) \right) = \upsilon\left( Y\left( \omega \right),X^{- 1}\left( \cdot \right) \right),\omega{\in Y}^{- 1}\left( y \right)
+
+and define the  |def| :index:`conditional probability density` |end-span|
+:math:`f_{X|Y}\left( x,y \right)` as the Radon-Nikodym derivative of
+:math:`\mathbb{P}_{X|Y}`. The axiom 2) is actually the  |def| :index:`law of total probability` |end-span|, a general version :eq:`eq_total_probability_for_events`. :emp:`To see the connection`,
+suppose :math:`Y^{- 1}` is a discrete RV, then axiom
+2) becomes
+
+.. math::
+ \sum_{y \in B}^{}{\mathbb{P}_{X|Y = y}\left( A \right)\mathbb{P}\left( Y = y \right)} = \sum_{y \in B}^{}{\upsilon\left( y,A \right)\mathbb{P}\left( Y = y \right)}\mathbb{= P}\left( A\bigcap Y^{- 1}\left( B \right) \right),\forall A\in \mathcal{ F,}B\in \mathcal{E}
+
+
+
+|list-div|
+
+|item| 
+
+
+.. _theorem_Bayes_rule_for_density:
+
+:ititle:`Theorem 1-4.` :bemp:`Bayes' rule for density function.` |theorem| Suppose :math:`\left( X,Y \right)` is a
+:math:`\left( \Omega\mathcal{,F} \right) \rightarrow \left( S_{1} \times S_{2},\mathcal{E} \right)`
+RV with density :math:`f\left( x,y \right) \in \mathcal{L}^{1}`. Let :math:`X,Y` be
+the marginal RVs with marginal densities :math:`f_{X}\left( x \right)` and
+:math:`f_{Y}\left( y \right)`, then :math:`\mathbb{P}_{Y}`-a.s.
+:math:`f_{X|Y}\left( x,y \right) = \frac{f\left( x,y \right)}{f_{Y}\left( y \right)}`  |end-span|,
+i.e.
+
+.. math::
+ \mathbb{P}_{X|Y = y}\left( B \right) = \int_{B}^{}\frac{f\left( x,y \right)}{f_{Y}\left( y \right)}\operatorname{d}x,\forall B\in \mathcal{E}
+
+where note the integration is w.r.t. the Lebesgue measure. Fix any :math:`B_{1}\in \mathcal{E}`, then for any :math:`B_{2}\in \mathcal{E}`
+
+.. math::
+ \begin{aligned}
+ \int_{B_{2}}^{}{\left( \int_{B_{1}}^{}\frac{f\left( x,y \right)}{f_{Y}\left( y \right)}\operatorname{d}x \right)\operatorname{d}Y}
+ &=\int_{B_{2}}^{}{\left( \int_{B_{1}}^{}\frac{f\left( x,y \right)}{f_{Y}\left( y \right)}\operatorname{d}x \right)f_{Y}\left( y \right)dy}
+ =\int_{B_{2}}^{}{\left( \int_{B_{1}}^{}{f\left( x,y \right)}\operatorname{d}x \right)dy} \\
+ &=\int_{B_{1} \times B_{2}}^{}{f\left( x,y \right)\operatorname{d}x\operatorname{d}y}
+ =\mathbb{P}\left( B_{1} \times B_{2} \right)
+ =\mathbb{P}\left( \left\{ X \in B_{1} \right\} \cap \left\{ Y \in B_{2} \right\} \right) \\
+ &=\int_{{Y^{- 1}(B}_{2})}^{}{\mathbb{P}\left( X \in B_{1}|σ\left( Y \right) \right)\operatorname{d}\mathbb{P}}
+ =\int_{{Y^{- 1}(B}_{2})}^{}{\upsilon\left( Y\left( \omega \right),X^{- 1}\left( B_{1} \right) \right)\operatorname{d}\mathbb{P}} \\
+ &=\int_{{Y^{- 1}(B}_{2})}^{}{\left( \upsilon\left( \cdot ,X^{- 1}\left( B_{1} \right) \right) \circ Y \right)\operatorname{d}\mathbb{P}}
+ =\int_{B_{2}}^{}{\left( \upsilon\left( y,X^{- 1}\left( B_{1} \right) \right) \circ Y \right)\operatorname{d}Y} \\
+ &=\int_{B_{2}}^{}{\mathbb{P}_{X|Y = y}(B_{1})\operatorname{d}Y}
+ \end{aligned}
+
+That is, :math:`\int_{B_{2}}^{}{\left( \int_{B_{1}}^{}\frac{f\left( x,y \right)}{f_{Y}\left( y \right)}\operatorname{d}x \right)\operatorname{d}Y}=\int_{B_{2}}^{}{\mathbb{P}_{X|Y = y}(B_{1})\operatorname{d}Y}`
+indicating :math:`\mathbb{P}_{X|Y = y}\left( B_{1} \right)=\int_{B_{1}}^{}\frac{f\left( x,y \right)}{f_{Y}\left( y \right)}\operatorname{d}x`
+(:math:`\mathbb{P}_{Y}`-a.s.).
+
+|end-item| |end-list-div|
+
+

@@ -18,7 +18,7 @@
 
 .. |list-div| raw:: html
 
-   <ul style="left-margin:20px">
+   <ul style="margin-left:20px">
 
 .. |end-list-div| raw:: html
 
@@ -26,7 +26,7 @@
 
 .. |enum-div| raw:: html
 
-   <ol style="left-margin:20px">
+   <ol style="margin-left:20px">
 
 .. |end-enum-div| raw:: html
 
@@ -34,11 +34,11 @@
 
 .. |item-div| raw:: html
 
-   <li>
+   <li style="margin-top:10px">
 
 .. |item| raw:: html
 
-   <li>
+   <li style="margin-top:10px">
 
 .. |end-item-div| raw:: html
 
@@ -128,6 +128,10 @@
 
    <span style="text-align:right;display:block">
 
+.. |span-justify| raw:: html
+
+   <span style="text-align:justify">
+
 .. |end-span| raw:: html
 
    </span></span>
@@ -206,7 +210,7 @@ problems. They are soon applied to prove the maximum likelihood of multivariate 
 
 .. _fact_gradient_affine_transform:
 
-:ititle2:`Fact 1-1.` Affine transformation
+:ititle2:`Fact 1-5.` Affine transformation
 :math:`\mathbf{a}^{\rm{T}}\mathbf{x} + b\mathbf{:}\mathbb{R}^{n}\mathbb{\rightarrow R}`
 where :math:`\mathbf{a} \in \mathbb{R}^{n},b\mathbb{\in R}` has gradient
 :math:`\colorbox{fact}{$\nabla\left( \mathbf{a}^{\rm{T}}\mathbf{x} + b \right) = \nabla\left( \mathbf{x}^{\rm{T}}\mathbf{a} + b \right) = \mathbf{a}$}`.
@@ -214,7 +218,7 @@ where :math:`\mathbf{a} \in \mathbb{R}^{n},b\mathbb{\in R}` has gradient
 
 .. _fact_gradient_determinant:
 
-:ititle2:`Fact 1-2.` Determinant
+:ititle2:`Fact 1-6.` Determinant
 :math:`\left| \mathbf{X} \right|:\mathbb{R}^{n \times n}\mathbb{\rightarrow R}`
 is a scalar-valued matrix function, and we have
 :math:`\colorbox{fact}{$\nabla\log\left| \mathbf{X} \right| = \mathbf{X}^{-T}$}`.
@@ -222,7 +226,7 @@ is a scalar-valued matrix function, and we have
 
 .. _fact_gradient_matrix_of_matrix_product:
 
-:ititle2:`Fact 1-3.` The gradient of
+:ititle2:`Fact 1-7.` The gradient of
 :math:`f\left( \mathbf{X} \right)=\mathbf{u}^{\rm{T}}\mathbf{\text{Xv}}:\mathbb{R}^{m \times n}\mathbb{\rightarrow R}`,
 where :math:`\mathbf{u} \in \mathbb{R}^{m},\mathbf{v} \in \mathbb{R}^{n}` are
 constant vectors, is :math:`\colorbox{fact}{$\nabla\mathbf{u}^{\rm{T}}\mathbf{\text{Xv}} \equiv \mathbf{u}\mathbf{v}^{\rm{T}}$}`.
@@ -230,13 +234,13 @@ constant vectors, is :math:`\colorbox{fact}{$\nabla\mathbf{u}^{\rm{T}}\mathbf{\t
 
 .. _fact_gradient_vector_of_matrix_product:
 
-:ititle2:`Fact 1-4.` The gradient of :math:`f\left( \mathbf{x} \right) = \mathbf{x}^{\rm{T}}\mathbf{\text{Ux}}:\mathbf{x} \in \mathbb{R}^{n}\mathbb{\rightarrow R}`,
+:ititle2:`Fact 1-8.` The gradient of :math:`f\left( \mathbf{x} \right) = \mathbf{x}^{\rm{T}}\mathbf{\text{Ux}}:\mathbf{x} \in \mathbb{R}^{n}\mathbb{\rightarrow R}`,
 where :math:`\mathbf{U} \in \mathbb{R}^{n \times n}` is a constant matrix, is :math:`\colorbox{fact}{$\nabla\mathbf{x}^{\rm{T}}\mathbf{\text{Ux}} = (\mathbf{U} + \mathbf{U}^{\rm{T}})\mathbf{x}$}`.
 
 
 .. _theorem_guassian_mle:
 
-:ititle:`Theorem 1-1.` :bemp:`Gaussian maximum likelihood estimators.`
+:ititle:`Theorem 1-8.` :bemp:`Gaussian maximum likelihood estimators.`
 ^^^^^^^^^^^^^^^^^^^^
 Given a data matrix :math:`\mathbf{X}=\left( \mathbf{x}_{1},\ldots,\mathbf{x}_{N} \right)`,
 we can view its columns :math:`\mathbf{x}_{1},\ldots,\mathbf{x}_{N}` as being
@@ -248,7 +252,7 @@ log-likelihood is
  = \frac{N}{2}\log\left| \mathbf{\Sigma}^{- 1} \right| - \frac{1}{2}\sum_{i = 1}^{N}{\left( \mathbf{x}_{i} - \mathbf{μ} \right)^{\rm{T}}\mathbf{\Sigma}^{- 1}\left( \mathbf{x}_{i} - \mathbf{μ} \right)}
  
 
-Using :ref:`Fact 1-2 <fact_gradient_determinant>` and :ref:`Fact 1-3 <fact_gradient_matrix_of_matrix_product>`, we have
+Using :ref:`Fact 1-6 <fact_gradient_determinant>` and :ref:`Fact 1-7 <fact_gradient_matrix_of_matrix_product>`, we have
 
 .. math::
  \frac{\partial L}{\partial\mathbf{\Sigma}^{- 1}}
@@ -256,7 +260,7 @@ Using :ref:`Fact 1-2 <fact_gradient_determinant>` and :ref:`Fact 1-3 <fact_gradi
  = 0 \Rightarrow \mathbf{\Sigma}=\frac{1}{N}\sum_{i = 1}^{N}{\left( \mathbf{x}_{i} - \mathbf{μ} \right)\left( \mathbf{x}_{i} - \mathbf{μ} \right)^{\rm{T}}}
  :label: eq_gaussian_mle_inf
 
-Then for :math:`\mathbf{μ}`, using :ref:`Fact 1-4 <fact_gradient_vector_of_matrix_product>`,
+Then for :math:`\mathbf{μ}`, using :ref:`Fact 1-8 <fact_gradient_vector_of_matrix_product>`,
 
 .. math::
  \begin{aligned}
@@ -269,7 +273,7 @@ Plug back to :math:`\mathbf{\Sigma}^{- 1}` in (1?€?7) and we have
 .. math::
  \mathbf{\Sigma}_{\text{ML}}=\frac{1}{N}\sum_{i = 1}^{N}{\left( \mathbf{x}_{i} - \overline{\mathbf{x}} \right)\left( \mathbf{x}_{i} - \overline{\mathbf{x}} \right)^{\rm{T}}}
 
-By :ref:`Property 1-3 <property_cov_as_rank1_sum>`, |result| :math:`\mathbf{\Sigma}_{\text{ML}}` equals the biased sample covariance |end-span|, or |result| :math:`\frac{N}{N - 1}\mathbf{\Sigma}_{\text{ML}}` equals the sample covariance matrix |end-span|
+By :ref:`Property 1-6 <property_cov_as_rank1_sum>`, |result| :math:`\mathbf{\Sigma}_{\text{ML}}` equals the biased sample covariance |end-span|, or |result| :math:`\frac{N}{N - 1}\mathbf{\Sigma}_{\text{ML}}` equals the sample covariance matrix |end-span|
 
 
 |end-item|
@@ -278,13 +282,13 @@ By :ref:`Property 1-3 <property_cov_as_rank1_sum>`, |result| :math:`\mathbf{\Sig
 :math:`\operatorname{Gaussian}\left( \mathbf{μ},\mathbf{\Sigma} \right)` as
 two RV vector where
 :math:`\mathbb{E}\mathbf{x} = \mathbb{E}\mathbf{y} = \mathbf{μ}`, recall we have :math:`\mathbf{\Sigma =}\mathbb{E}\left\lbrack \mathbf{x}\mathbf{y}^{\rm{T}} \right\rbrack-\mathbf{μ}\mathbf{μ}^{\rm{T}}`
-or :math:`\mathbb{E}\left\lbrack \mathbf{x}\mathbf{y}^{\rm{T}} \right\rbrack=\mathbf{μ}\mathbf{μ}^{\rm{T}}\mathbf{+ \Sigma}` by :ref:`Property 1-1 <property_cov_to_expectation>`. When :math:`\mathbf{x},\mathbf{y}` are independent, we have
+or :math:`\mathbb{E}\left\lbrack \mathbf{x}\mathbf{y}^{\rm{T}} \right\rbrack=\mathbf{μ}\mathbf{μ}^{\rm{T}}\mathbf{+ \Sigma}` by :ref:`Property 1-4 <property_cov_to_expectation>`. When :math:`\mathbf{x},\mathbf{y}` are independent, we have
 :math:`\mathbb{E}\left\lbrack \mathbf{x}\mathbf{y}^{\rm{T}} \right\rbrack=\mathbf{μ}\mathbf{μ}^{\rm{T}}`.
 
 
 .. _theorem_guassian_mle_bias:
 
-:ititle:`Theorem 1-2.` :bemp:`Bias of Gaussian MLE.`
+:ititle:`Theorem 1-9.` :bemp:`Bias of Gaussian MLE.`
 ^^^^^^^^^^^^^^^^^^^^
 Now given i.i.d. RVs :math:`\mathbf{x}_{1},\ldots,\mathbf{x}_{N}` with mean :math:`\mathbf{μ}` and covariance :math:`\mathbf{\Sigma}`, note
 
@@ -326,7 +330,7 @@ estimator, since
 
 .. _fact_matrix_as_rank1_sum:
 
-:ititle2:`Fact 1-5.` Every matrix :math:`\mathbf{A}` s.t.
+:ititle2:`Fact 1-9.` Every matrix :math:`\mathbf{A}` s.t.
 :math:`\operatorname{rank}\mathbf{A} = k` can be written as the sum of :math:`k` rank-1 matrices, i.e.
 :math:`\colorbox{fact}{$\mathbf{A} = \sum_{i = 1}^{k}{σ_{i}^{2}\mathbf{u}_{i}\mathbf{v}_{i}^{\rm{T}}}$}`, where :math:`\mathbf{u}_{i}` and :math:`\mathbf{v}_{i}` are columns from two
 matrices :math:`\mathbf{U},\mathbf{V}` that come from the  |exdef| :index:`reduced SVD` |end-span| :math:`\mathbf{A} = \mathbf{\text{U}\Lambda}\mathbf{V}^{\rm{T}}`; in particular, if
@@ -343,12 +347,12 @@ because :math:`\mathbf{A}^{- 1}` and :math:`\mathbf{A}` share the same eigenspac
 
 .. _property_guassian_ellipsoid_contour:
 
-:ititle:`Property 1-1.` :bemp:`Shape of contours of Gaussian density.`
+:ititle:`Property 1-7.` :bemp:`Shape of contours of Gaussian density.`
 ^^^^^^^^^^^^^^^^^^^^
 Recall the  |exdef| :index:`Mahalanobis distance` |end-span|
 :math:`𝒹_{M}\left( \mathbf{x};\mathbf{μ,\Sigma} \right) = \left( \mathbf{x} - \mathbf{μ} \right)^{\rm{T}}\mathbf{\Sigma}^{- 1}\left( \mathbf{x} - \mathbf{μ} \right)`.
 Let :math:`𝜆_{1},\ldots,𝜆_{m}` be the eigenvalues of :math:`\mathbf{\Sigma}`, then
-:math:`\mathbf{\Sigma}^{- 1} = \sum_{i = 1}^{k}{𝜆_{i}^{- 1}\mathbf{q}_{i}\mathbf{q}_{i}^{\rm{T}}}` as a result of :ref:`Fact 1-5 <fact_matrix_as_rank1_sum>`, and
+:math:`\mathbf{\Sigma}^{- 1} = \sum_{i = 1}^{k}{𝜆_{i}^{- 1}\mathbf{q}_{i}\mathbf{q}_{i}^{\rm{T}}}` as a result of :ref:`Fact 1-9 <fact_matrix_as_rank1_sum>`, and
 
 .. math::
  𝒹_{M}\left( \mathbf{x};\mathbf{μ,\Sigma} \right) = \sum_{i = 1}^{k}{𝜆_{i}^{- 1}\left( \mathbf{x} - \mathbf{μ} \right)^{\rm{T}}\mathbf{q}_{i}\mathbf{q}_{i}^{\rm{T}}}\left( \mathbf{x} - \mathbf{μ} \right) = \sum_{i = 1}^{k}{\left( \frac{1}{\sqrt{𝜆_{i}}}\mathbf{q}_{i}^{\rm{T}}\left( \mathbf{x} - \mathbf{μ} \right) \right)^{\rm{T}}\left( \frac{1}{\sqrt{𝜆_{i}}}\mathbf{q}_{i}^{\rm{T}}\left( \mathbf{x} - \mathbf{μ} \right) \right)}
@@ -378,7 +382,7 @@ Therefore, |result| the contours of multivariate Gaussian density are ellipsoids
 
 .. _lemma_guassian_special_exponential_term_format:
 
-:ititle:`Lemma 1-1.` |result| If a density function
+:ititle:`Lemma 1-3.` |result| If a density function
 :math:`p\left( \mathbf{x} \right) \propto \exp\left\{ - \frac{1}{2}\mathbf{x}^{\rm{T}}\mathbf{Ax +}\mathbf{x}^{\rm{T}}\mathbf{\text{Ay}} \right\}`
 where :math:`\mathbf{A}` is symmetric positive semidefinite, then :math:`p` must be Gaussian with precision :math:`\mathbf{Ⲗ}=\mathbf{A}` and mean
 :math:`\mathbf{μ} = \mathbf{y}`  |end-span|. This is simply we can rearrange it as
@@ -391,7 +395,7 @@ There is no need to worry about normalization, since we have assumed :math:`p` i
 
 .. _fact_matrix_block_inverse:
 
-:ititle2:`Fact 1-6.` If a block matrix :math:`\begin{pmatrix} \mathbf{A} & \mathbf{B} \\ \mathbf{C} & \mathbf{D} \\ \end{pmatrix}` is inversible, then if :math:`\mathbf{A}` is non-singular, we
+:ititle2:`Fact 1-10.` If a block matrix :math:`\begin{pmatrix} \mathbf{A} & \mathbf{B} \\ \mathbf{C} & \mathbf{D} \\ \end{pmatrix}` is inversible, then if :math:`\mathbf{A}` is non-singular, we
 have the following with all inverses valid
 
 .. math::
@@ -418,7 +422,7 @@ inverses valid,
 
 .. _theorem_gaussian_conditional_density:
 
-:ititle:`Theorem 1-3.` :bemp:`Conditional density of multivariate Guassian.`
+:ititle:`Theorem 1-10.` :bemp:`Conditional density of multivariate Guassian.`
 ^^^^^^^^^^^^^^^^^^^^
 Given
 :math:`\mathbf{x}\sim\operatorname{Gaussian}\left( \mathbf{μ},\mathbf{\Sigma} \right)`,
@@ -435,7 +439,7 @@ Assume :math:`\mathbf{\Sigma}_{{aa}}` is non-singular, then we have
  &= - \frac{1}{2}\mathbf{x}_{a}^{\rm{T}}\mathbf{Ⲗ}_{{aa}}\mathbf{x}_{a} + \mathbf{x}_{a}^{\rm{T}}\mathbf{Ⲗ}_{{aa}}\left( \mathbf{μ}_{a}-\mathbf{Ⲗ}_{{aa}}^{- 1}\mathbf{Ⲗ}_{{ab}}\left( \mathbf{x}_{b}-\mathbf{μ}_{b} \right) \right)\mathbf{+}\text{constant} \end{aligned}
  :label: eq_gaussian_conditional_mean_key_inference
 
-By :ref:`Lemma 1-1 <lemma_guassian_special_exponential_term_format>`, it follows that |theorem| if :math:`\mathbf{\Sigma}_{{aa}}` is
+By :ref:`Lemma 1-3 <lemma_guassian_special_exponential_term_format>`, it follows that |theorem| if :math:`\mathbf{\Sigma}_{{aa}}` is
 non-singular, then :math:`p\left( \mathbf{x}_{a}\mathbf{|}\mathbf{x}_{b} \right)` is Gaussian  |end-span|.
 Denote :math:`\mathbf{x}_{a}\mathbf{|}\mathbf{x}_{b}\mathbf{\sim}\operatorname{Gaussian}\left( \mathbf{μ}_{a|b}\mathbf{,}\mathbf{\Sigma}_{a|b} \right)`, we have
 
@@ -444,7 +448,7 @@ Denote :math:`\mathbf{x}_{a}\mathbf{|}\mathbf{x}_{b}\mathbf{\sim}\operatorname{G
  :label: eq_gaussian_conditional_mean_and_cov_a
 
 If in addition :math:`\mathbf{\Sigma}_{{bb}}` is non-singular, using
-:ref:`Fact 1-6 <fact_matrix_block_inverse>` and :math:`\begin{pmatrix} \mathbf{\Sigma}_{{aa}} & \mathbf{\Sigma}_{{ab}} \\ \mathbf{\Sigma}_{{ba}} & \mathbf{\Sigma}_{{bb}} \\ \end{pmatrix}^{- 1} = \begin{pmatrix} \mathbf{Ⲗ}_{{aa}} & \mathbf{Ⲗ}_{{ab}} \\ \mathbf{Ⲗ}_{{ba}} & \mathbf{Ⲗ}_{{bb}} \\ \end{pmatrix}`, we have
+:ref:`Fact 1-10 <fact_matrix_block_inverse>` and :math:`\begin{pmatrix} \mathbf{\Sigma}_{{aa}} & \mathbf{\Sigma}_{{ab}} \\ \mathbf{\Sigma}_{{ba}} & \mathbf{\Sigma}_{{bb}} \\ \end{pmatrix}^{- 1} = \begin{pmatrix} \mathbf{Ⲗ}_{{aa}} & \mathbf{Ⲗ}_{{ab}} \\ \mathbf{Ⲗ}_{{ba}} & \mathbf{Ⲗ}_{{bb}} \\ \end{pmatrix}`, we have
 
 .. math::
  \left\{ {\begin{array}{*{20}{l}}
@@ -471,7 +475,7 @@ Similarly, if :math:`\mathbf{\Sigma}_{{bb}}` is non-singular, then :math:`p\left
  &= - \frac{1}{2}\mathbf{x}_{b}^{\rm{T}}\mathbf{Ⲗ}_{{bb}}\mathbf{x}_{b} + \mathbf{x}_{b}^{\rm{T}}\mathbf{Ⲗ}_{{bb}}\left( \mathbf{μ}_{b}-\mathbf{Ⲗ}_{{bb}}^{- 1}\mathbf{Ⲗ}_{{ba}}\left( \mathbf{x}_{a}-\mathbf{μ}_{a} \right) \right)\mathbf{+}\text{constant}\end{aligned} 
 
 If in addition :math:`\mathbf{\Sigma}_{{aa}}` is non-singular, using
-:ref:`Fact 1-6 <fact_matrix_block_inverse>` we have
+:ref:`Fact 1-10 <fact_matrix_block_inverse>` we have
 
 .. math::
  \mathbf{Ⲗ}_{{bb}}^{- 1}\mathbf{Ⲗ}_{{ba}}\mathbf{= -}\mathbf{\Sigma}_{{ba}}\mathbf{\Sigma}_{{aa}}^{- 1}\mathbf{,}\mathbf{Ⲗ}_{{bb}}^{- 1}=\mathbf{\Sigma}_{{bb}}-\mathbf{\Sigma}_{{ba}}\mathbf{\Sigma}_{{aa}}^{- 1}\mathbf{\Sigma}_{{ab}}

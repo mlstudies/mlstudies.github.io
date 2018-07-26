@@ -1,0 +1,373 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Autoencoder Networks &mdash; Study Notes in Machine Learning 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/coloring.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/eqposfix.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Study Notes in Machine Learning
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../00_basics/00_index.html">1. Preliminaries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="00_index.html">2. Basic Neural Networks</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Study Notes in Machine Learning</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</div></li><li>Autoencoder Networks</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/3_ml_methods/02_neural_networks/__04_ae.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: { extensions: ["color.js","autoload-all.js"] }
+  });
+
+      MathJax.Hub.Register.StartupHook("TeX color Ready", function() {
+   var color = MathJax.Extension["TeX/color"];
+   color.colors["theorem"] = color.getColor('RGB','255,229,153');
+       color.colors["result"] = color.getColor('RGB','189,214,238');
+       color.colors["fact"] = color.getColor('RGB','255,255,204');
+       color.colors["emperical"] = color.getColor('RGB','253,240,207');
+       color.colors["comment"] = color.getColor('RGB','204,255,204');
+   color.colors["thm"] = color.getColor('RGB','255,229,153');
+       color.colors["rlt"] = color.getColor('RGB','189,214,238');
+       color.colors["emp"] = color.getColor('RGB','253,240,207');
+       color.colors["comm"] = color.getColor('RGB','204,255,204');
+       color.colors["conn1"] = color.getColor('RGB','255,0,255');
+       color.colors["conn2"] = color.getColor('RGB','237,125,49');
+       color.colors["conn3"] = color.getColor('RGB','112,48,160');
+      });
+</script><div class="section" id="autoencoder-networks">
+<h1>Autoencoder Networks<a class="headerlink" href="#autoencoder-networks" title="Permalink to this headline">¶</a></h1>
+<p><span style="padding-left:20px"></span> Given data <span class="math notranslate nohighlight">\(\mathbf{x}_{1},\ldots,\mathbf{x}_{N}\)</span>, a basic  <span><span class="def"> <span class="target" id="index-0"></span>autoencoder</span></span> is a two-layer function composition
+<span class="math notranslate nohighlight">\(g_{𝛉} \circ f_{𝛌}\)</span> aiming at self-regression, i.e. the objective of autoencoder is to find a function
+<span class="math notranslate nohighlight">\(f_{𝛉}\)</span>, known as  <span><span class="def"> <span class="target" id="index-1"></span>encoder</span></span>, and another function <span class="math notranslate nohighlight">\(g_{𝛌}\)</span>, known as  <span><span class="def"> <span class="target" id="index-2"></span>decoder</span></span>, such that</p>
+<table class="colwidths - given docutils" style="background:none; border:none;" ><colgroup><col width = "31%" /><col width = "69%" /></colgroup><tbody><tr class="row-odd" style="text-align:center; vertical-align:middle; "><td  style="background:none; border:none;"><a class="reference internal image-reference" href="basic_ae.png"><img alt="basic_ae.png" src="basic_ae.png" /></a>
+</td><td  rowspan="2" style="background:none; border:none;"><div class="math notranslate nohighlight">
+\[\mathbf{x}_{k} \approx {\widehat{\mathbf{x}}}_{k} = g_{𝛌}\left( f_{𝛉}\left( \mathbf{x}_{k} \right) \right),k = 1,\ldots,N\]</div>
+</td></tr><tr style="text-align:center; vertical-align:middle; "><td  style="background:none; border:none;"><p id="figure-ae-basic"><span style="text-align:justify"> <span><span class="ibold"> Figure 3-4</span></span> The diagram of basic autoencoder.</span></span></p>
+</td><td  style="background:none; border:none;"></td></tr></tbody></table><p><span style="padding-left:20px"></span> Since each function is associated with its own parameters, we may omit
+the parameters and denote the functions as just <span class="math notranslate nohighlight">\(f,g\)</span> for simplicity.
+The loss function <span class="math notranslate nohighlight">\(ℓ\)</span> is defined for  <span><span class="def"> <span class="target" id="index-3"></span>reconstruction</span></span>
+<span class="math notranslate nohighlight">\({\widehat{\mathbf{x}}}_{k}`s and original input :math:\)</span>mathbf{x}_{k}` s, such
+like the squared error <span class="math notranslate nohighlight">\(ℓ=\sum_{k = 1}^{N}\left\| \mathbf{x}_{k} - {\widehat{\mathbf{x}}}_{k} \right\|_{2}^{2}\)</span>.
+One <span class="emp">main purpose</span> of autoencoder is to find
+representation of the original data, which is an essential task in
+almost all machine learning problems. Let
+<span class="math notranslate nohighlight">\(\mathbf{h}_{k} = f\left( \mathbf{x}_{k} \right)\)</span> and call the
+collection of <span class="math notranslate nohighlight">\(\mathbf{h}_{1},\ldots,\mathbf{h}_{N}\)</span> as the  <span><span class="def"> <span class="target" id="index-4"></span>hidden layer</span></span> of the autoencoder,
+and together with <span class="math notranslate nohighlight">\(f,g\)</span>, they can be viewed
+as a  <span><span class="exdef"> <span class="target" id="index-5"></span>representation</span></span> of <span class="math notranslate nohighlight">\(\mathbf{x}_{1},\ldots,\mathbf{x}_{N}\)</span>. <span class="emp">For example</span>,
+if <span class="math notranslate nohighlight">\(f,g\)</span> are affine functions like
+<span class="math notranslate nohighlight">\(f\left( \mathbf{x} \right) = \mathbf{V}\mathbf{x} + \mathbf{b}\)</span> and
+<span class="math notranslate nohighlight">\(g\left( \mathbf{h} \right) = \mathbf{\text{Uh}} + \mathbf{c}\)</span>, then
+<span class="math notranslate nohighlight">\(\mathbf{U},\mathbf{c},\mathbf{h}_{1},\ldots,\mathbf{h}_{k}\)</span> constitute
+the representation of the original data
+<span class="math notranslate nohighlight">\(\mathbf{x}_{1},\ldots,\mathbf{x}_{N}\)</span>. Very often we design
+<span class="math notranslate nohighlight">\(\dim\mathbf{h}_{k} &lt; \dim\mathbf{x}_{k},\forall k\)</span>, so that we achieve  <span><span class="exdef"> <span class="target" id="index-6"></span>dimension reduction</span></span>,
+then we call such autoencoder  <span><span class="def"> <span class="target" id="index-7"></span>undercomplete</span></span>
+and those <span class="math notranslate nohighlight">\(\mathbf{h}_{k}\)</span> s as  <span><span class="def"> <span class="target" id="index-8"></span>undercomplete representations</span></span>; on the
+contrary, if we let <span class="math notranslate nohighlight">\(\dim\mathbf{h}_{k} &gt; \dim\mathbf{x}_{k},\forall k\)</span>,
+then we call such autoencoder  <span><span class="def"> <span class="target" id="index-9"></span>overcomplete</span></span> and those
+<span class="math notranslate nohighlight">\(\mathbf{h}_{k}\)</span> s as  <span><span class="def"> <span class="target" id="index-10"></span>overcomplete representations</span></span>, which maps
+data points to higher dimensional space and can be useful for classification.</p>
+<p><span style="padding-left:20px"></span> From <a class="reference internal" href="00_index.html#equation-eq-ae-basic">Eq.2.13</a> and <a class="reference internal" href="#figure-ae-basic"><span class="std std-ref">Figure 3-4</span></a>, it is clear <span><span class="result-highlight"> an autoencoder of above basic
+structure is a feed-forward network</span></span>, therefore any discussion of FFN
+applies to autoencoder, for example, the back propagation process, and
+that adding additional layers such as
+<span class="math notranslate nohighlight">\(\mathbf{x}_{k} \approx g \circ f_{l} \circ f_{l - 1} \circ \ldots \circ f_{1}\left( \mathbf{x}_{k} \right)\)</span>
+can result in better self-regression performance. <span class="emp">Also</span>,
+<span><span class="comment-highlight"> autoencoder is usually applied as part of a more complex model</span></span>. The goal
+of autoencoder is typically not self-regression itself, rather, it
+should serve the purpose of the entire model. In practice, usually the
+self-regression can perform arbitrarily well when <span class="math notranslate nohighlight">\(\mathbf{h}_{k}\)</span> is
+“complete enough”, e.g. <span class="math notranslate nohighlight">\(\mathbf{h}_{k}\)</span> has a dimension near
+<span class="math notranslate nohighlight">\(\dim\mathbf{x}_{k}\)</span> or an overcomplete dimension, in which case
+<span class="math notranslate nohighlight">\(\mathbf{h}_{k}\)</span> could simply just copy <span class="math notranslate nohighlight">\(\mathbf{x}_{k}\)</span> and <span class="math notranslate nohighlight">\(f,g\)</span> could
+turn out “nearly” identity functions. <span class="emp">Therefore</span>, <span><span class="comment-highlight"> how
+well does the autoencoder self-regresses make sense as one of the
+quality indicators of the representation when other main objectives are
+satisfied</span></span>. <span class="emp">For example</span>, if we aim at dimension reduction, the
+self-regression performance makes sense when a certain level of
+“compression rate” is achieved.</p>
+  <div class="admonition note">
+<p class="first admonition-title">Note: Autoencoder and Classic Dimension Reduction Techniques</p>
+<p><span style="padding-left:20px"></span> The famous dimension reduction technique  <span><span class="exdef"> <span class="target" id="index-11"></span>singular value decomposition</span></span> (SVD)
+exactly falls in the category of autoencoder.
+Recall given data matrix
+<span class="math notranslate nohighlight">\(\mathbf{X} = \left( \mathbf{x}_{1},\ldots,\mathbf{x}_{N} \right) \in \mathbb{R}^{m \times N}\)</span>
+with columns being data entries and rows being feature vectors, then it
+decomposes <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> as</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{X} = \mathbf{U}\mathbf{\Sigma}\mathbf{V}^{\rm{T}}\]</div>
+<p>where both <span class="math notranslate nohighlight">\(\mathbf{U},\mathbf{V}\)</span> are  <span><span class="exdef"> <span class="target" id="index-12"></span>orthogonal matrices</span></span>,
+<span class="math notranslate nohighlight">\(\mathbf{U} \in \mathbb{R}^{m \times s},\mathbf{\Sigma} \in \mathbb{R}^{s \times s}\)</span>
+and <span class="math notranslate nohighlight">\(\mathbf{V} \in \mathbb{R}^{s \times N}\)</span> where
+<span class="math notranslate nohighlight">\(s = \operatorname{rank}\mathbf{X} \leq m\)</span> and <span class="math notranslate nohighlight">\(\mathbf{\Sigma}\)</span> is a
+diagonal matrix with <span class="math notranslate nohighlight">\(s\)</span> eigenvalues of <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> descendingly
+arranged in the diagonal. If we only keep the top <span class="math notranslate nohighlight">\(r &lt; s\)</span> eigenvalues in
+<span class="math notranslate nohighlight">\(\mathbf{\Sigma}\)</span>, denoted as <span class="math notranslate nohighlight">\(\mathbf{\Sigma}_{r}\)</span>, then we only need
+to keep the first <span class="math notranslate nohighlight">\(r\)</span> columns of <span class="math notranslate nohighlight">\(\mathbf{U}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{V}\)</span> and have
+approximation</p>
+<div class="math notranslate nohighlight">
+\[\widehat{\mathbf{X}} = \mathbf{U}_{r}\mathbf{\Sigma}_{r}\mathbf{V}_{r}^{\rm{T}} \approx \mathbf{X}\]</div>
+<p>in terms of minimum loss of 2-norm or Frobenius norm. From perspective
+of autoencoder, <span class="math notranslate nohighlight">\(\mathbf{h}_{k} = f\left( \mathbf{x}_{k} \right) = \mathbf{\Sigma}_{r}\mathbf{V}_{r}^{\rm{T}}\left( k \right)\)</span>
+is the encoder (a non-linear encoder), and
+<span class="math notranslate nohighlight">\(g\left( \mathbf{h}_{k} \right) = \mathbf{U}_{r}\mathbf{h}_{k}\)</span> is the
+decoder. The original data has <span class="math notranslate nohighlight">\(\text{mN}\)</span> numbers. When
+<span class="math notranslate nohighlight">\(r &lt; \frac{\text{mN}}{m + N}\)</span>, the representation has <span class="math notranslate nohighlight">\(mr + rN &lt; mN\)</span>
+numbers and saves space. When <span class="math notranslate nohighlight">\(N\)</span> is large, the inequality is dominated
+by <span class="math notranslate nohighlight">\(N\)</span>, and basically any <span class="math notranslate nohighlight">\(r &lt; m\)</span> can save space.</p>
+<p><span style="padding-left:20px"></span> Likewise, the  <span><span class="exdef"> <span class="target" id="index-13"></span>Principal Component Analysis</span></span> (PCA) is also an
+autoencoder. PCA first calculates the  <span><span class="exdef"> <span class="target" id="index-14"></span>covariance matrix</span></span> <span class="math notranslate nohighlight">\(\mathbf{S}\)</span>
+w.r.t. the feature vectors (rows of <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>), and then all
+orthonormal eigenvectors of <span class="math notranslate nohighlight">\(\mathbf{S}\)</span> constitutes the columns of an  <span><span class="exdef"> <span class="target" id="index-15"></span>orthonormal matrix</span></span> <span class="math notranslate nohighlight">\(\mathbf{P}\)</span> s.t.
+<span class="math notranslate nohighlight">\(\mathbf{S} = \mathbf{\text{P??}}\mathbf{P}^{\rm{T}}\)</span>, and then let
+<span class="math notranslate nohighlight">\(\mathbf{Y} = \mathbf{P}^{\rm{T}}\mathbf{X} = \mathbf{P}^{- 1}\mathbf{X}\)</span>
+(<span class="math notranslate nohighlight">\(\mathbf{P}^{\rm{T}} = \mathbf{P}^{- 1}\)</span> because <span class="math notranslate nohighlight">\(\mathbf{P}\)</span> is an
+orthogonal matrix). The columns of <span class="math notranslate nohighlight">\(\mathbf{P}\)</span> are called  <span><span class="exdef"> <span class="target" id="index-16"></span>principal components</span></span>. Then clearly</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{X} = \mathbf{P}\mathbf{Y}\mathbf{=}\mathbf{P}\left( \mathbf{P}^{\rm{T}}\mathbf{X} \right)\]</div>
+<p>If we choose to keep only the first <span class="math notranslate nohighlight">\(r &lt; m\)</span> principal components, i.e.
+the first <span class="math notranslate nohighlight">\(r\)</span> columns of <span class="math notranslate nohighlight">\(\mathbf{P}\)</span>, denoted by
+<span class="math notranslate nohighlight">\(\mathbf{P}_{r}\)</span>, and let
+<span class="math notranslate nohighlight">\(\mathbf{H}\mathbf{=}\mathbf{P}_{r}^{\rm{T}}\mathbf{X}\)</span>, then the PCA theory indicates</p>
+<div class="math notranslate nohighlight">
+\[\widehat{\mathbf{X}}\mathbf{=}\mathbf{P}_{r}\mathbf{H}\mathbf{=}\mathbf{P}_{r}\mathbf{P}_{r}^{\rm{T}}\mathbf{X}\mathbf{\approx}\mathbf{X}\]</div>
+<p>where the approximation is in terms of minimum loss of  <span><span class="exdef"> <span class="target" id="index-17"></span>total variance</span></span>. From the perspective of autoencoder,
+<span class="math notranslate nohighlight">\(f\left( \mathbf{x} \right) = \mathbf{P}_{r}^{\rm{T}}\mathbf{x}\)</span> is the
+encoder, and <span class="math notranslate nohighlight">\(g\left( \mathbf{h} \right) = \mathbf{P}_{r}\mathbf{h}\)</span> is
+the decoder.</p>
+<p class="last"><span style="padding-left:20px"></span> As a summary, <span><span class="result-highlight"> autoencoder is a generalization of classic dimension
+reduction techniques</span></span>; it allows for any non-linear or liner encoders or
+decoders to be derived from optimization so all techniques for
+optimizations can come into play (e.g. regularization), and it allows
+for mapping data to higher dimensional space.</p>
+</div>
+<p><span style="padding-left:20px"></span> A widely used variant of the vanilla autoencoder model in <a class="reference internal" href="00_index.html#equation-eq-ae-basic">Eq.2.13</a> is named  <span><span class="def"> <span class="target" id="index-18"></span>denoising autoencoder</span></span> (DAE),
+whose <span class="emp">objective</span> is to reconstruct the original data even when the input data are corrupted, or
+simply put DAE is trying to be more robust than the vanilla model.
+Besides finding a robust representation, an immediate application of DAE
+is clearly  <span><span class="def"> <span class="target" id="index-19"></span>data denoising</span></span> – given corrupted data, estimating the
+original data. <span><span class="comment-highlight"> The basic DAE is straightforward, but assumes the data in
+the training set is noiseless</span></span>. Then a stochastic layer
+<span class="math notranslate nohighlight">\({\widetilde{\mathbf{x}}}_{k}\mathbb{\sim P}\left( \cdot |\mathbf{x}_{k} \right)\)</span>
+is added between <span class="math notranslate nohighlight">\(\mathbf{x}_{k}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{h}_{k}\)</span>, which means a
+noisy sample is first drawn from a distribution dependent on
+<span class="math notranslate nohighlight">\(\mathbf{x}_{k}\)</span> (e.g. with <span class="math notranslate nohighlight">\(\mathbf{x}_{k}\)</span> as its mean, or randomly
+setting some components of <span class="math notranslate nohighlight">\(\mathbf{x}_{k}\)</span> as zero, depending on the
+modeling needs), and then input <span class="math notranslate nohighlight">\({\widetilde{\mathbf{x}}}_{k}\)</span> into the
+encoder-decoder process as the following. <span class="math notranslate nohighlight">\(\mathbb{P}\)</span> is predefined and
+has no learnable parameters; <span class="math notranslate nohighlight">\({\widetilde{\mathbf{x}}}_{k}\)</span> needs to be
+resampled for every iteration or at least for every few iterations of
+training to avoid bias. <span class="emp">Note</span> the loss function
+<span class="math notranslate nohighlight">\(ℓ\)</span> is still defined for reconstruction
+<span class="math notranslate nohighlight">\({\widehat{\mathbf{x}}}_{k}\)</span> s and original input <span class="math notranslate nohighlight">\(\mathbf{x}_{k}\)</span> s.</p>
+<table class="colwidths - given docutils" style="background:none; border:none;" ><colgroup><col width = "40%" /><col width = "60%" /></colgroup><tbody><tr class="row-odd" style="text-align:center; vertical-align:middle; "><td  style="background:none; border:none;"><a class="reference internal image-reference" href="basic_dae.png"><img alt="basic_dae.png" src="basic_dae.png" /></a>
+</td><td  rowspan="2" style="background:none; border:none;"><div class="math notranslate nohighlight">
+\[\mathbf{x}_{k} \approx g_{𝛌}\left( f_{𝛉}\left( {\widetilde{\mathbf{x}}}_{k} \right) \right),{\widetilde{\mathbf{x}}}_{k}\mathbb{\sim P}\left( \cdot |\mathbf{x}_{k} \right),k = 1,\ldots,N\]</div>
+</td></tr><tr style="text-align:center; vertical-align:middle; "><td  style="background:none; border:none;"><p id="figure-dae-basic"><span style="text-align:justify"> <span><span class="ibold"> Figure 3-5</span></span> The diagram of basic denoising autoencoder.</span></span></p>
+</td><td  style="background:none; border:none;"></td></tr></tbody></table><p><span style="padding-left:20px"></span> A third popular variant is called the  <span><span class="def"> <span class="target" id="index-20"></span>contractive autoencoder</span></span>. It is
+basically not a new model, but simply adds a norm
+<span class="math notranslate nohighlight">\(\left\| \mathbf{J}_{\mathbf{x}_{k}}f \right\|\)</span> of the Jacobian matrix
+<span class="math notranslate nohighlight">\(\mathbf{J}_{\mathbf{x}_{k}}f = \begin{pmatrix} \frac{\partial\mathbf{h}_{k}\left( 1 \right)}{\partial\mathbf{x}_{k}\left( 1 \right)} &amp; \cdots &amp; \frac{\partial\mathbf{h}_{k}\left( m \right)}{\partial\mathbf{x}_{k}\left( 1 \right)} \\  \vdots &amp; \ddots &amp; \vdots \\ \frac{\partial\mathbf{h}_{k}\left( m \right)}{\partial\mathbf{x}_{k}\left( 1 \right)} &amp; \cdots &amp; \frac{\partial\mathbf{h}_{k}\left( m \right)}{\partial\mathbf{x}_{k}\left( m \right)} \\ \end{pmatrix}\)</span> as a penalty to the loss function, which can be combined
+with any other design of autoencoder. <span><span class="fact-highlight"> Such penalty is a common practice
+in numerical functional approximation to improve numerical stability</span></span>. We
+call <span class="math notranslate nohighlight">\(\left\| \mathbf{J}_{\mathbf{x}_{k}}f \right\|\)</span> the  <span><span class="def"> <span class="target" id="index-21"></span>contraction loss</span></span>, where an <span class="emp">intuitive explanation</span> is that
+<span class="math notranslate nohighlight">\(\left\| \mathbf{J}_{\mathbf{x}_{k}}f \right\|\)</span> is small if its elements
+<span class="math notranslate nohighlight">\(\frac{\partial\mathbf{h}_{k}\left( i \right)}{\partial\mathbf{x}_{k}\left( j \right)},i,j = 1,\ldots,m\)</span>
+are small, which means the contraction loss prevents all components of
+the encoder <span class="math notranslate nohighlight">\(f\)</span> from having large derivatives along any axis, so that a
+mall perturbation in <span class="math notranslate nohighlight">\(\mathbf{x}_{k}\)</span> does not cause large change in <span class="math notranslate nohighlight">\(\mathbf{h}_{k}\)</span>.</p>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Tony Chen, Drexel University.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.0.1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
