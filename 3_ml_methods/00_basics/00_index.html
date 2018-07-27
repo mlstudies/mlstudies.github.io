@@ -446,7 +446,7 @@ multiple realizations</p>
 <li>
 <p id="lemma-prob-random-variable-arithmetic-rules"><span class="ititle">Lemma 1-2.</span> Consider
 <span class="math notranslate nohighlight">\(\left( \Omega\mathcal{,F} \right) \rightarrow \left( \mathbb{R}\mathcal{,B}\left( \mathbb{R} \right) \right)\)</span>
-RVs. Due to <a class="reference internal" href="__01_probability.html#fact-prob-measurable-function-arithmetic-rules"><span class="std std-ref">Fact 1-1</span></a>, if <strong>1)</strong> <span><span class="result-highlight"> <span class="math notranslate nohighlight">\(X\)</span> is a RV and <span class="math notranslate nohighlight">\(c \in \mathbb{R}\)</span>, then
+RVs. Due to <a class="reference internal" href="#fact-prob-measurable-function-arithmetic-rules"><span class="std std-ref">Fact 1-1</span></a>, if <strong>1)</strong> <span><span class="result-highlight"> <span class="math notranslate nohighlight">\(X\)</span> is a RV and <span class="math notranslate nohighlight">\(c \in \mathbb{R}\)</span>, then
 <span class="math notranslate nohighlight">\(\text{cX}\)</span> is a RV</span></span>; <strong>2)</strong> <span><span class="result-highlight"> if both <span class="math notranslate nohighlight">\(X,Y\)</span> are RVs, then <span class="math notranslate nohighlight">\(X + Y,XY\)</span> are RVs</span></span>;
 <strong>3)</strong> <span><span class="result-highlight"> if <span class="math notranslate nohighlight">\(X,Y\)</span> are RVs and <span class="math notranslate nohighlight">\(Y \neq 0\)</span>, then <span class="math notranslate nohighlight">\(\frac{X}{Y}\)</span> is a RV</span></span>; <strong>4)</strong> <span><span class="result-highlight"> if
 <span class="math notranslate nohighlight">\(X\)</span> is a RV, and <span class="math notranslate nohighlight">\(f\)</span> is a
@@ -687,7 +687,7 @@ function <span class="math notranslate nohighlight">\(X\)</span> over entire sam
 <span class="math notranslate nohighlight">\(\mathbb{E}\left\lbrack X|A \right\rbrack = \frac{\int_{A}^{}{X\operatorname{d}\mathbb{P}}}{\mathbb{P}\left( A \right)}\)</span>.
 The arithmetic rules for expectation,
 like linearity, <span class="emp">inherits</span> from those arithmetic
-properties in <a class="reference internal" href="__01_probability.html#fact-integration-arithemetics"><span class="std std-ref">Fact 1-2</span></a>. Surprisingly, <span><span class="comment-highlight"> the construction of expectation
+properties in <a class="reference internal" href="#fact-integration-arithemetics"><span class="std std-ref">Fact 1-2</span></a>. Surprisingly, <span><span class="comment-highlight"> the construction of expectation
 conditioned on a RV and the conditional density turn out the trickiest
 essential concepts in probability theory</span></span>. A <span class="emp">naive construction</span> one can think of is a
 <span class="math notranslate nohighlight">\(\left( \Omega^{2},σ\left( \mathcal{F}^{2} \right) \right) \rightarrow \left( \mathbb{R}\mathcal{,B}\left( \mathbb{R} \right) \right)\)</span>
@@ -757,8 +757,8 @@ consistent with this definition in that
 a.s. unique</span></span>. We present this because it is not a hard proof. Suppose <span class="math notranslate nohighlight">\(Y = \mathbb{E}\left\lbrack X|\mathcal{G} \right\rbrack\)</span> for
 some <span class="math notranslate nohighlight">\(\mathcal{G \subseteq F}\)</span>. Suppose there is another RV <span class="math notranslate nohighlight">\(Y^{'}\)</span> also satisfying all axioms for
 conditional expectation <span class="math notranslate nohighlight">\(Y\)</span>. Let <span class="math notranslate nohighlight">\(A_{\epsilon} = \left\{ Y - Y^{'} \geq \epsilon \right\}\)</span>, then
-<span class="math notranslate nohighlight">\(Y - Y^{'}\)</span> is a RV by <a class="reference internal" href="__01_probability.html#lemma-prob-random-variable-arithmetic-rules"><span class="std std-ref">Lemma 1-2</span></a> and thus
-<span class="math notranslate nohighlight">\(A_{\epsilon}\in \mathcal{ F}\)</span> for any <span class="math notranslate nohighlight">\(\epsilon &gt; 0\)</span> by <a class="reference internal" href="__01_probability.html#lemma-prob-measurable-function-basic-measurable-sets"><span class="std std-ref">Lemma 1-1</span></a>. By
+<span class="math notranslate nohighlight">\(Y - Y^{'}\)</span> is a RV by <a class="reference internal" href="#lemma-prob-random-variable-arithmetic-rules"><span class="std std-ref">Lemma 1-2</span></a> and thus
+<span class="math notranslate nohighlight">\(A_{\epsilon}\in \mathcal{ F}\)</span> for any <span class="math notranslate nohighlight">\(\epsilon &gt; 0\)</span> by <a class="reference internal" href="#lemma-prob-measurable-function-basic-measurable-sets"><span class="std std-ref">Lemma 1-1</span></a>. By
 the definition of conditional expectation, we have</p>
 <div class="math notranslate nohighlight">
 \[\mathbb{E}\left\lbrack Y|A_{\epsilon} \right\rbrack\mathbb{- E}\left\lbrack Y^{'}|A_{\epsilon} \right\rbrack=\mathbb{E}\left\lbrack X|A_{\epsilon} \right\rbrack\mathbb{- E}\left\lbrack X|A_{\epsilon} \right\rbrack = 0\]</div>
@@ -835,7 +835,7 @@ finite, <span class="math notranslate nohighlight">\(\mathcal{G}_{1}\)</span>-me
 <p>The other identity is simply due to
 <span class="math notranslate nohighlight">\(\mathbb{E}\left\lbrack X|\mathcal{G}_{1} \right\rbrack\)</span> is
 <span class="math notranslate nohighlight">\(\mathcal{G}_{1}\)</span> measurable and hence <span class="math notranslate nohighlight">\(\mathcal{G}_{2}\)</span> measurable,
-and then by <a class="reference internal" href="__01_probability.html#property-conditional-expt-absorbing-condition"><span class="std std-ref">Property 1-2</span></a>, we have
+and then by <a class="reference internal" href="#property-conditional-expt-absorbing-condition"><span class="std std-ref">Property 1-2</span></a>, we have
 <span class="math notranslate nohighlight">\(\mathbb{E}\left\lbrack \mathbb{E}\left\lbrack X|\mathcal{G}_{1} \right\rbrack|\mathcal{G}_{2} \right\rbrack=\mathbb{E}\left\lbrack X|\mathcal{G}_{1} \right\rbrack\)</span>.</p>
 <p id="corollary-conditional-expt-tower-rvs"><span class="ititle2">Corollary 1-1.</span>. For any RV <span class="math notranslate nohighlight">\(X,Y,Z\)</span>,
 <span><span class="result-highlight"> if <span class="math notranslate nohighlight">\(σ\left( Z \right) \subseteq σ\left( Y \right)\)</span>, then
@@ -923,7 +923,7 @@ conditional probability exists and is a.s. unique</span></span>. Notice
 is a measure for <span class="math notranslate nohighlight">\(\left( \Omega\mathcal{,G} \right)\)</span> by checking those
 axioms, and we can also verify <span class="math notranslate nohighlight">\(\mathbb{P}_{A}\mathbb{\ll P}\)</span>. Also,
 <span class="math notranslate nohighlight">\(\mathbb{P}\)</span> is also a valid measure for
-<span class="math notranslate nohighlight">\(\left( \Omega\mathcal{,G} \right)\)</span>, then by <a class="reference internal" href="__01_probability.html#fact-prob-randon-nikodym-theorem"><span class="std std-ref">Fact 1-4</span></a> Radon-Nikodym
+<span class="math notranslate nohighlight">\(\left( \Omega\mathcal{,G} \right)\)</span>, then by <a class="reference internal" href="#fact-prob-randon-nikodym-theorem"><span class="std std-ref">Fact 1-4</span></a> Radon-Nikodym
 Theorem we have a non-negative <span class="math notranslate nohighlight">\(\mathcal{G}\)</span>-measurable function
 <span class="math notranslate nohighlight">\(\mathbb{P}\left( A \middle| \mathcal{G} \right) = \frac{\operatorname{d}\mathbb{P}_{A}}{\operatorname{d}\mathbb{P}}\)</span>
 exists and is a.s. unique.</p>
@@ -961,11 +961,11 @@ where <span class="emp">for simplicity</span> we denote <span class="math notran
 of RV <span class="math notranslate nohighlight">\(Y\)</span> as
 <span class="math notranslate nohighlight">\(\int_{B}^{}{\upsilon dY} := \int_{B}^{}{\upsilon \operatorname{d}\left( \mathbb{P \circ}Y^{- 1} \right)} = \int_{B}^{}{\upsilon \operatorname{d}\mathbb{P}_{Y}}\)</span>.
 The existence of <span class="math notranslate nohighlight">\(\upsilon\left( x,A \right)\)</span> satisfying axiom 2) can be
-shown in the same way as <a class="reference internal" href="__01_probability.html#theorem-conditional-prob-existence-uniqueness"><span class="std std-ref">Theorem 1-3</span></a> since
+shown in the same way as <a class="reference internal" href="#theorem-conditional-prob-existence-uniqueness"><span class="std std-ref">Theorem 1-3</span></a> since
 <span class="math notranslate nohighlight">\(\mathbb{P}\left( A\bigcap Y^{- 1}\left( \cdot \right) \right)\)</span> and
 <span class="math notranslate nohighlight">\(\mathbb{P}_{Y}\)</span> are a valid measures on
 <span class="math notranslate nohighlight">\(\left( S,\mathcal{E} \right)\)</span> and <span class="math notranslate nohighlight">\(\mathbb{P}\left( A\bigcap Y^{- 1}\left( \cdot \right) \right) \ll \mathbb{P}_{Y}\)</span>.
-As shown in <a class="reference internal" href="__01_probability.html#property-conditional-prob-as-measure"><span class="std std-ref">Property 1-3</span></a>, for any <span class="math notranslate nohighlight">\(x \in S\)</span>, <span class="math notranslate nohighlight">\(\upsilon\left( x, \cdot \right)\)</span> is a.s. a probability
+As shown in <a class="reference internal" href="#property-conditional-prob-as-measure"><span class="std std-ref">Property 1-3</span></a>, for any <span class="math notranslate nohighlight">\(x \in S\)</span>, <span class="math notranslate nohighlight">\(\upsilon\left( x, \cdot \right)\)</span> is a.s. a probability
 measure, however, to satisfy axiom 1), which does not contain the “a.s.”
 modifier, there has to be additional requirement on
 <span class="math notranslate nohighlight">\(\left( S,\mathcal{E} \right)\)</span>; it requires <span class="math notranslate nohighlight">\(S\)</span> be a  <span><span class="exdef"> <span class="target" id="index-84"></span>separable metric space</span></span> and <span class="math notranslate nohighlight">\(\mathcal{E = B}\left( S \right)\)</span>, and the proof is beyond our scope; we
@@ -973,7 +973,7 @@ state the fact our ordinary space
 <span class="math notranslate nohighlight">\(\left( \mathbb{R}^{n}\mathcal{,B}\left( \mathbb{R}^{n} \right) \right)\)</span>
 satisfy this requirement and so <span><span class="fact-highlight"> the regular conditional probability is guaranteed to exist on
 <span class="math notranslate nohighlight">\(\left( \mathbb{R}^{n}\mathcal{,B}\left( \mathbb{R}^{n} \right) \right)\)</span></span></span>.
-The <a class="reference internal" href="__01_probability.html#fact-integration-change-of-variable-image-measure"><span class="std std-ref">Fact 1-3</span></a> change of variable indicates
+The <a class="reference internal" href="#fact-integration-change-of-variable-image-measure"><span class="std std-ref">Fact 1-3</span></a> change of variable indicates
 <span class="math notranslate nohighlight">\(\int_B \upsilon\operatorname{d}Y=\int_{B} \upsilon \operatorname{d}(\mathbb{P} \circ Y^{-1})=\int_{Y^{-1}(B)}(\upsilon \circ Y)\operatorname{d}\mathbb{P}\)</span>
 , and then the axiom 2) becomes</p>
 <div class="math notranslate nohighlight">
@@ -981,7 +981,7 @@ The <a class="reference internal" href="__01_probability.html#fact-integration-c
 <p>where <span class="math notranslate nohighlight">\(\upsilon\left( Y\left( \omega \right),A \right)\)</span> is a
 <span class="math notranslate nohighlight">\(σ\left( Y \right)\)</span>-measurable function and we can see
 <span><span class="result-highlight"> <span class="math notranslate nohighlight">\(\upsilon\left( Y\left( \omega \right),A \right) = \mathbb{P}\left( A \middle| σ\left( Y \right) \right)\left( \omega \right)\)</span> a.s.</span></span>
-by uniqueness of <a class="reference internal" href="__01_probability.html#theorem-conditional-prob-existence-uniqueness"><span class="std std-ref">Theorem 1-3</span></a>, and it is guaranteed
+by uniqueness of <a class="reference internal" href="#theorem-conditional-prob-existence-uniqueness"><span class="std std-ref">Theorem 1-3</span></a>, and it is guaranteed
 <span class="math notranslate nohighlight">\(\mathbb{P}_{σ{(Y)}}^{\left( \omega \right)}(\cdot)=\mathbb{P}(\cdot|\mathcal{G})(\omega)\)</span>
 can be chosen to be a probability measure for all <span class="math notranslate nohighlight">\(ω∈Ω\)</span> if the regular conditional probability exists.
 Also, for any
@@ -1238,7 +1238,7 @@ for exactly the same reason.</p>
 \[\mathbb{E}\left( \mathrm{\mathbf{α}}^{\mathrm{T}}X \right)\mathbb{= E}\left( X^{\mathrm{T}}\mathrm{\mathbf{α}} \right) = \mathrm{\mathbf{α}}^{\mathrm{T}}\mathbb{E}X = \left( \mathbb{E}^{\mathrm{T}}X \right)\mathrm{\mathbf{α}}\]</div>
 <p>Also <span class="math notranslate nohighlight">\(\mathrm{\mathbf{α}}^{\mathrm{T}}X\)</span> is a scalar RV, and so
 <span class="math notranslate nohighlight">\(\left( \mathrm{\mathbf{α}}^{\mathrm{T}}X \right)^{2}={\left( \mathrm{\mathbf{α}}^{\mathrm{T}}X \right)\left( \mathrm{\mathbf{α}}^{\mathrm{T}}X \right)}^{\mathrm{T}} = \mathrm{\mathbf{α}}^{\mathrm{T}}XX^{\mathrm{T}}\mathrm{\mathbf{α}}\)</span>.
-Recall <span class="math notranslate nohighlight">\(\operatorname{var} \left( X \right)=\mathbb{E}X^{2} - \mathbb{E}^{2}X\)</span>, then using <a class="reference internal" href="__02_cov.html#property-cov-to-expectation"><span class="std std-ref">Property 1-4</span></a>, we have</p>
+Recall <span class="math notranslate nohighlight">\(\operatorname{var} \left( X \right)=\mathbb{E}X^{2} - \mathbb{E}^{2}X\)</span>, then using <a class="reference internal" href="#property-cov-to-expectation"><span class="std std-ref">Property 1-4</span></a>, we have</p>
 <div class="math notranslate nohighlight">
 \[\operatorname{var} \left( \mathrm{\mathbf{α}}^{\mathrm{T}}X \right) = \mathbb{E}\mathrm{\lbrack}\mathrm{\mathbf{α}}^{\mathrm{T}}X\left( \mathrm{\mathbf{α}}^{\mathrm{T}}X \right)^{\mathrm{T}}\mathrm{\rbrack} - \mathbb{E}\left\lbrack \mathrm{\mathbf{α}}^{\mathrm{T}}X \right\rbrack\mathbb{E}^{\mathrm{T}}\left\lbrack \mathrm{\mathbf{α}}^{\mathrm{T}}X \right\rbrack = \mathrm{\mathbf{α}}^{\mathrm{T}}\mathbb{E}\mathrm{\lbrack}XX^{\mathrm{T}}\mathrm{\rbrack}\mathrm{\mathbf{α}} - \mathrm{\mathbf{α}}^{\mathrm{T}}\mathbb{E}X\mathbb{E}^{\mathrm{T}}X\mathrm{\mathbf{α}}=\mathrm{\mathbf{α}}^{\mathrm{T}}\mathbf{(}\mathbb{E}\mathrm{\lbrack}XX^{\mathrm{T}}\mathrm{\rbrack} - \mathbb{E}X\mathbb{E}^{\mathrm{T}}X\mathrm{)}\mathrm{\mathbf{α}}=\mathrm{\mathbf{α}}^{\mathrm{T}}\operatorname{\Sigma}\left( X \right)\mathrm{\mathbf{α}}\]</div>
 <p>Similarly, using
@@ -1276,7 +1276,7 @@ of course we also have <span><span class="theorem-highlight"> <span class="math 
 </li><li>
 
 <div class="section" id="theorem-1-6-positive-definiteness-of-covariance-matrix">
-<span id="theorem-cov-semipositiveness"></span><h3 style="display: inline; font-size:16px"><span class="ititle">Theorem 1-6.</span> <span class="bemp">Positive definiteness of covariance matrix.</span><a class="headerlink" href="#theorem-1-6-positive-definiteness-of-covariance-matrix" title="Permalink to this headline">¶</a></h3><span><span class="theorem-highlight"> Covariance matrix is clearly symmetric, and moreover they are semi-positive definite</span></span>, since for any constant vector <span class="math notranslate nohighlight">\(\mathbf{α}\)</span>, using <a class="reference internal" href="__02_cov.html#theorem-cov-matrix-arithmetic-rules"><span class="std std-ref">Theorem 1-5</span></a>, we have
+<span id="theorem-cov-semipositiveness"></span><h3 style="display: inline; font-size:16px"><span class="ititle">Theorem 1-6.</span> <span class="bemp">Positive definiteness of covariance matrix.</span><a class="headerlink" href="#theorem-1-6-positive-definiteness-of-covariance-matrix" title="Permalink to this headline">¶</a></h3><span><span class="theorem-highlight"> Covariance matrix is clearly symmetric, and moreover they are semi-positive definite</span></span>, since for any constant vector <span class="math notranslate nohighlight">\(\mathbf{α}\)</span>, using <a class="reference internal" href="#theorem-cov-matrix-arithmetic-rules"><span class="std std-ref">Theorem 1-5</span></a>, we have
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 {{\mathbf{α }}^{\text{T}}}\left( {\Sigma \left( X \right)} \right){\mathbf{α }} &amp;= \Sigma \left( {{{\mathbf{α }}^{\text{T}}}X} \right) \hfill \\
@@ -1442,12 +1442,12 @@ log-likelihood is
 <div class="math notranslate nohighlight">
 \[L \propto \sum_{i = 1}^{N}{- \frac{1}{2}\log\left| \mathbf{\Sigma} \right| - \frac{1}{2}\left( \mathbf{x}_{i} - \mathbf{μ} \right)^{\rm{T}}\mathbf{\Sigma}^{- 1}\left( \mathbf{x}_{i} - \mathbf{μ} \right)}
 = \frac{N}{2}\log\left| \mathbf{\Sigma}^{- 1} \right| - \frac{1}{2}\sum_{i = 1}^{N}{\left( \mathbf{x}_{i} - \mathbf{μ} \right)^{\rm{T}}\mathbf{\Sigma}^{- 1}\left( \mathbf{x}_{i} - \mathbf{μ} \right)}\]</div>
-<p>Using <a class="reference internal" href="__03_gaussian.html#fact-gradient-determinant"><span class="std std-ref">Fact 1-6</span></a> and <a class="reference internal" href="__03_gaussian.html#fact-gradient-matrix-of-matrix-product"><span class="std std-ref">Fact 1-7</span></a>, we have</p>
+<p>Using <a class="reference internal" href="#fact-gradient-matrix-of-matrix-product"><span class="std std-ref">Fact 1-7</span></a>, we have</p>
 <div class="math notranslate nohighlight" id="equation-eq-gaussian-mle-inf">
 <span class="eqno">(1.11)<a class="headerlink" href="#equation-eq-gaussian-mle-inf" title="Permalink to this equation">¶</a></span>\[\frac{\partial L}{\partial\mathbf{\Sigma}^{- 1}}
 = \frac{N}{2}\mathbf{\Sigma}^{\rm{T}} - \frac{1}{2}\sum_{i = 1}^{N}{\left( \mathbf{x}_{i} - \mathbf{μ} \right)\left( \mathbf{x}_{i} - \mathbf{μ} \right)^{\rm{T}}}
 = 0 \Rightarrow \mathbf{\Sigma}=\frac{1}{N}\sum_{i = 1}^{N}{\left( \mathbf{x}_{i} - \mathbf{μ} \right)\left( \mathbf{x}_{i} - \mathbf{μ} \right)^{\rm{T}}}\]</div>
-<p>Then for <span class="math notranslate nohighlight">\(\mathbf{μ}\)</span>, using <a class="reference internal" href="__03_gaussian.html#fact-gradient-vector-of-matrix-product"><span class="std std-ref">Fact 1-8</span></a>,</p>
+<p>Then for <span class="math notranslate nohighlight">\(\mathbf{μ}\)</span>, using <a class="reference internal" href="#fact-gradient-vector-of-matrix-product"><span class="std std-ref">Fact 1-8</span></a>,</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 &amp; L \propto \sum_{i = 1}^{N}{\mathbf{x}_{i}^{\rm{T}}\mathbf{\Sigma}^{- 1}\mathbf{μ} - \frac{1}{2}\mathbf{μ}^{\rm{T}}\mathbf{\Sigma}^{- 1}\mathbf{μ}} \\
@@ -1456,12 +1456,12 @@ log-likelihood is
 <p>Plug back to <span class="math notranslate nohighlight">\(\mathbf{\Sigma}^{- 1}\)</span> in (1?€?7) and we have</p>
 <div class="math notranslate nohighlight">
 \[\mathbf{\Sigma}_{\text{ML}}=\frac{1}{N}\sum_{i = 1}^{N}{\left( \mathbf{x}_{i} - \overline{\mathbf{x}} \right)\left( \mathbf{x}_{i} - \overline{\mathbf{x}} \right)^{\rm{T}}}\]</div>
-<p>By <a class="reference internal" href="__02_cov.html#property-cov-as-rank1-sum"><span class="std std-ref">Property 1-6</span></a>, <span><span class="result-highlight"> <span class="math notranslate nohighlight">\(\mathbf{\Sigma}_{\text{ML}}\)</span> equals the biased sample covariance</span></span>, or <span><span class="result-highlight"> <span class="math notranslate nohighlight">\(\frac{N}{N - 1}\mathbf{\Sigma}_{\text{ML}}\)</span> equals the sample covariance matrix</span></span></p>
+<p>By <a class="reference internal" href="#property-cov-as-rank1-sum"><span class="std std-ref">Property 1-6</span></a>, <span><span class="result-highlight"> <span class="math notranslate nohighlight">\(\mathbf{\Sigma}_{\text{ML}}\)</span> equals the biased sample covariance</span></span>, or <span><span class="result-highlight"> <span class="math notranslate nohighlight">\(\frac{N}{N - 1}\mathbf{\Sigma}_{\text{ML}}\)</span> equals the sample covariance matrix</span></span></p>
 </li><li> Treating samples <span class="math notranslate nohighlight">\(\mathbf{x,y}\)</span> drawn from
 <span class="math notranslate nohighlight">\(\operatorname{Gaussian}\left( \mathbf{μ},\mathbf{\Sigma} \right)\)</span> as
 two RV vector where
 <span class="math notranslate nohighlight">\(\mathbb{E}\mathbf{x} = \mathbb{E}\mathbf{y} = \mathbf{μ}\)</span>, recall we have <span class="math notranslate nohighlight">\(\mathbf{\Sigma =}\mathbb{E}\left\lbrack \mathbf{x}\mathbf{y}^{\rm{T}} \right\rbrack-\mathbf{μ}\mathbf{μ}^{\rm{T}}\)</span>
-or <span class="math notranslate nohighlight">\(\mathbb{E}\left\lbrack \mathbf{x}\mathbf{y}^{\rm{T}} \right\rbrack=\mathbf{μ}\mathbf{μ}^{\rm{T}}\mathbf{+ \Sigma}\)</span> by <a class="reference internal" href="__02_cov.html#property-cov-to-expectation"><span class="std std-ref">Property 1-4</span></a>. When <span class="math notranslate nohighlight">\(\mathbf{x},\mathbf{y}\)</span> are independent, we have
+or <span class="math notranslate nohighlight">\(\mathbb{E}\left\lbrack \mathbf{x}\mathbf{y}^{\rm{T}} \right\rbrack=\mathbf{μ}\mathbf{μ}^{\rm{T}}\mathbf{+ \Sigma}\)</span> by <a class="reference internal" href="#property-cov-to-expectation"><span class="std std-ref">Property 1-4</span></a>. When <span class="math notranslate nohighlight">\(\mathbf{x},\mathbf{y}\)</span> are independent, we have
 <span class="math notranslate nohighlight">\(\mathbb{E}\left\lbrack \mathbf{x}\mathbf{y}^{\rm{T}} \right\rbrack=\mathbf{μ}\mathbf{μ}^{\rm{T}}\)</span>.
 
 <div class="section" id="theorem-1-9-bias-of-gaussian-mle">
@@ -1508,7 +1508,7 @@ because <span class="math notranslate nohighlight">\(\mathbf{A}^{- 1}\)</span> a
 <span id="property-guassian-ellipsoid-contour"></span><h3 style="display: inline; font-size:16px"><span class="ititle">Property 1-7.</span> <span class="bemp">Shape of contours of Gaussian density.</span><a class="headerlink" href="#property-1-7-shape-of-contours-of-gaussian-density" title="Permalink to this headline">¶</a></h3>Recall the  <span><span class="exdef"> <span class="target" id="index-112"></span>Mahalanobis distance</span></span>
 <span class="math notranslate nohighlight">\(𝒹_{M}\left( \mathbf{x};\mathbf{μ,\Sigma} \right) = \left( \mathbf{x} - \mathbf{μ} \right)^{\rm{T}}\mathbf{\Sigma}^{- 1}\left( \mathbf{x} - \mathbf{μ} \right)\)</span>.
 Let <span class="math notranslate nohighlight">\(𝜆_{1},\ldots,𝜆_{m}\)</span> be the eigenvalues of <span class="math notranslate nohighlight">\(\mathbf{\Sigma}\)</span>, then
-<span class="math notranslate nohighlight">\(\mathbf{\Sigma}^{- 1} = \sum_{i = 1}^{k}{𝜆_{i}^{- 1}\mathbf{q}_{i}\mathbf{q}_{i}^{\rm{T}}}\)</span> as a result of <a class="reference internal" href="__03_gaussian.html#fact-matrix-as-rank1-sum"><span class="std std-ref">Fact 1-9</span></a>, and
+<span class="math notranslate nohighlight">\(\mathbf{\Sigma}^{- 1} = \sum_{i = 1}^{k}{𝜆_{i}^{- 1}\mathbf{q}_{i}\mathbf{q}_{i}^{\rm{T}}}\)</span> as a result of <a class="reference internal" href="#fact-matrix-as-rank1-sum"><span class="std std-ref">Fact 1-9</span></a>, and
 <div class="math notranslate nohighlight">
 \[𝒹_{M}\left( \mathbf{x};\mathbf{μ,\Sigma} \right) = \sum_{i = 1}^{k}{𝜆_{i}^{- 1}\left( \mathbf{x} - \mathbf{μ} \right)^{\rm{T}}\mathbf{q}_{i}\mathbf{q}_{i}^{\rm{T}}}\left( \mathbf{x} - \mathbf{μ} \right) = \sum_{i = 1}^{k}{\left( \frac{1}{\sqrt{𝜆_{i}}}\mathbf{q}_{i}^{\rm{T}}\left( \mathbf{x} - \mathbf{μ} \right) \right)^{\rm{T}}\left( \frac{1}{\sqrt{𝜆_{i}}}\mathbf{q}_{i}^{\rm{T}}\left( \mathbf{x} - \mathbf{μ} \right) \right)}\]</div>
 <p>Therefore,
@@ -1567,13 +1567,13 @@ Assume <span class="math notranslate nohighlight">\(\mathbf{\Sigma}_{{aa}}\)</sp
 &amp;= - \frac{1}{2}\left( \mathbf{x}_{a}-\mathbf{μ}_{a} \right)^{\rm{T}}\mathbf{Ⲗ}_{{aa}}\left( \mathbf{x}_{a}-\mathbf{μ}_{a} \right) - \left( \mathbf{x}_{a}-\mathbf{μ}_{a} \right)^{\rm{T}}\mathbf{Ⲗ}_{{ab}}\left( \mathbf{x}_{b}-\mathbf{μ}_{b} \right)-\frac{1}{2}\left( \mathbf{x}_{b}-\mathbf{μ}_{b} \right)^{\rm{T}}\mathbf{Ⲗ}_{{bb}}\left( \mathbf{x}_{b}-\mathbf{μ}_{b} \right) \\
 &amp;= - \frac{1}{2}\mathbf{x}_{a}^{\rm{T}}\mathbf{Ⲗ}_{{aa}}\mathbf{x}_{a} + \mathbf{x}_{a}^{\rm{T}}\mathbf{Ⲗ}_{{aa}}\mathbf{μ}_{a}-\mathbf{x}_{a}^{\rm{T}}\mathbf{Ⲗ}_{{ab}}\left( \mathbf{x}_{b}-\mathbf{μ}_{b} \right)\mathbf{+}\text{constant} \\
 &amp;= - \frac{1}{2}\mathbf{x}_{a}^{\rm{T}}\mathbf{Ⲗ}_{{aa}}\mathbf{x}_{a} + \mathbf{x}_{a}^{\rm{T}}\mathbf{Ⲗ}_{{aa}}\left( \mathbf{μ}_{a}-\mathbf{Ⲗ}_{{aa}}^{- 1}\mathbf{Ⲗ}_{{ab}}\left( \mathbf{x}_{b}-\mathbf{μ}_{b} \right) \right)\mathbf{+}\text{constant} \end{aligned}\end{split}\]</div>
-<p>By <a class="reference internal" href="__03_gaussian.html#lemma-guassian-special-exponential-term-format"><span class="std std-ref">Lemma 1-3</span></a>, it follows that <span><span class="theorem-highlight"> if <span class="math notranslate nohighlight">\(\mathbf{\Sigma}_{{aa}}\)</span> is
+<p>By <a class="reference internal" href="#lemma-guassian-special-exponential-term-format"><span class="std std-ref">Lemma 1-3</span></a>, it follows that <span><span class="theorem-highlight"> if <span class="math notranslate nohighlight">\(\mathbf{\Sigma}_{{aa}}\)</span> is
 non-singular, then <span class="math notranslate nohighlight">\(p\left( \mathbf{x}_{a}\mathbf{|}\mathbf{x}_{b} \right)\)</span> is Gaussian</span></span>.
 Denote <span class="math notranslate nohighlight">\(\mathbf{x}_{a}\mathbf{|}\mathbf{x}_{b}\mathbf{\sim}\operatorname{Gaussian}\left( \mathbf{μ}_{a|b}\mathbf{,}\mathbf{\Sigma}_{a|b} \right)\)</span>, we have</p>
 <div class="math notranslate nohighlight" id="equation-eq-gaussian-conditional-mean-and-cov-a">
 <span class="eqno">(1.13)<a class="headerlink" href="#equation-eq-gaussian-conditional-mean-and-cov-a" title="Permalink to this equation">¶</a></span>\[\colorbox{theorem}{$\mathbf{μ}_{a|b}=\mathbf{μ}_{a}-\mathbf{Ⲗ}_{{aa}}^{- 1}\mathbf{Ⲗ}_{{ab}}\left( \mathbf{x}_{b}-\mathbf{μ}_{b} \right)\mathbf{,}\mathbf{\Sigma}_{a|b}=\mathbf{Ⲗ}_{{aa}}^{- 1}$}\]</div>
 <p>If in addition <span class="math notranslate nohighlight">\(\mathbf{\Sigma}_{{bb}}\)</span> is non-singular, using
-<a class="reference internal" href="__03_gaussian.html#fact-matrix-block-inverse"><span class="std std-ref">Fact 1-10</span></a> and <span class="math notranslate nohighlight">\(\begin{pmatrix} \mathbf{\Sigma}_{{aa}} &amp; \mathbf{\Sigma}_{{ab}} \\ \mathbf{\Sigma}_{{ba}} &amp; \mathbf{\Sigma}_{{bb}} \\ \end{pmatrix}^{- 1} = \begin{pmatrix} \mathbf{Ⲗ}_{{aa}} &amp; \mathbf{Ⲗ}_{{ab}} \\ \mathbf{Ⲗ}_{{ba}} &amp; \mathbf{Ⲗ}_{{bb}} \\ \end{pmatrix}\)</span>, we have</p>
+<a class="reference internal" href="#fact-matrix-block-inverse"><span class="std std-ref">Fact 1-10</span></a> and <span class="math notranslate nohighlight">\(\begin{pmatrix} \mathbf{\Sigma}_{{aa}} &amp; \mathbf{\Sigma}_{{ab}} \\ \mathbf{\Sigma}_{{ba}} &amp; \mathbf{\Sigma}_{{bb}} \\ \end{pmatrix}^{- 1} = \begin{pmatrix} \mathbf{Ⲗ}_{{aa}} &amp; \mathbf{Ⲗ}_{{ab}} \\ \mathbf{Ⲗ}_{{ba}} &amp; \mathbf{Ⲗ}_{{bb}} \\ \end{pmatrix}\)</span>, we have</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\left\{ {\begin{array}{*{20}{l}}
 {{Ⲗ _{aa}} = {{\left( {{{\mathbf{\Sigma }}_{aa}} - {{\mathbf{\Sigma }}_{ab}}{\mathbf{\Sigma }}_{bb}^{ - 1}{{\mathbf{\Sigma }}_{ba}}} \right)}^{ - 1}}} \\
@@ -1594,7 +1594,7 @@ Denote <span class="math notranslate nohighlight">\(\mathbf{x}_{a}\mathbf{|}\mat
 &amp;= - \frac{1}{2}\mathbf{x}_{b}^{\rm{T}}\mathbf{Ⲗ}_{{bb}}\mathbf{x}_{b} + \mathbf{x}_{b}^{\rm{T}}\mathbf{Ⲗ}_{{bb}}\mathbf{μ}_{b}-\mathbf{x}_{b}^{\rm{T}}\mathbf{Ⲗ}_{{ba}}\left( \mathbf{x}_{a}-\mathbf{μ}_{a} \right)\mathbf{+}\text{constant} \\
 &amp;= - \frac{1}{2}\mathbf{x}_{b}^{\rm{T}}\mathbf{Ⲗ}_{{bb}}\mathbf{x}_{b} + \mathbf{x}_{b}^{\rm{T}}\mathbf{Ⲗ}_{{bb}}\left( \mathbf{μ}_{b}-\mathbf{Ⲗ}_{{bb}}^{- 1}\mathbf{Ⲗ}_{{ba}}\left( \mathbf{x}_{a}-\mathbf{μ}_{a} \right) \right)\mathbf{+}\text{constant}\end{aligned}\end{split}\]</div>
 <p>If in addition <span class="math notranslate nohighlight">\(\mathbf{\Sigma}_{{aa}}\)</span> is non-singular, using
-<a class="reference internal" href="__03_gaussian.html#fact-matrix-block-inverse"><span class="std std-ref">Fact 1-10</span></a> we have</p>
+<a class="reference internal" href="#fact-matrix-block-inverse"><span class="std std-ref">Fact 1-10</span></a> we have</p>
 <div class="math notranslate nohighlight">
 \[\mathbf{Ⲗ}_{{bb}}^{- 1}\mathbf{Ⲗ}_{{ba}}\mathbf{= -}\mathbf{\Sigma}_{{ba}}\mathbf{\Sigma}_{{aa}}^{- 1}\mathbf{,}\mathbf{Ⲗ}_{{bb}}^{- 1}=\mathbf{\Sigma}_{{bb}}-\mathbf{\Sigma}_{{ba}}\mathbf{\Sigma}_{{aa}}^{- 1}\mathbf{\Sigma}_{{ab}}\]</div>
 <p>Finally,</p>

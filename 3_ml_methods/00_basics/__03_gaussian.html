@@ -237,12 +237,12 @@ log-likelihood is
 <p>Plug back to <span class="math notranslate nohighlight">\(\mathbf{\Sigma}^{- 1}\)</span> in (1?€?7) and we have</p>
 <div class="math notranslate nohighlight">
 \[\mathbf{\Sigma}_{\text{ML}}=\frac{1}{N}\sum_{i = 1}^{N}{\left( \mathbf{x}_{i} - \overline{\mathbf{x}} \right)\left( \mathbf{x}_{i} - \overline{\mathbf{x}} \right)^{\rm{T}}}\]</div>
-<p>By <a class="reference internal" href="__02_cov.html#property-cov-as-rank1-sum"><span class="std std-ref">Property 1-6</span></a>, <span><span class="result-highlight"> <span class="math notranslate nohighlight">\(\mathbf{\Sigma}_{\text{ML}}\)</span> equals the biased sample covariance</span></span>, or <span><span class="result-highlight"> <span class="math notranslate nohighlight">\(\frac{N}{N - 1}\mathbf{\Sigma}_{\text{ML}}\)</span> equals the sample covariance matrix</span></span></p>
+<p>By <a class="reference internal" href="#property-cov-as-rank1-sum"><span class="std std-ref">Property 1-6</span></a>, <span><span class="result-highlight"> <span class="math notranslate nohighlight">\(\mathbf{\Sigma}_{\text{ML}}\)</span> equals the biased sample covariance</span></span>, or <span><span class="result-highlight"> <span class="math notranslate nohighlight">\(\frac{N}{N - 1}\mathbf{\Sigma}_{\text{ML}}\)</span> equals the sample covariance matrix</span></span></p>
 </li><li> Treating samples <span class="math notranslate nohighlight">\(\mathbf{x,y}\)</span> drawn from
 <span class="math notranslate nohighlight">\(\operatorname{Gaussian}\left( \mathbf{μ},\mathbf{\Sigma} \right)\)</span> as
 two RV vector where
 <span class="math notranslate nohighlight">\(\mathbb{E}\mathbf{x} = \mathbb{E}\mathbf{y} = \mathbf{μ}\)</span>, recall we have <span class="math notranslate nohighlight">\(\mathbf{\Sigma =}\mathbb{E}\left\lbrack \mathbf{x}\mathbf{y}^{\rm{T}} \right\rbrack-\mathbf{μ}\mathbf{μ}^{\rm{T}}\)</span>
-or <span class="math notranslate nohighlight">\(\mathbb{E}\left\lbrack \mathbf{x}\mathbf{y}^{\rm{T}} \right\rbrack=\mathbf{μ}\mathbf{μ}^{\rm{T}}\mathbf{+ \Sigma}\)</span> by <a class="reference internal" href="__02_cov.html#property-cov-to-expectation"><span class="std std-ref">Property 1-4</span></a>. When <span class="math notranslate nohighlight">\(\mathbf{x},\mathbf{y}\)</span> are independent, we have
+or <span class="math notranslate nohighlight">\(\mathbb{E}\left\lbrack \mathbf{x}\mathbf{y}^{\rm{T}} \right\rbrack=\mathbf{μ}\mathbf{μ}^{\rm{T}}\mathbf{+ \Sigma}\)</span> by <a class="reference internal" href="#property-cov-to-expectation"><span class="std std-ref">Property 1-4</span></a>. When <span class="math notranslate nohighlight">\(\mathbf{x},\mathbf{y}\)</span> are independent, we have
 <span class="math notranslate nohighlight">\(\mathbb{E}\left\lbrack \mathbf{x}\mathbf{y}^{\rm{T}} \right\rbrack=\mathbf{μ}\mathbf{μ}^{\rm{T}}\)</span>.
 
 <div class="section" id="theorem-1-9-bias-of-gaussian-mle">
