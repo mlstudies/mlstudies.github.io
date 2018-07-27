@@ -34,11 +34,11 @@
 
 .. |item-div| raw:: html
 
-   <li style="margin-top:10px">
+   <li>
 
 .. |item| raw:: html
 
-   <li style="margin-top:10px">
+   <li>
 
 .. |end-item-div| raw:: html
 
@@ -359,7 +359,7 @@ because |fact| every Riemann integrable function is Lebesgue integrable |end-spa
 If :math:`\int_{A}^{}{f\operatorname{d}μ}\mathbb{\in R}`, we say :math:`f` is **integrable** over
 :math:`A\in\mathcal{F}` under :math:`μ`, denoted by
 :math:`f\in\mathcal{L}\left( A,μ \right)` (or equivalently
-:math:`\left| f \right|\in\mathcal{L}\left( A,μ \right)` due to 1) of :ref:`Fact 1-2 <fact_integration_arithemetics>`,
+:math:`\left| f \right|\in\mathcal{L}\left( A,μ \right)` due to 1) of ,
 where the notation :math:`\mathcal{L}\left( A,μ \right)` can be
 understood as the set of all integrable functions over :math:`A`. :math:`f` is said
 to be  |def| :index:`Lp-integrable` |end-span| over a set :math:`A\in\mathcal{F}` if
@@ -848,7 +848,7 @@ defined as a RV :math:`Y:\Omega\mathbb{\rightarrow R}` s.t. |fact| **1)** measur
 by :math:`\mathcal{G}`; **2)** :math:`\mathbb{E}Y` is finite; **3)**
 :math:`\mathbb{E}\left\lbrack Y|A \right\rbrack = \mathbb{E}\left\lbrack X|A \right\rbrack,\forall A \in \mathcal{G}`  |end-span|.
 We take it for granted |fact| that such :math:`Y` can be shown to exist |end-span| and its a.s. uniqueness is shown below in
-:ref:`Theorem 1-1 <theorem_conditional_expt_uniqueness>`, and we denote such :math:`Y` as
+, and we denote such :math:`Y` as
 :math:`\mathbb{E}\left\lbrack X|\mathcal{G} \right\rbrack`. Now we can also
 define  |def| :index:`conditional expectation by a random variable` |end-span|
 :math:`Z:\left( \Omega\mathcal{,F} \right) \rightarrow \left( \mathbb{R}\mathcal{,B}\left( \mathbb{R} \right) \right)`
@@ -1069,7 +1069,7 @@ RV s.t.
  \forall G \in \mathcal{G,}\mathbb{P}\left( A \cap G \right) = \int_{G}^{}{\mathbb{P}\left( A \middle| \mathcal{G} \right)\operatorname{d}\mathbb{P}}
  :label: eq_conditional_prob_axiom
 
-This can be shown to be a.s. unique in :ref:`Theorem 1-3 <theorem_conditional_prob_existence_uniqueness>`.
+This can be shown to be a.s. unique in .
 We then define  |def| :index:`conditional probability given partition` |end-span| :math:`\mathcal{P}` by
 :math:`\mathbb{P}\left( A|\mathcal{P} \right):=\mathbb{P}\left( A|σ\left( \mathcal{P} \right) \right)`
 and  |def| :index:`conditional probability given RV` |end-span| :math:`Y` by

@@ -126,7 +126,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../index.html">Docs</a> &raquo;</div></li><li>Recurrent Networks</li>
+      <li><a href="../../index.html">Docs</a> &raquo;</li><li>Recurrent Networks</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -212,7 +212,7 @@ which we hope to be good approximation of
 and we can see <span class="math notranslate nohighlight">\(\colorbox{result}{$g\left( \mathbf{h}_{t};𝛌_{t} \right)$ is only dependent on the past and the present data $\mathbf{x}_{1},\ldots,\mathbf{x}_{t}$}\)</span> since <span class="math notranslate nohighlight">\(\mathbf{h}_{t}\)</span> is only
 dependent on them, so <span><span class="result-highlight"> function
 <span class="math notranslate nohighlight">\(g \left( \mathbf{h};𝛌_{t} \right)\)</span>
-is our approximation of the underlying true function <span class="math notranslate nohighlight">\(𝒻_{t}\)</span> </span></span>;
+is our approximation of the underlying true function <span class="math notranslate nohighlight">\(𝒻_{t}\)</span></span></span>;
 4) <span class="math notranslate nohighlight">\(𝛉_{t},𝛌_{t},t = 1,2,\ldots\)</span> are
 parameters to be inferred through optimization together with estimation
 of <span class="math notranslate nohighlight">\(\mathbf{h}_{t},{\widehat{\mathbf{y}}}_{t},t = 1,2,\ldots\)</span>
@@ -296,7 +296,7 @@ replaced by</p>
 &amp;= \sum_{t = 1}^{N}{{\color{conn2} \frac{\partialℓ}{\partial\mathbf{h}_{t}}}\frac{\partial f_{𝛉}\left( \mathbf{h}_{t - 1},\mathbf{x}_{t} \right)}{\partial𝛉}}
 \end{aligned}\end{split}\]</div>
 <ul style="margin-left:20px">
-<p><li style="margin-top:10px"></p>
+<li>
 <div class="section" id="model-3-1-lstm-with-single-forget-gate">
 <span id="model-lstm-single-gate"></span><h2 style="display: inline; font-size:16px"><span class="ititle">Model 3-1.</span> <span class="bemp">LSTM with Single Forget Gate.</span><a class="headerlink" href="#model-3-1-lstm-with-single-forget-gate" title="Permalink to this headline">¶</a></h2>A well-known variant of RNN <a class="reference internal" href="00_index.html#equation-eq-rnn-general">Eq.2.1</a> is the  <span><span class="def"> <span class="target" id="index-14"></span>long short-term memory</span></span>
 network (LSTM), whose <span class="emp">essential idea</span> is to introduce the
@@ -376,9 +376,8 @@ based on above design, we have</p>
 <p>will be a vector of very small quantities when <span class="math notranslate nohighlight">\(T\)</span> is large, effectively
 limiting the effect of <span class="math notranslate nohighlight">\(\mathbf{h}_{t}\)</span> on <span class="math notranslate nohighlight">\(\mathbf{h}_{t + T}\)</span> and
 hence <span class="math notranslate nohighlight">\({\widehat{\mathbf{y}}}_{t + T}\)</span>.</p>
-</li>
-<p><li style="margin-top:10px"></p>
-</div>
+</li><li>
+
 <div class="section" id="model-3-2-lstm-with-multiple-forget-gate">
 <span id="model-lstm-multiple-gates"></span><h2 style="display: inline; font-size:16px"><span class="ititle">Model 3-2.</span> <span class="bemp">LSTM with Multiple Forget Gate.</span><a class="headerlink" href="#model-3-2-lstm-with-multiple-forget-gate" title="Permalink to this headline">¶</a></h2>A further canonical development of <a class="reference internal" href="00_index.html#equation-eq-lstm-sg-general">Eq.2.5</a> is to introduce multiple forget
 gates to achieve more flexibility, as in <a class="reference internal" href="00_index.html#equation-eq-lstm-mg-general">Eq.2.9</a>, where

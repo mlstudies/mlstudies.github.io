@@ -126,7 +126,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../index.html">Docs</a> &raquo;</div></li><li>Multivariate Gaussian Distribution</li>
+      <li><a href="../../index.html">Docs</a> &raquo;</li><li>Multivariate Gaussian Distribution</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -199,7 +199,7 @@ matrix as</p>
 <p>The <span class="emp">limitation</span> of Gaussian is <span><span class="comment-highlight"> its quadratic number of parameters which could be a problem for high-dimensional computation,
 and its very limited unimodal shape which could not represent complicated real-world distributions.</span></span></p>
 <ul style="margin-left:20px">
-<p><li style="margin-top:10px"> We state useful gradient results from matrix derivatives, which are frequently used in finding analytical solution for optimization
+<li><p> We state useful gradient results from matrix derivatives, which are frequently used in finding analytical solution for optimization
 problems. They are soon applied to prove the maximum likelihood of multivariate Gaussian.</p>
 <p id="fact-gradient-affine-transform"><span class="ititle2">Fact 1-5.</span> Affine transformation
 <span class="math notranslate nohighlight">\(\mathbf{a}^{\rm{T}}\mathbf{x} + b\mathbf{:}\mathbb{R}^{n}\mathbb{\rightarrow R}\)</span>
@@ -238,14 +238,13 @@ log-likelihood is
 <div class="math notranslate nohighlight">
 \[\mathbf{\Sigma}_{\text{ML}}=\frac{1}{N}\sum_{i = 1}^{N}{\left( \mathbf{x}_{i} - \overline{\mathbf{x}} \right)\left( \mathbf{x}_{i} - \overline{\mathbf{x}} \right)^{\rm{T}}}\]</div>
 <p>By <a class="reference internal" href="__02_cov.html#property-cov-as-rank1-sum"><span class="std std-ref">Property 1-6</span></a>, <span><span class="result-highlight"> <span class="math notranslate nohighlight">\(\mathbf{\Sigma}_{\text{ML}}\)</span> equals the biased sample covariance</span></span>, or <span><span class="result-highlight"> <span class="math notranslate nohighlight">\(\frac{N}{N - 1}\mathbf{\Sigma}_{\text{ML}}\)</span> equals the sample covariance matrix</span></span></p>
-</li>
-<p><li style="margin-top:10px"> Treating samples <span class="math notranslate nohighlight">\(\mathbf{x,y}\)</span> drawn from
+</li><li> Treating samples <span class="math notranslate nohighlight">\(\mathbf{x,y}\)</span> drawn from
 <span class="math notranslate nohighlight">\(\operatorname{Gaussian}\left( \mathbf{μ},\mathbf{\Sigma} \right)\)</span> as
 two RV vector where
 <span class="math notranslate nohighlight">\(\mathbb{E}\mathbf{x} = \mathbb{E}\mathbf{y} = \mathbf{μ}\)</span>, recall we have <span class="math notranslate nohighlight">\(\mathbf{\Sigma =}\mathbb{E}\left\lbrack \mathbf{x}\mathbf{y}^{\rm{T}} \right\rbrack-\mathbf{μ}\mathbf{μ}^{\rm{T}}\)</span>
 or <span class="math notranslate nohighlight">\(\mathbb{E}\left\lbrack \mathbf{x}\mathbf{y}^{\rm{T}} \right\rbrack=\mathbf{μ}\mathbf{μ}^{\rm{T}}\mathbf{+ \Sigma}\)</span> by <a class="reference internal" href="__02_cov.html#property-cov-to-expectation"><span class="std std-ref">Property 1-4</span></a>. When <span class="math notranslate nohighlight">\(\mathbf{x},\mathbf{y}\)</span> are independent, we have
-<span class="math notranslate nohighlight">\(\mathbb{E}\left\lbrack \mathbf{x}\mathbf{y}^{\rm{T}} \right\rbrack=\mathbf{μ}\mathbf{μ}^{\rm{T}}\)</span>.</p>
-</div>
+<span class="math notranslate nohighlight">\(\mathbb{E}\left\lbrack \mathbf{x}\mathbf{y}^{\rm{T}} \right\rbrack=\mathbf{μ}\mathbf{μ}^{\rm{T}}\)</span>.
+
 <div class="section" id="theorem-1-9-bias-of-gaussian-mle">
 <span id="theorem-guassian-mle-bias"></span><h2 style="display: inline; font-size:16px"><span class="ititle">Theorem 1-9.</span> <span class="bemp">Bias of Gaussian MLE.</span><a class="headerlink" href="#theorem-1-9-bias-of-gaussian-mle" title="Permalink to this headline">¶</a></h2>Now given i.i.d. RVs <span class="math notranslate nohighlight">\(\mathbf{x}_{1},\ldots,\mathbf{x}_{N}\)</span> with mean <span class="math notranslate nohighlight">\(\mathbf{μ}\)</span> and covariance <span class="math notranslate nohighlight">\(\mathbf{\Sigma}\)</span>, note
 <div class="math notranslate nohighlight">
@@ -271,8 +270,7 @@ or <span class="math notranslate nohighlight">\(\mathbb{E}\left\lbrack \mathbf{x
 <p>Thus, <span class="math notranslate nohighlight">\(\mathbf{\Sigma}_{\text{ML}} = \frac{N - 1}{N}\mathbf{\Sigma}\)</span> is a biased estimator. <span class="math notranslate nohighlight">\(\mathbf{μ}_{\text{ML}}\)</span> is trivially an unbiased
 estimator, since
 <span class="math notranslate nohighlight">\(\mathbb{E}\left\lbrack \mathbf{μ}_{\text{ML}} \right\rbrack=\mathbb{E}\left\lbrack \overline{\mathbf{x}} \right\rbrack = \mathbf{μ}\)</span>.</p>
-</li>
-<p><li style="margin-top:10px"></p>
+</li><li>
 <p id="fact-matrix-as-rank1-sum"><span class="ititle2">Fact 1-9.</span> Every matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> s.t.
 <span class="math notranslate nohighlight">\(\operatorname{rank}\mathbf{A} = k\)</span> can be written as the sum of <span class="math notranslate nohighlight">\(k\)</span> rank-1 matrices, i.e.
 <span class="math notranslate nohighlight">\(\colorbox{fact}{$\mathbf{A} = \sum_{i = 1}^{k}{σ_{i}^{2}\mathbf{u}_{i}\mathbf{v}_{i}^{\rm{T}}}$}\)</span>, where <span class="math notranslate nohighlight">\(\mathbf{u}_{i}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v}_{i}\)</span> are columns from two
@@ -286,7 +284,7 @@ consists of <span class="math notranslate nohighlight">\(k\)</span> orthonormal 
 <span class="math notranslate nohighlight">\(\colorbox{fact}{$\mathbf{A =}\sum_{i = 1}^{k}{𝜆_{i}\mathbf{q}_{i}\mathbf{q}_{i}^{\rm{T}}}$}\)</span>;
 moreover, <span class="math notranslate nohighlight">\(\colorbox{fact}{$\mathbf{A}^{- 1}=\sum_{i = 1}^{k}{𝜆_{i}^{- 1}\mathbf{q}_{i}\mathbf{q}_{i}^{\rm{T}}}$}\)</span>
 because <span class="math notranslate nohighlight">\(\mathbf{A}^{- 1}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> share the same eigenspace for each eigenvalue.</p>
-</div>
+
 <div class="section" id="property-1-7-shape-of-contours-of-gaussian-density">
 <span id="property-guassian-ellipsoid-contour"></span><h2 style="display: inline; font-size:16px"><span class="ititle">Property 1-7.</span> <span class="bemp">Shape of contours of Gaussian density.</span><a class="headerlink" href="#property-1-7-shape-of-contours-of-gaussian-density" title="Permalink to this headline">¶</a></h2>Recall the  <span><span class="exdef"> <span class="target" id="index-4"></span>Mahalanobis distance</span></span>
 <span class="math notranslate nohighlight">\(𝒹_{M}\left( \mathbf{x};\mathbf{μ,\Sigma} \right) = \left( \mathbf{x} - \mathbf{μ} \right)^{\rm{T}}\mathbf{\Sigma}^{- 1}\left( \mathbf{x} - \mathbf{μ} \right)\)</span>.
@@ -308,8 +306,7 @@ given a contour level <span class="math notranslate nohighlight">\(p\left( \math
 for some constant <span class="math notranslate nohighlight">\(c\)</span> (i.e. the contour is a circle w.r.t. the ellipsoid frame), and then any <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> s.t.
 <span class="math notranslate nohighlight">\(\left\| \mathbf{z} \right\|_{2} = \sqrt{c}\)</span> will be on an ellipsoid centered at <span class="math notranslate nohighlight">\(\mathbf{μ}\)</span>.
 Therefore, <span><span class="result-highlight"> the contours of multivariate Gaussian density are ellipsoids</span></span>.</p>
-</li>
-<p><li style="margin-top:10px"></p>
+</li><li>
 <p id="lemma-guassian-special-exponential-term-format"><span class="ititle">Lemma 1-3.</span> <span><span class="result-highlight"> If a density function
 <span class="math notranslate nohighlight">\(p\left( \mathbf{x} \right) \propto \exp\left\{ - \frac{1}{2}\mathbf{x}^{\rm{T}}\mathbf{Ax +}\mathbf{x}^{\rm{T}}\mathbf{\text{Ay}} \right\}\)</span>
 where <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> is symmetric positive semidefinite, then <span class="math notranslate nohighlight">\(p\)</span> must be Gaussian with precision <span class="math notranslate nohighlight">\(\mathbf{Ⲗ}=\mathbf{A}\)</span> and mean
@@ -337,7 +334,7 @@ inverses valid,</p>
 \mathbf{M} &amp; - \mathbf{\text{MB}}\mathbf{D}^{- 1} \\
 - \mathbf{D}^{- 1}\mathbf{\text{CM}} &amp; \mathbf{D}^{- 1}\left( \mathbf{I} + \mathbf{\text{CMB}}\mathbf{D}^{- 1} \right) \\
 \end{pmatrix},\mathbf{M} = \left( \mathbf{A} - \mathbf{B}\mathbf{D}^{- 1}\mathbf{C} \right)^{- 1}$}\end{split}\]</div>
-</div>
+
 <div class="section" id="theorem-1-10-conditional-density-of-multivariate-guassian">
 <span id="theorem-gaussian-conditional-density"></span><h2 style="display: inline; font-size:16px"><span class="ititle">Theorem 1-10.</span> <span class="bemp">Conditional density of multivariate Guassian.</span><a class="headerlink" href="#theorem-1-10-conditional-density-of-multivariate-guassian" title="Permalink to this headline">¶</a></h2>Given
 <span class="math notranslate nohighlight">\(\mathbf{x}\sim\operatorname{Gaussian}\left( \mathbf{μ},\mathbf{\Sigma} \right)\)</span>,

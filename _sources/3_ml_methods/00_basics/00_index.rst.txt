@@ -34,11 +34,11 @@
 
 .. |item-div| raw:: html
 
-   <li style="margin-top:10px">
+   <li>
 
 .. |item| raw:: html
 
-   <li style="margin-top:10px">
+   <li>
 
 .. |end-item-div| raw:: html
 

@@ -28,6 +28,17 @@
     max-width: 100%;
     overflow: visible;
 }
+
+.toctree-l1 .toctree-l2 .toctree-l3 {
+    margin-top: 3px
+}
+
+li {
+    margin-top: 10px
+}
+
+
+
 /* .p
 {
   margin: 4;

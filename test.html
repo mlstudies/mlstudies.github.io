@@ -1,0 +1,353 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Some Title For First Chapter &mdash; Study Notes in Machine Learning 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/coloring.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/eqposfix.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Study Notes in Machine Learning
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="3_ml_methods/00_basics/00_index.html">1. Preliminaries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3_ml_methods/02_neural_networks/00_index.html">2. Basic Neural Networks</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Study Notes in Machine Learning</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li><li>Some Title For First Chapter</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/test.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: { extensions: ["color.js","autoload-all.js"] }
+  });
+
+      MathJax.Hub.Register.StartupHook("TeX color Ready", function() {
+   var color = MathJax.Extension["TeX/color"];
+   color.colors["theorem"] = color.getColor('RGB','255,229,153');
+       color.colors["result"] = color.getColor('RGB','189,214,238');
+       color.colors["fact"] = color.getColor('RGB','255,255,204');
+       color.colors["emperical"] = color.getColor('RGB','253,240,207');
+       color.colors["comment"] = color.getColor('RGB','204,255,204');
+   color.colors["thm"] = color.getColor('RGB','255,229,153');
+       color.colors["rlt"] = color.getColor('RGB','189,214,238');
+       color.colors["emp"] = color.getColor('RGB','253,240,207');
+       color.colors["comm"] = color.getColor('RGB','204,255,204');
+       color.colors["conn1"] = color.getColor('RGB','255,0,255');
+       color.colors["conn2"] = color.getColor('RGB','237,125,49');
+       color.colors["conn3"] = color.getColor('RGB','112,48,160');
+      });
+</script><div class="section" id="some-title-for-first-chapter">
+<h1>Some Title For First Chapter<a class="headerlink" href="#some-title-for-first-chapter" title="Permalink to this headline">¶</a></h1>
+<table class="docutils" style="background:none; border:none;" ><tbody><tr class="row-odd"><td  style="background:none; border:none;">text1</td><td  style="background:none; border:none;">text2</td></tr><tr><td  style="background:none; border:none;">text3</td><td  style="background:none; border:none;"><div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}
+\left|(T\textbf{x})_i(t)-(T\textbf{y})_i(t)\right| &amp;= \left|\int_a^bG(t,s)\left( f_i(x_1(s),...,x_n(s))-f_i(y_1(s),...,y_n(s)) \right)\operatorname{d}s\right|\\
+&amp; \le \int_a^b\left|G(t,s)\right|K_i \max_{i} \left|  x_i(s)-y_i(s) \right|\operatorname{d}s \\
+&amp; \le K\| \textbf{x}-\textbf{y}\| \int_a^b G(t,s)\operatorname{d}s
+\end{align}\end{split}\]</div>
+</td></tr></tbody></table>  <div class="admonition note">
+<p class="first admonition-title">Note: test title</p>
+<p class="last">test note</p>
+</div>
+<p>For example, if <span class="math notranslate nohighlight">\(\Omega = \left\{ 0,1 \right\}\)</span>, then
+<span class="math notranslate nohighlight">\(\left\{ \left\{ 0 \right\},\left\{ 1 \right\},\left\{ 0,1 \right\},\varnothing \right\}\)</span> is a 𝜎-algebra of <span class="math notranslate nohighlight">\(\Omega\)</span> and we can define
+<span class="math notranslate nohighlight">\(\mathbb{P}\left( \left\{ 0 \right\} \right) = 0.3,\mathbb{P}\left( \left\{ 1 \right\} \right) = 0.7,\mathbb{P}\left( \left\{ 0,1 \right\} \right) = 1,\mathbb{P}\left( \varnothing \right) = 0\)</span>.</p>
+<p>Hello world! Hellow World! This is a final test.</p>
+<p>Easy latex! <span class="math notranslate nohighlight">\(x,y,z\)</span></p>
+<p>An example of <span class="tooltip"> tooltip|tiptxt| tooltip text</span></span>.</p>
+<ul class="simple">
+<li>An example of <span><span class="strike"> strike through</span></span>, an example of <span><span class="strike"> mutiline strike</li>
+</ul>
+<p>through <span class="math notranslate nohighlight">\(x^2-y\)</span></span></span>, and an example of inline <span><span class="strike"> strike</span></span>.</p>
+<ul class="simple">
+<li>An example of <span><span class="uline"> underline</span></span>, an example of <span><span class="uline"> mutiline</li>
+</ul>
+<p>underline <span class="math notranslate nohighlight">\(\underline{x^2+y}\)</span></span></span> and an example of inline <span><span class="uline"> uline</span></span>.</p>
+<p>An test example of <span><span class="ibold"> italic bold</span></span> and <span><span class="ibold"> mutiline italic bold
+through</span></span>. You can try for yourself, and an example of inline <span><span class="ibold"> ibold</span></span>.</p>
+<p>An example of <span><span style="font-weight: bold;"> bold</span></span>, an example of <span><span style="font-weight: bold;"> mutiline
+bold</span></span>, and an example of inline <em>ibold</em>.</p>
+<p>An example of <span><span style="font-style: italic;"> italic</span></span>, an example of <span><span style="font-style: italic;"> mutiline
+italic</span></span>, and an example of inline <strong>italic</strong>.</p>
+<p><a href="#id1"><span class="problematic" id="id2">**</span></a><a href="#id3"><span class="problematic" id="id4">*</span></a></p>
+<ul class="simple">
+<li>An <span><span class="strike"> example</span></span> of fact highlight <span><span class="fact-highlight"> <span class="math notranslate nohighlight">\(x\)</span> is positive.</span></span> and <span><span class="fact-highlight"> multi-line fact</li>
+</ul>
+<p>highlight.</span></span></p>
+<ul class="simple">
+<li>An <strong>example</strong> of theorem highlight <span><span class="theorem-highlight"> <span class="math notranslate nohighlight">\(x\)</span> is positive.</span></span> and <span><span class="theorem-highlight"> multi-line theorem</li>
+</ul>
+<p>statement.</span></span></p>
+<ul class="simple">
+<li>An <em>example</em> of result highlight <span><span class="result-highlight"> <span class="math notranslate nohighlight">\(x\)</span> is positive.</span></span> and <span><span class="result-highlight"> multi-line result</li>
+</ul>
+<p>highlights.</span></span></p>
+<ul class="simple">
+<li>An <span><span class="uline"> example</span></span> of comment highlight <span><span class="comment-highlight"> <span class="math notranslate nohighlight">\(x\)</span> is positive.</span></span> and <span><span class="comment-highlight"> multi-line commment</li>
+</ul>
+<p>highlight.</span></span></p>
+<ul class="simple">
+<li>An <span><span class="ibold"> example</span></span> of emperical highlight: <span><span class="emperical-highlight"> <span class="math notranslate nohighlight">\(x\)</span> is positive.</span></span> and <span><span class="emperical-highlight"> multi-line emperical</li>
+</ul>
+<p>highlight</span></span>.</p>
+<p><a href="#id5"><span class="problematic" id="id6">**</span></a><a href="#id7"><span class="problematic" id="id8">*</span></a></p>
+<p>First, <span class="conn1">something</span> has connection with <span class="conn1">another thing</span>.</p>
+<p>Again, <span class="conn2">something</span> has connection with <span class="conn2">another thing</span>.</p>
+<p>Again, <span><span style="font-weight: bold;"> <span class="conn3">something</span></span></span> has connection with <span class="conn3">another thing</span>.</p>
+  <div class="hidden_cell_note" style="display: none">$$cell_$$
+
+useless$$end_cell_$$</div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>We can use latex \colorbox to partially highlight a formula, e.g. <span class="math notranslate nohighlight">\(\frac{\colorbox{thm}{$\sin(x)$} \times \cos(x)}{\colorbox{rlt}{$x^2+y^2=1$}}\)</span>. The following is math block.</p>
+<p>We can use latex \color to color formula.</p>
+<div class="math notranslate nohighlight" id="equation-round">
+<span class="eqno">()<a class="headerlink" href="#equation-round" title="Permalink to this equation">¶</a></span>\[\color{red}{x^2}+y^2=3\]</div>
+<p>The following is an example of combined latex text color and background color.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\{ {\begin{array}{*{20}{l}}
+{x =  - \infty ,..., - h,0,h} \\
+\colorbox{comm}{$\color{conn1}{y = h,2h,...,mh}$}
+\end{array}} \right.\end{split}\]</div>
+<p class="last">Continue the note after the math block.</p>
+</div>
+<p>Now the note block ends.</p>
+<p>An example of using highlight <span class="red">red</span> (derivative defined through role).</p>
+<p>An example of using highlight for  <span><span class="def"> <span class="target" id="index-0"></span>definition</span></span> (derivative defined through role).</p>
+<p>An example of using highlight for <span class="emp">hint</span>.</p>
+<p>An example of inline build-in <code class="docutils literal notranslate"><span class="pre">highlight</span></code>.</p>
+<p>Inline math examples: <span class="math notranslate nohighlight">\(\color{blue}{σ_{1}}\)</span> equals <span class="math notranslate nohighlight">\(\colorbox{thm}{σ_{2}}\)</span> then etc, etc.</p>
+<p id="property-aa"><span class="ititle">Property 1-8.</span> Some property aa here.</p>
+<p id="theorem-aa"><span class="ititle">Theorem 1-11.</span> Some theorem aa here.</p>
+<p>Math block example:</p>
+<div class="math notranslate nohighlight">
+\[x^2+y^2=1\]</div>
+<p>Math block example with label:</p>
+<div class="math notranslate nohighlight" id="equation-euler">
+<span class="eqno">()<a class="headerlink" href="#equation-euler" title="Permalink to this equation">¶</a></span>\[e^{i\pi} + 1 = 0\]</div>
+<p>Multi-line math example.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\{ {\begin{array}{*{20}{l}}
+{4u(x,y) - u(x - h,y) - u(x + h,y) - u(x,y - h) - u(x,y + h) = 0} \\
+{u(2h,y) = \sqrt {\frac{{m + 1}}{2}} \sin (\frac{{\pi ky}}{L})} \\
+{u(x,0) = u(x,L) = 0}
+\end{array}} \right.\end{split}\]</div>
+<p>Test again for direct inline latex pre-process extension <span class="math notranslate nohighlight">\(\frac{x^2}{a^2}+\frac{y^2}{b^2} = 1\)</span>.</p>
+<p id="property-bb"><span class="ititle">Property 1-9.</span> Some property bb here.</p>
+<p id="theorem-bb"><span class="ititle">Theorem 1-12.</span> Some theorem bb here.</p>
+<div class="section" id="level-2-title">
+<h2>Level 2 Title<a class="headerlink" href="#level-2-title" title="Permalink to this headline">¶</a></h2>
+<p id="property-cc"><span class="ititle">Property 1-10.</span> Some property cc here.</p>
+<p id="theorem-cc"><span class="ititle">Theorem 1-13.</span> Some theorem cc here.</p>
+<div class="section" id="level-3-title">
+<h3>Level 3 Title<a class="headerlink" href="#level-3-title" title="Permalink to this headline">¶</a></h3>
+<p>Here also presents an itemized list.</p>
+<ul class="simple">
+<li>Here is a link to <a class="reference internal" href="#property-bb"><span class="std std-ref">Property 1-9</span></a></li>
+<li>This is a link to <a class="reference internal" href="#theorem-aa"><span class="std std-ref">Theorem 1-11</span></a></li><li>This is a link to <a class="reference internal" href="#equation-round">Eq.</a>.</li>
+</ul>
+  <div class="hidden_cell_note" style="display: none">$$cell_You may also specify inline note$$
+
+useless$$end_cell_You may also specify inline note$$<div class="section" id="level-4-title">
+<h4>Level 4 Title<a class="headerlink" href="#level-4-title" title="Permalink to this headline">¶</a></h4>
+<p>An example to display some code.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">recommonmark.parser</span> <span class="kn">import</span> <span class="n">CommonMarkParser</span>
+<span class="n">source_parsers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;.md&#39;</span><span class="p">:</span> <span class="n">CommonMarkParser</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">source_suffix</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;.rst&#39;</span><span class="p">,</span> <span class="s1">&#39;.md&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Tony Chen, Drexel University.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.0.1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
